@@ -27,7 +27,7 @@ const defaultQueryKeys = ['date', 'q', 'type', 'area', 'ticket', 'view', 'event'
 const SITE_CONFIG = window.__FIESTAS_SITE__ || {};
 const SITE_SHARE_URL = `${SITE_CONFIG.publicBaseUrl || window.location.origin}/?mtm_campaign=share`;
 const SITE_SHARE_MESSAGE = `Consulta ${SITE_CONFIG.fullName || 'las fiestas de Montemayor de Pililla'}\n\n${SITE_SHARE_URL}`;
-const SAVE_COUNTS_API_URL = '';
+const SAVE_COUNTS_API_URL = SITE_CONFIG.saveCountsUrl || '';
 const cartoLayers = {
   light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
   dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'

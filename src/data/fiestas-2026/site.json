@@ -13,6 +13,8 @@
   "officialRssUrl": "https://www.bandomovil.com/rss.php?codigo=montemayordepililla",
   "telegramUrl": "https://t.me/montemayordepililla_chat",
   "blueskyUrl": "https://bsky.app/profile/montemayordepililla.com",
+  "saveCountsUrl": "https://tasks.nukeador.com/webhook/fiestas-montemayor/saves",
+  "planAddCountsUrl": "https://tasks.nukeador.com/webhook/fiestas-montemayor/plan-adds",
   "logoUrl": "/assets/montemayordepililla-escudo.svg",
   "faviconUrl": "/assets/montemayordepililla-favicon.png",
   "socialImagePath": "/assets/social/fiestas-montemayor-2026.jpg",

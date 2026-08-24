@@ -7,7 +7,7 @@ const FESTIVAL_ID = 'montemayor-2026';
 const MAX_PLAN_NAME_LENGTH = 80;
 const MAX_ACTIVITY_IDS = 200;
 const MAX_JSON_BYTES = 256 * 1024;
-const PLAN_ADD_COUNTS_API_URL = '';
+const PLAN_ADD_COUNTS_API_URL = window.__FIESTAS_SITE__?.planAddCountsUrl || '';
 
 export function setupCommunityPlansPage(rawEvents = []) {
   const page = document.querySelector('[data-community-plans-page]');
