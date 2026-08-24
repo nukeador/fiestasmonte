@@ -2762,7 +2762,7 @@
 
   .fiestas-community-primary:hover,
   .fiestas-community-primary:focus-visible {
-    background: #624887;
+    background: #28547e;
   }
 
   .fiestas-community-secondary {
@@ -2789,14 +2789,14 @@
     text-decoration: none;
   }
 
-  .fiestas-community-secondary a.fiestas-community-telegram,
-  .fiestas-community-secondary a.fiestas-community-telegram i {
-    color: #229ed9;
+  .fiestas-community-secondary a.fiestas-community-bluesky,
+  .fiestas-community-secondary a.fiestas-community-bluesky i {
+    color: #336699;
   }
 
-  .fiestas-community-secondary a.fiestas-community-telegram:hover,
-  .fiestas-community-secondary a.fiestas-community-telegram:focus-visible {
-    color: #168ac1;
+  .fiestas-community-secondary a.fiestas-community-bluesky:hover,
+  .fiestas-community-secondary a.fiestas-community-bluesky:focus-visible {
+    color: #28547e;
   }
 
   .fiestas-community-secondary i {
@@ -3197,9 +3197,9 @@
     color: #c8b3e5;
   }
 
-  html.dark .fiestas-community-secondary a.fiestas-community-telegram,
-  html.dark .fiestas-community-secondary a.fiestas-community-telegram i {
-    color: #54b8e8;
+  html.dark .fiestas-community-secondary a.fiestas-community-bluesky,
+  html.dark .fiestas-community-secondary a.fiestas-community-bluesky i {
+    color: #99ccff;
   }
 
   html.dark .fiestas-community-secondary a.fiestas-community-site {
