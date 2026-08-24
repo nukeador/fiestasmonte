@@ -8245,6 +8245,29 @@ html.dark .fiestas-community-plan-detail-icon {
     border-top-color: #3a4b59;
   }
 
+  html.dark .fiestas-penas-app .leaflet-popup-content-wrapper,
+  html.dark .fiestas-penas-app .leaflet-popup-tip {
+    border-color: #35454e;
+    background: #18242c;
+    color: #e5edf0;
+  }
+
+  html.dark .fiestas-penas-app .leaflet-popup-close-button {
+    color: #aab9bf;
+  }
+
+  html.dark .fiestas-penas-app .penas-popup-route,
+  html.dark .fiestas-penas-app .penas-popup-activity {
+    color: #91c4ee;
+  }
+
+  html.dark .fiestas-penas-app .penas-popup-route:hover,
+  html.dark .fiestas-penas-app .penas-popup-route:focus-visible,
+  html.dark .fiestas-penas-app .penas-popup-activity:hover,
+  html.dark .fiestas-penas-app .penas-popup-activity:focus-visible {
+    color: #c2e1fb;
+  }
+
   .fiestas-penas-app .penas-popup-activities {
     display: grid;
     gap: 0.2rem;
