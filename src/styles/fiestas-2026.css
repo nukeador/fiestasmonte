@@ -8238,4 +8238,79 @@ html.dark .fiestas-community-plan-detail-icon {
   html.dark .fiestas-penas-app .leaflet-control-zoom a + a {
     border-top-color: #3a4b59;
   }
+
+  .fiestas-penas-app .penas-popup-activities {
+    display: grid;
+    gap: 0.2rem;
+    margin-top: 0.15rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .fiestas-penas-app .penas-popup-activities-label {
+    color: #7b8794;
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+
+  .fiestas-penas-app .penas-popup-activity {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.45rem;
+    align-items: center;
+    padding: 0.3rem 0.2rem;
+    border-radius: 0.45rem;
+    color: #336699;
+    text-decoration: none;
+  }
+
+  .fiestas-penas-app .penas-popup-activity:hover,
+  .fiestas-penas-app .penas-popup-activity:focus-visible {
+    background: rgba(63, 127, 181, 0.1);
+    color: #28547e;
+    outline: 0;
+  }
+
+  .fiestas-penas-app .penas-popup-activity-copy {
+    display: grid;
+    min-width: 0;
+    gap: 0.08rem;
+  }
+
+  .fiestas-penas-app .penas-popup-activity strong {
+    overflow: hidden;
+    font-size: 0.72rem;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+  }
+
+  .fiestas-penas-app .penas-popup-activity small {
+    overflow: hidden;
+    color: #7b8794;
+    font-size: 0.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .fiestas-penas-app .penas-popup-activity > i {
+    font-size: 0.7rem;
+  }
+
+  html.dark .fiestas-penas-app .penas-popup-activities {
+    border-top-color: #3a4b59;
+  }
+
+  html.dark .fiestas-penas-app .penas-popup-activities-label,
+  html.dark .fiestas-penas-app .penas-popup-activity small {
+    color: #aab9bf;
+  }
+
+  @media (max-width: 560px) {
+    .fiestas-penas-app .leaflet-control-zoom {
+      display: none;
+    }
+  }
 }

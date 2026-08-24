@@ -1417,9 +1417,11 @@
     ],
     "collaborators": [],
     "coordinates": {
-      "lat": 41.50841533912319,
-      "lng": -4.455306007944274,
-      "source": "peñas.montemayordepililla.cc"
+      "lat": 41.50998635707285,
+      "lng": -4.458638869489175,
+      "source": "User-provided coordinates",
+      "query": "C. Manadero, 2, Montemayor de Pililla, Valladolid, España",
+      "accuracy": "exact"
     },
     "type": "Música",
     "ticket": {

@@ -11,7 +11,7 @@
     { "id": 12, "name": "La Tribu", "coordinates": { "lat": 41.51012389303492, "lng": -4.459408521652223 } },
     { "id": 13, "name": "Las Nomadas", "coordinates": { "lat": 41.50962554725057, "lng": -4.458614587783814 } },
     { "id": 14, "name": "La movida", "coordinates": { "lat": 41.50774576008232, "lng": -4.459757208824159 } },
-    { "id": 15, "name": "Las druidas", "coordinates": { "lat": 41.50841533912319, "lng": -4.455306007944274 } },
+    { "id": 15, "name": "Las druidas", "coordinates": { "lat": 41.50998635707285, "lng": -4.458638869489175 } },
     { "id": 16, "name": "Skpa-2", "coordinates": { "lat": 41.51018482094923, "lng": -4.45850751901872 } },
     { "id": 20, "name": "Kalikeños", "coordinates": { "lat": 41.50887549189768, "lng": -4.451887607574464 } },
     { "id": 21, "name": "Urukay", "coordinates": { "lat": 41.50887505512292, "lng": -4.460889101028443 } },

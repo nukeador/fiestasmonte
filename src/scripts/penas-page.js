@@ -166,13 +166,19 @@ function renderMarkers(filtered, leaflet = window.L) {
         iconAnchor: [19, 19]
       })
     });
-    marker.bindPopup(popupMarkup(pena), { maxWidth: 250 });
+    marker.bindPopup(popupMarkup(pena), {
+      maxWidth: 300,
+      autoPan: true,
+      autoPanPaddingTopLeft: [18, 88],
+      autoPanPaddingBottomRight: [18, 210]
+    });
     marker.on('popupopen', (event) => setupMapDirections(event.popup.getElement()));
     marker.on('click', () => {
       state.selectedId = pena.id;
       renderSheet(getFilteredPenas());
       marker.getElement()?.classList.add('is-selected');
-      marker.openPopup();
+      marker.closePopup();
+      focusPena(pena, marker);
     });
     marker.addTo(state.markerLayer);
     state.markers.set(pena.id, marker);
@@ -184,8 +190,20 @@ function selectPena(pena) {
   render();
   const marker = state.markers.get(pena.id);
   if (!state.map || !marker) return;
-  state.map.setView([pena.coordinates.lat, pena.coordinates.lng], Math.max(state.map.getZoom(), 18), { animate: true });
-  window.setTimeout(() => marker.openPopup(), 180);
+  focusPena(pena, marker);
+}
+
+function focusPena(pena, marker) {
+  if (!state.map) {
+    marker.openPopup();
+    return;
+  }
+
+  state.map.panTo([pena.coordinates.lat, pena.coordinates.lng], {
+    animate: true,
+    duration: 0.35
+  });
+  window.setTimeout(() => marker.openPopup(), 220);
 }
 
 function popupMarkup(pena) {
@@ -196,8 +214,34 @@ function popupMarkup(pena) {
         <strong>${escapeHtml(pena.name)}</strong>
         <a class="penas-popup-route" href="${directionsUrl(pena)}" target="_blank" rel="noopener noreferrer" data-fiestas-directions data-lat="${escapeHtml(pena.coordinates.lat)}" data-lng="${escapeHtml(pena.coordinates.lng)}" data-title="${escapeHtml(pena.name)}" aria-label="Cómo llegar a ${escapeHtml(pena.name)}" title="Cómo llegar"><i class="fa-solid fa-route" aria-hidden="true"></i></a>
       </div>
+      ${activitiesMarkup(pena)}
     </div>
   `;
+}
+
+function activitiesMarkup(pena) {
+  const activities = Array.isArray(pena.activities) ? pena.activities.filter((activity) => activity?.urlPath) : [];
+  if (!activities.length) return '';
+
+  return `
+    <div class="penas-popup-activities">
+      <span class="penas-popup-activities-label">ACTIVIDADES</span>
+      ${activities.map((activity) => `
+        <a class="penas-popup-activity" href="${escapeHtml(activity.urlPath)}">
+          <span class="penas-popup-activity-copy">
+            <strong>${escapeHtml(activity.title)}</strong>
+            <small>${escapeHtml(activityDateTime(activity))}</small>
+          </span>
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </a>
+      `).join('')}
+    </div>
+  `;
+}
+
+function activityDateTime(activity) {
+  const time = [activity.startTime, activity.endTime].filter(Boolean).join(' - ');
+  return [activity.dateLabel, time].filter(Boolean).join(' · ');
 }
 
 function setSheetState(nextState) {

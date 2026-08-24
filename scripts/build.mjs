@@ -398,6 +398,49 @@ function normalizeCoordinates(coordinates) {
   }).filter(([, value]) => value !== undefined && value !== null && value !== ''));
 }
 
+function normalizePenaKey(value = '') {
+  return slugify(value)
+    .replace(/^penas?-/, '')
+    .replace(/^(el|la|los|las)-/, '');
+}
+
+function buildPenaActivities(penas, events) {
+  const penasByKey = new Map(penas.map((pena) => [normalizePenaKey(pena.name), pena]));
+  const activitiesByPenaId = new Map(penas.map((pena) => [pena.id, []]));
+
+  events.forEach((event) => {
+    const matchedPenaIds = new Set();
+    event.organizers.forEach((organizer) => {
+      const pena = penasByKey.get(normalizePenaKey(organizer));
+      if (pena) matchedPenaIds.add(pena.id);
+    });
+
+    if (!matchedPenaIds.size && event.coordinates) {
+      const coordinateMatch = penas.find((pena) => (
+        Math.abs(pena.coordinates.lat - event.coordinates.lat) < 0.000001
+        && Math.abs(pena.coordinates.lng - event.coordinates.lng) < 0.000001
+      ));
+      if (coordinateMatch) matchedPenaIds.add(coordinateMatch.id);
+    }
+
+    matchedPenaIds.forEach((penaId) => {
+      activitiesByPenaId.get(penaId)?.push({
+        id: event.id,
+        title: event.title,
+        dateLabel: event.dateLabel,
+        startTime: event.startTime,
+        endTime: event.endTime,
+        urlPath: event.urlPath
+      });
+    });
+  });
+
+  return penas.map((pena) => ({
+    ...pena,
+    activities: activitiesByPenaId.get(pena.id) || []
+  }));
+}
+
 function shareText(event) {
   return [
     event.title,
@@ -687,6 +730,7 @@ async function build() {
   await writePwaFiles(pwaFiles, { appVersion, cssVersion, jsVersion });
   const versions = { assetVersion, cssVersion, jsVersion };
   const events = await loadEvents();
+  const penaCatalog = buildPenaActivities(penasData.penas, events);
   const summary = buildSummary(events);
   const socialImage = /^https?:\/\//i.test(site.socialImagePath)
     ? site.socialImagePath
@@ -739,8 +783,8 @@ async function build() {
       imageAlt: `Mapa de peñas de ${site.location.name}`,
       url: publicBaseUrl + '/penas/'
     },
-    penas: penasData.penas,
-    penasJson: JSON.stringify(penasData.penas),
+    penas: penaCatalog,
+    penasJson: JSON.stringify(penaCatalog),
     penasSourceUrl: penasData.sourceUrl
   }));
 
