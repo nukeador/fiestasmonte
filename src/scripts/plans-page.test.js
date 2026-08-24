@@ -1,9 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { validateImport } from './plans-page.js';
+import { slugifyPlanTag, validateImport } from './plans-page.js';
 
 const eventIds = new Set(['1', '7']);
+
+test('plan tags preserve the Spanish ñ for display', () => {
+  assert.equal(slugifyPlanTag('Peñas'), 'Peñas');
+  assert.equal(slugifyPlanTag('Infantil y familiar'), 'Infantilyfamiliar');
+});
 
 function payload(plan) {
   return JSON.stringify({

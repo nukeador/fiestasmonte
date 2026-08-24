@@ -1610,11 +1610,12 @@ function iconNode(className) {
   return icon;
 }
 
-function slugifyPlanTag(value) {
+export function slugifyPlanTag(value) {
   return String(value || 'actividad')
     .normalize('NFD')
+    .replace(/n\u0303/gi, (match) => match[0] === 'N' ? 'Ñ' : 'ñ')
     .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-zA-Z0-9]+/g, '') || 'actividad';
+    .replace(/[^a-zA-Z0-9ñÑ]+/g, '') || 'actividad';
 }
 
 function findPlanOverlap(event, planId, plans, events) {
