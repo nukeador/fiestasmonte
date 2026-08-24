@@ -23,6 +23,13 @@
       "author": "montemayordepililla.com",
       "icon": "layers",
       "url": "/data/community-plans/todos-los-encierros.fiestas-plan.json"
+    },
+    {
+      "id": "actividades-de-penas",
+      "name": "Actividades de peñas",
+      "author": "montemayordepililla.com",
+      "icon": "layers",
+      "url": "/data/community-plans/actividades-de-penas.fiestas-plan.json"
     }
   ]
 }

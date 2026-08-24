@@ -1080,5 +1080,461 @@
     "tags": [
       "Música"
     ]
+  },
+  {
+    "id": 35,
+    "date": "2026-09-09",
+    "dateLabel": "Miércoles 9 de septiembre",
+    "startTime": "19:30",
+    "endTime": null,
+    "title": "LIMONADA DE PEÑAS",
+    "location": "Plaza Mayor",
+    "description": "Limonada organizada por las peñas, con inicio desde la Plaza Mayor.",
+    "summary": "Limonada organizada por las peñas, con inicio desde la Plaza Mayor.",
+    "performances": [],
+    "organizers": [
+      "Peñas de Montemayor de Pililla"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 36,
+    "date": "2026-09-09",
+    "dateLabel": "Miércoles 9 de septiembre",
+    "startTime": "21:00",
+    "endTime": null,
+    "title": "FIESTA LAS NÓMADAS",
+    "location": "Montemayor de Pililla",
+    "description": "Fiesta de la peña Las Nómadas, aproximadamente después de la limonada de las 19:30.",
+    "summary": "Fiesta de la peña Las Nómadas, aproximadamente después de la limonada de las 19:30.",
+    "performances": [],
+    "organizers": [
+      "Peña Las Nómadas"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 37,
+    "date": "2026-09-10",
+    "dateLabel": "Jueves 10 de septiembre",
+    "startTime": "21:00",
+    "endTime": null,
+    "title": "TRUCHA SOUND FESTIVAL XI - SIDRADA",
+    "location": "Montemayor de Pililla",
+    "description": "Trucha Sound Festival XI - Sidrada, organizado por la peña Los Bugas aproximadamente después del pregón y el desfile infantil.",
+    "summary": "Trucha Sound Festival XI - Sidrada, organizado por la peña Los Bugas aproximadamente después del pregón y el desfile infantil.",
+    "performances": [],
+    "organizers": [
+      "Peña Los Bugas"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas",
+      "Música"
+    ]
+  },
+  {
+    "id": 38,
+    "date": "2026-09-11",
+    "dateLabel": "Viernes 11 de septiembre",
+    "startTime": "04:00",
+    "endTime": null,
+    "title": "FIESTA LA TEJA",
+    "location": "Montemayor de Pililla",
+    "description": "Fiesta de la peña Alok-2. El programa la incluye dentro de la jornada del jueves 10; por su horario, se muestra el viernes 11 a las 04:00.",
+    "summary": "Fiesta de la peña Alok-2. El programa la incluye dentro de la jornada del jueves 10; por su horario, se muestra el viernes 11 a las 04:00.",
+    "performances": [],
+    "organizers": [
+      "Peña Alok-2"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 39,
+    "date": "2026-09-11",
+    "dateLabel": "Viernes 11 de septiembre",
+    "startTime": "13:00",
+    "endTime": null,
+    "title": "PASCUAL RACE - CARRERA DE MOTOS PARA NIÑOS DE 0 A 4 AÑOS",
+    "location": "Montemayor de Pililla",
+    "description": "Carrera de motos para niños de 0 a 4 años, organizada por la peña Pascual. Es necesario confirmar asistencia en el +34 617 14 84 19.",
+    "summary": "Carrera de motos para niños de 0 a 4 años, organizada por la peña Pascual. Es necesario confirmar asistencia en el +34 617 14 84 19.",
+    "performances": [],
+    "organizers": [
+      "Peña Pascual"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Deporte",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Confirmar asistencia",
+      "url": null,
+      "note": "Confirmar asistencia en el +34 617 14 84 19."
+    },
+    "tags": [
+      "Deporte",
+      "Peñas",
+      "Infantil y familiar"
+    ]
+  },
+  {
+    "id": 40,
+    "date": "2026-09-11",
+    "dateLabel": "Viernes 11 de septiembre",
+    "startTime": "16:00",
+    "endTime": "19:00",
+    "title": "FIESTA CONTENTONGO XX ANIVERSARIO",
+    "location": "Montemayor de Pililla",
+    "description": "Fiesta Contentongo con motivo de su XX aniversario, organizada por la peña Las Contenta me tienes.",
+    "summary": "Fiesta Contentongo con motivo de su XX aniversario, organizada por la peña Las Contenta me tienes.",
+    "performances": [],
+    "organizers": [
+      "Peña Las Contenta me tienes"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 41,
+    "date": "2026-09-12",
+    "dateLabel": "Sábado 12 de septiembre",
+    "startTime": "05:00",
+    "endTime": "08:00",
+    "title": "DANZA DEL SAPO V",
+    "location": "Montemayor de Pililla",
+    "description": "Danza del Sapo V, organizada por la peña El Desmadre. Se muestra el sábado 12 por corresponder a la madrugada posterior a la jornada del viernes 11.",
+    "summary": "Danza del Sapo V, organizada por la peña El Desmadre. Se muestra el sábado 12 por corresponder a la madrugada posterior a la jornada del viernes 11.",
+    "performances": [],
+    "organizers": [
+      "Peña El Desmadre"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 42,
+    "date": "2026-09-12",
+    "dateLabel": "Sábado 12 de septiembre",
+    "startTime": "15:30",
+    "endTime": "18:00",
+    "title": "VII BABRERA CIRCUS PARTY + CHUPITADA",
+    "location": "Montemayor de Pililla",
+    "description": "VII Babrera Circus Party + Chupitada, organizada por las peñas La Babrera y KPY.",
+    "summary": "VII Babrera Circus Party + Chupitada, organizada por las peñas La Babrera y KPY.",
+    "performances": [],
+    "organizers": [
+      "Peña La Babrera",
+      "Peña KPY"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 43,
+    "date": "2026-09-12",
+    "dateLabel": "Sábado 12 de septiembre",
+    "startTime": "21:00",
+    "endTime": null,
+    "title": "XV METERLA EN LA VIGA",
+    "location": "Montemayor de Pililla",
+    "description": "XV Meterla en la viga, organizada por la peña El Badulake aproximadamente después del festejo taurino de las 18:30.",
+    "summary": "XV Meterla en la viga, organizada por la peña El Badulake aproximadamente después del festejo taurino de las 18:30.",
+    "performances": [],
+    "organizers": [
+      "Peña El Badulake"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 44,
+    "date": "2026-09-12",
+    "dateLabel": "Sábado 12 de septiembre",
+    "startTime": "12:00",
+    "endTime": null,
+    "title": "FIESTA DEL CORZO III",
+    "location": "Montemayor de Pililla",
+    "description": "Fiesta del Corzo III, organizada por la peña La Movida, desde aproximadamente las 12:00, después del encierro de las 10:00, y con actividades de peña entre un encierro y el siguiente.",
+    "summary": "Fiesta del Corzo III, organizada por la peña La Movida, desde aproximadamente las 12:00, después del encierro de las 10:00, y con actividades de peña entre un encierro y el siguiente.",
+    "performances": [],
+    "organizers": [
+      "Peña La Movida"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 45,
+    "date": "2026-09-13",
+    "dateLabel": "Domingo 13 de septiembre",
+    "startTime": "15:30",
+    "endTime": null,
+    "title": "CONCIERTO FLAMENCO POP-ROCK CON AARÓN MIGUEL",
+    "location": "Montemayor de Pililla",
+    "description": "Concierto flamenco pop-rock con Aarón Miguel, organizado por las peñas Las Druidas y Gres-k.",
+    "summary": "Concierto flamenco pop-rock con Aarón Miguel, organizado por las peñas Las Druidas y Gres-k.",
+    "performances": [
+      "Aarón Miguel"
+    ],
+    "organizers": [
+      "Peña Las Druidas",
+      "Peña Gres-k"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 46,
+    "date": "2026-09-13",
+    "dateLabel": "Domingo 13 de septiembre",
+    "startTime": "21:00",
+    "endTime": null,
+    "title": "VIVA EL VINO (NÚMERO)",
+    "location": "Montemayor de Pililla",
+    "description": "Viva el vino (número), organizado por la peña La Talankera aproximadamente después del festejo taurino de las 18:30.",
+    "summary": "Viva el vino (número), organizado por la peña La Talankera aproximadamente después del festejo taurino de las 18:30.",
+    "performances": [],
+    "organizers": [
+      "Peña La Talankera"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 47,
+    "date": "2026-09-14",
+    "dateLabel": "Lunes 14 de septiembre",
+    "startTime": "01:30",
+    "endTime": null,
+    "title": "JUEGO DEL PAÑUELO",
+    "location": "Plaza Mayor",
+    "description": "Juego del pañuelo, organizado por la peña El 13 La Víspera durante el descanso de la sesión de baile del domingo 13. Hora aproximada: 01:30 del lunes 14.",
+    "summary": "Juego del pañuelo, organizado por la peña El 13 La Víspera durante el descanso de la sesión de baile del domingo 13. Hora aproximada: 01:30 del lunes 14.",
+    "performances": [],
+    "organizers": [
+      "Peña El 13 La Víspera"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 48,
+    "date": "2026-09-14",
+    "dateLabel": "Lunes 14 de septiembre",
+    "startTime": "21:00",
+    "endTime": null,
+    "title": "FIESTA LA TALANKERA",
+    "location": "Montemayor de Pililla",
+    "description": "Fiesta de la peña La Talankera por la noche. Hora aproximada: 21:00, antes de la sesión de baile de las 23:30.",
+    "summary": "Fiesta de la peña La Talankera por la noche. Hora aproximada: 21:00, antes de la sesión de baile de las 23:30.",
+    "performances": [],
+    "organizers": [
+      "Peña La Talankera"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
   }
 ]
