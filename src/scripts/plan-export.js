@@ -1,13 +1,13 @@
 import { normalizePlanIcon } from './plan-storage.js';
 
 const TIME_ZONE = 'Europe/Madrid';
-const FESTIVAL_ID = 'valladolid-2026';
+const FESTIVAL_ID = 'montemayor-2026';
 
-export function createIcs(events = [], calendarName = 'Fiestas Valladolid 2026') {
+export function createIcs(events = [], calendarName = 'Fiestas 2026') {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Aldea Pucela//Fiestas Valladolid 2026//ES',
+    'PRODID:-//Fiestas 2026//Montemayor de Pililla//ES',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     `X-WR-CALNAME:${escapeIcs(calendarName)}`,
@@ -16,7 +16,7 @@ export function createIcs(events = [], calendarName = 'Fiestas Valladolid 2026')
 
   events.filter((event) => event?.id && event.date).forEach((event) => {
     lines.push('BEGIN:VEVENT');
-    lines.push(`UID:${escapeIcs(`${event.id}@fiestas.aldeapucela.org`)}`);
+    lines.push(`UID:${escapeIcs(`${event.id}@fiestas.montemayordepililla.com`)}`);
     lines.push(`DTSTAMP:${formatUtc(new Date())}`);
     lines.push(`DTSTART;TZID=${TIME_ZONE}:${formatLocalDateTime(event.date, event.startTime)}`);
     if (event.endTime) {
@@ -74,7 +74,7 @@ export function decodePlanImportHash(hash) {
   }
 }
 
-export function createIcsFile(events, name = 'fiestas-valladolid-2026') {
+export function createIcsFile(events, name = 'fiestas-monte-26') {
   return makeFile(`${slugify(name)}.ics`, createIcs(events, name), 'text/calendar;charset=utf-8');
 }
 

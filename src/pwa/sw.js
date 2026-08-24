@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fiestas-valladolid-2026-__APP_VERSION__';
+const CACHE_NAME = 'fiestas-monte-2026-__APP_VERSION__';
 const APP_SHELL = [
   '/',
   '/mapa/',
@@ -6,9 +6,6 @@ const APP_SHELL = [
   '/planes/',
   '/offline.html',
   '/assets/manifest.webmanifest',
-  '/assets/icons/fiestas-192.png',
-  '/assets/icons/fiestas-512.png',
-  '/assets/icons/apple-touch-icon.png',
   '/assets/plan-confetti.png',
   '/assets/css/fiestas-2026.__CSS_VERSION__.css',
   '/assets/js/analytics.__JS_VERSION__.js',
@@ -35,7 +32,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((key) => key.startsWith('fiestas-valladolid-2026-') && key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then((keys) => Promise.all(keys.filter((key) => key.startsWith('fiestas-monte-2026-') && key !== CACHE_NAME).map((key) => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });

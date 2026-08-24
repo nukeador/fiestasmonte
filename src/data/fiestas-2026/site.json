@@ -1,0 +1,36 @@
+{
+  "festivalId": "montemayor-2026",
+  "name": "Fiestas 2026",
+  "fullName": "Fiestas Mayores de Montemayor de Pililla 2026",
+  "subtitle": "Fiestas Mayores en Honor a la Exaltación de la Santa Cruz",
+  "description": "Agenda vecinal de las Fiestas Mayores de Montemayor de Pililla 2026, con actividades, horarios, espacios y mapa.",
+  "publicBaseUrl": "https://fiestas.montemayordepililla.com",
+  "municipalityUrl": "https://www.montemayordepililla.com/",
+  "municipalityContactUrl": "https://www.montemayordepililla.com/contacto",
+  "municipalityInfoUrl": "https://www.montemayordepililla.com/informacion-y-telefonos",
+  "officialSourceUrl": "https://montemayordepililla.bandomovil.com/comunicado.php?id=1628854",
+  "officialNoticesUrl": "https://www.bandomovil.com/montemayordepililla",
+  "officialRssUrl": "https://www.bandomovil.com/rss.php?codigo=montemayordepililla",
+  "telegramUrl": "https://t.me/montemayordepililla_chat",
+  "blueskyUrl": "https://bsky.app/profile/montemayordepililla.com",
+  "logoUrl": "/assets/montemayordepililla-escudo.svg",
+  "faviconUrl": "/assets/montemayordepililla-favicon.png",
+  "socialImagePath": "/assets/social/fiestas-montemayor-2026.jpg",
+  "logoSourceUrl": "https://commons.wikimedia.org/wiki/File:Escudo_de_Montemayor_de_Pililla.svg",
+  "logoLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "center": [41.5090909, -4.4593002],
+  "location": {
+    "name": "Montemayor de Pililla",
+    "province": "Valladolid",
+    "country": "ES"
+  },
+  "theme": {
+    "background": "#e2ebed",
+    "surface": "#f2fafc",
+    "brand": "#336699",
+    "brandLight": "#99ccff",
+    "muted": "#d4e2ed",
+    "accent": "#478fd7",
+    "ink": "#17324a"
+  }
+}

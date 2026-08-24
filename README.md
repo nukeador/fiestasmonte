@@ -1,6 +1,6 @@
-# Fiestas Valladolid 2026
+# Fiestas 2026 · Montemayor de Pililla
 
-[Fiestas Valladolid 2026](https://fiestas.aldeapucela.org/) es la agenda web de las Fiestas y Ferias de Valladolid, creada por vecinos voluntarios de [Aldea Pucela](https://aldeapucela.org/).
+[Fiestas 2026](https://fiestas.montemayordepililla.com/) es una agenda web creada por `montemayordepililla.com` para las Fiestas Mayores de Montemayor de Pililla 2026. `montemayordepililla.com` es una web independiente del Ayuntamiento, creada por vecinos en 2002.
 
 La web de producción concentra el programa en una experiencia sencilla para consultar qué ocurre cada día, dónde, cómo llegar y qué actividades merece la pena guardar.
 
@@ -10,9 +10,9 @@ Las tres pantallas principales de la aplicación:
 
 <table>
   <tr>
-    <td align="center" valign="top"><strong>Agenda</strong><br><img src="docs/screenshots/mobile-agenda-2026.jpg" alt="Agenda de Fiestas Valladolid 2026 en móvil" width="220"></td>
-    <td align="center" valign="top"><strong>Mapa</strong><br><img src="docs/screenshots/mobile-map-2026.jpg" alt="Mapa de Fiestas Valladolid 2026 en móvil" width="220"></td>
-    <td align="center" valign="top"><strong>Plan vecinal</strong><br><img src="docs/screenshots/mobile-community-plan-2026.jpg" alt="Plan vecinal Cielo y estrellas en móvil" width="220"></td>
+    <td align="center" valign="top"><strong>Agenda</strong><br><img src="docs/screenshots/01-agenda-desktop.png" alt="Agenda de Fiestas 2026" width="220"></td>
+    <td align="center" valign="top"><strong>Mapa</strong><br><img src="docs/screenshots/05-mapa.png" alt="Mapa de Fiestas 2026" width="220"></td>
+    <td align="center" valign="top"><strong>Detalle</strong><br><img src="docs/screenshots/06-detalle-evento.png" alt="Detalle de una actividad de Fiestas 2026" width="220"></td>
   </tr>
 </table>
 
@@ -33,7 +33,7 @@ La aplicación permite:
 - compartir actividades y la agenda;
 - instalar la web como PWA y consultar contenido visitado sin conexión;
 - cambiar entre tema claro y oscuro;
-- suscribirse al calendario y al RSS de Aldea Pucela Eventos como integración externa.
+- suscribirse al calendario ICS y al RSS propios de esta agenda.
 
 Los favoritos y planes personales se guardan localmente en el navegador. No requieren cuenta y no se sincronizan con un servidor.
 
@@ -42,7 +42,7 @@ Los favoritos y planes personales se guardan localmente en el navegador. No requ
 La web se publica en:
 
 ~~~text
-https://fiestas.aldeapucela.org/
+https://fiestas.montemayordepililla.com/
 ~~~
 
 Sus principales rutas son:
@@ -57,15 +57,14 @@ Sus principales rutas son:
 | <code>/planes/</code> | Planes públicos de la comunidad. |
 | <code>/planes/&lt;id&gt;/</code> | Ficha de un plan público. |
 
-La producción es una web estática: el contenido se genera en <code>dist/</code> y se publica mediante GitHub Pages. El workflow de [deploy-pages.yml](.github/workflows/deploy-pages.yml) construye el sitio en cada push a <code>main</code> o <code>master</code>.
+La producción es una web estática: el contenido se genera en <code>dist/</code>, se escribe <code>dist/CNAME</code> con <code>fiestas.montemayordepililla.com</code> y se publica mediante GitHub Pages. El workflow de [deploy-pages.yml](.github/workflows/deploy-pages.yml) construye y despliega el sitio en cada push a la rama <code>fiestasmonte26</code> (y también permite lanzarlo manualmente desde esa rama).
 
-Las rutas de Fiestas viven en la raíz de su propio dominio. Los enlaces al resto de Aldea Pucela Eventos deben usar URLs absolutas con base en:
+La agenda enlaza con la web vecinal principal de [Montemayor de Pililla](https://www.montemayordepililla.com/), sus avisos oficiales en [Bandomovil](https://www.bandomovil.com/montemayordepililla) y sus canales locales. La información oficial del programa se conserva como referencia en [Bandomovil](https://montemayordepililla.bandomovil.com/comunicado.php?id=1628854).
 
-~~~text
-https://eventos.aldeapucela.org/
-~~~
+El logotipo usa el [escudo de Montemayor de Pililla de Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Escudo_de_Montemayor_de_Pililla.svg), obra de Rastrojo, con licencia [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). La web incluye una versión SVG para el logo y un PNG de 32 × 32 píxeles para el favicon.
 
-La app conserva integraciones externas aprobadas con Aldea Pucela Eventos: calendario/RSS globales, boletín, enlaces de comunidad del menú y Font Awesome servido desde `eventos.aldeapucela.org` para aprovechar caché compartida.
+El preview para redes se genera en <code>src/assets/social/fiestas-montemayor-2026.jpg</code> con formato Open Graph de 1200 × 630 píxeles.
+La composición usa como referencia fotográfica la [Iglesia de Santa María Magdalena](https://www.tuscasasrurales.com/img-guias-viaje/valladolid/montemayor-de-pililla/max/iglesia-de-santa-maria-magdalena.jpg) y el escudo oficial indicado arriba.
 
 ## Estructura técnica
 
@@ -101,4 +100,4 @@ La instalación, el servidor local, las pruebas, el build, la auditoría de ubic
 
 ## Licencia
 
-El contenido se publica bajo [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.es). El código está disponible en [GitHub](https://github.com/aldeapucela/fiestas).
+El contenido aportado al repositorio se publica bajo [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.es). El código está disponible en [GitHub](https://github.com/nukeador/fiestasmonte).

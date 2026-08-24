@@ -7,9 +7,9 @@ import {
   trackPwaServiceWorkerError
 } from './analytics.js';
 
-const DISMISSED_KEY = 'fiestasPucela:pwa-install-dismissed';
-const INSTALLED_KEY = 'fiestasPucela:pwa-installed';
-const IOS_HELP_SEEN_KEY = 'fiestasPucela:pwa-ios-help-seen';
+const DISMISSED_KEY = 'fiestasMonte:pwa-install-dismissed';
+const INSTALLED_KEY = 'fiestasMonte:pwa-installed';
+const IOS_HELP_SEEN_KEY = 'fiestasMonte:pwa-ios-help-seen';
 let deferredInstallPrompt = null;
 let previousFocus = null;
 let installRequestSource = 'install';

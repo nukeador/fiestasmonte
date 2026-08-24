@@ -12,16 +12,16 @@
     <header class="fiestas-plan-page-head">
       <div class="fiestas-plan-topbar">
         <a class="fiestas-plan-logo" href="/" aria-label="Volver a la agenda">
-          <img src="/assets/favicon.png" alt="" />
+          <img src="{{ site.logoUrl }}" alt="{{ site.location.name }}" />
         </a>
         <h1 id="fiestas-popular-title">Actividades populares</h1>
         <button
           class="fiestas-plan-header-share"
           type="button"
           data-fiestas-share-site
-          data-share-title="Actividades populares | Fiestas Valladolid 2026"
-          data-share-text="Mira las actividades más guardadas de las Fiestas Valladolid 2026"
-          data-share-url="https://fiestas.aldeapucela.org/populares/"
+          data-share-title="Actividades populares | {{ site.name }}"
+          data-share-text="Mira las actividades más guardadas de {{ site.fullName }}"
+          data-share-url="{{ publicBaseUrl }}/populares/"
           aria-label="Compartir actividades populares"
           title="Compartir actividades populares"
         >

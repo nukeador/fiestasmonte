@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { createPlanImportUrl, createPlanJson, decodePlanImportHash } from './plan-export.js';
 
 test('plan import URL encodes the same JSON used by file export', () => {
-  globalThis.window = { location: { origin: 'https://fiestas.aldeapucela.org' } };
+  globalThis.window = { location: { origin: 'https://fiestas.montemayordepililla.com' } };
 
   const plan = {
     name: 'Sábado con música',
@@ -19,7 +19,7 @@ test('plan import URL encodes the same JSON used by file export', () => {
   assert.equal(url.pathname, '/plan/importar/');
   assert.equal(decoded.at(-1), '\n');
   assert.equal(payload.schemaVersion, 1);
-  assert.equal(payload.festival, 'valladolid-2026');
+  assert.equal(payload.festival, 'montemayor-2026');
   assert.equal(typeof payload.exportedAt, 'string');
   assert.deepEqual(payload.plans, JSON.parse(createPlanJson(plan)).plans);
 });

@@ -8,7 +8,7 @@ const root = path.resolve(__dirname, '..');
 const eventsPath = path.join(root, 'src', 'data', 'fiestas-2026', 'events.json');
 const cachePath = path.join(root, '.cache', 'fiestas', 'nominatim-location-cache.json');
 const reportsDir = path.join(root, '.cache', 'fiestas', 'reports');
-const userAgent = 'AldeaPucelaFiestas/1.0 (contacto@aldeapucela.org)';
+const userAgent = 'FiestasMonte26/1.0 (web vecinal de Montemayor de Pililla)';
 const args = parseArgs(process.argv.slice(2));
 const provider = createProvider(args.provider || 'audit');
 
@@ -119,7 +119,7 @@ function hasCoordinates(coordinates) {
 }
 
 function normalizedQuery(event) {
-  return normalizeText([event.location, event.zone, 'Valladolid, España'].filter(Boolean).join(', '));
+  return normalizeText([event.location, event.zone, 'Montemayor de Pililla, Valladolid, España'].filter(Boolean).join(', '));
 }
 
 function normalizeText(value = '') {
@@ -188,8 +188,8 @@ function scoreNominatimResult(result, query) {
   if (!words.length) return 0;
   const matches = words.filter((word) => haystack.includes(word)).length;
   const base = matches / words.length;
-  const inValladolid = haystack.includes('valladolid') ? 0.2 : 0;
-  return Math.min(1, Number((base + inValladolid).toFixed(2)));
+  const inMontemayor = haystack.includes('montemayor') ? 0.2 : 0;
+  return Math.min(1, Number((base + inMontemayor).toFixed(2)));
 }
 
 async function readJson(filePath, fallback) {

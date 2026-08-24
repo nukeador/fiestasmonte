@@ -1,16 +1,16 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-const TRACKED_FAVORITES_STORAGE_KEY = 'fiestasPucela:analytics:saved-activities';
-const TRACKED_COMMUNITY_PLANS_STORAGE_KEY = 'fiestasPucela:analytics:added-community-plans';
+const TRACKED_FAVORITES_STORAGE_KEY = 'fiestasMonte:analytics:saved-activities';
+const TRACKED_COMMUNITY_PLANS_STORAGE_KEY = 'fiestasMonte:analytics:added-community-plans';
 
 function installBrowserGlobals() {
   const values = new Map();
 
   globalThis.window = {
     location: {
-      hostname: 'fiestas.aldeapucela.org',
-      href: 'https://fiestas.aldeapucela.org/'
+      hostname: 'fiestas.montemayordepililla.com',
+      href: 'https://fiestas.montemayordepililla.com/'
     },
     navigator: { doNotTrack: '0' },
     localStorage: {

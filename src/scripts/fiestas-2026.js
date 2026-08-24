@@ -24,14 +24,16 @@ import { rankPopularEvents } from './popular-page.js';
 
 const collator = new Intl.Collator('es', { numeric: true, sensitivity: 'base' });
 const defaultQueryKeys = ['date', 'q', 'type', 'area', 'ticket', 'view', 'event'];
-const SITE_SHARE_URL = 'https://fiestas.aldeapucela.org/?mtm_campaign=share';
-const SITE_SHARE_MESSAGE = `Mira, la mejor web para seguir las fiestas y ferias de Valladolid 2026\n\n${SITE_SHARE_URL}`;
-const SAVE_COUNTS_API_URL = 'https://api.aldeapucela.org/fiestas/saves';
+const SITE_CONFIG = window.__FIESTAS_SITE__ || {};
+const SITE_SHARE_URL = `${SITE_CONFIG.publicBaseUrl || window.location.origin}/?mtm_campaign=share`;
+const SITE_SHARE_MESSAGE = `Consulta ${SITE_CONFIG.fullName || 'las fiestas de Montemayor de Pililla'}\n\n${SITE_SHARE_URL}`;
+const SAVE_COUNTS_API_URL = '';
 const cartoLayers = {
   light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
   dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
 };
-const valladolidCenter = [41.6523, -4.7245];
+const siteCenter = SITE_CONFIG.center || [41.5090909, -4.4593002];
+const siteMapZoom = 16;
 const userLocationZoom = 14;
 const nearbyRadiusMeters = 2000;
 const COMMUNITY_PLANS_INSERT_AFTER = 15;
@@ -200,7 +202,6 @@ function init() {
     state.selectedDate = initialDate;
     applyInitialUrlState();
     bindControls();
-    if (state.view === 'map') requestLocationOnce();
     renderControlLists();
     setupCommunityCtaPwa();
     render();
@@ -214,7 +215,7 @@ function init() {
 }
 
 async function loadSaveCounts() {
-  if (typeof window.fetch !== 'function') return { ok: false };
+  if (!SAVE_COUNTS_API_URL || typeof window.fetch !== 'function') return { ok: false };
 
   const controller = typeof AbortController === 'function' ? new AbortController() : null;
   const timeoutId = window.setTimeout(() => controller?.abort(), 5000);
@@ -467,7 +468,6 @@ function bindControls() {
         setMapFilterPanelOpen(false, { restoreFocus: false });
         setSearchOpen(Boolean(state.search), { focus: false });
       }
-      if (state.view === 'map') requestLocationOnce();
       render({ scrollToAgenda: true, updateUrl: true });
     });
   });
@@ -502,7 +502,6 @@ function bindControls() {
 
   window.addEventListener('popstate', () => {
     applyInitialUrlState();
-    if (state.view === 'map') requestLocationOnce();
     render();
   });
 
@@ -929,14 +928,14 @@ async function renderMap(events) {
   }
 
   if (!state.map) {
-    state.map = leaflet.map(els.mapCanvas, { maxZoom: 19, scrollWheelZoom: true }).setView(valladolidCenter, 14);
+    state.map = leaflet.map(els.mapCanvas, { maxZoom: 19, scrollWheelZoom: true }).setView(siteCenter, siteMapZoom);
     state.tileLayer = createCartoLayer(leaflet).addTo(state.map);
     state.tileLayer.on('tileerror', () => {
       showMapEmpty('El mapa tiene problemas de conexión. Puedes seguir consultando las actividades en la lista inferior.');
     });
     state.markers = leaflet.layerGroup().addTo(state.map);
     state.map.on('zoomend moveend', () => renderMapMarkers(state.currentMapEvents, leaflet));
-    document.addEventListener('aldeapucela:themechange', () => updateMapTheme(leaflet));
+    document.addEventListener('fiestas:themechange', () => updateMapTheme(leaflet));
   }
 
   renderMapMarkers(withCoordinates, leaflet);
@@ -951,7 +950,7 @@ async function renderMap(events) {
     } else if (state.userLocation && state.locationStatus === 'granted') {
       state.map.setView([state.userLocation.lat, state.userLocation.lng], userLocationZoom);
     } else {
-      state.map.setView(valladolidCenter, 14);
+      state.map.setView(siteCenter, siteMapZoom);
     }
   });
 }
@@ -1083,8 +1082,8 @@ function renderUserMarker(leaflet) {
   if (!state.userLocation || state.locationStatus !== 'granted') return;
   state.userMarker = leaflet.circleMarker([state.userLocation.lat, state.userLocation.lng], {
     radius: 8,
-    color: '#0f9f8d',
-    fillColor: '#17b8a4',
+    color: '#336699',
+    fillColor: '#3f7fb5',
     fillOpacity: 0.85,
     weight: 3
   }).addTo(state.map);
@@ -1265,11 +1264,6 @@ function haversineMeters(a, b) {
   const lat2 = toRad(b.lat);
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
   return 2 * radius * Math.asin(Math.sqrt(h));
-}
-
-function requestLocationOnce() {
-  if (state.hasRequestedLocation || state.locationStatus === 'pending' || state.locationStatus === 'granted') return;
-  requestLocation({ centerOnSuccess: true });
 }
 
 function requestLocation(options = {}) {
@@ -1744,7 +1738,7 @@ function updateMapTheme(leaflet) {
 function inferTicketKind(ticket) {
   if (!ticket?.required) return 'free';
   const text = normalizeText([ticket.label, ticket.url, ticket.note].filter(Boolean).join(' '));
-  if (text.includes('espaciosjovenesvalladolid')) return 'registration';
+  if (text.includes('inscrip') || text.includes('reserva') || text.includes('plazas limitadas')) return 'registration';
   return 'paid';
 }
 
@@ -1817,9 +1811,6 @@ function applyInitialUrlState() {
     if (event?.date) {
       state.selectedDate = event.date;
       state.selectedEventId = event.id;
-      if (hasCoordinates(event.coordinates)) {
-        state.preferredMapCenter = { latLng: [event.coordinates.lat, event.coordinates.lng], zoom: 17 };
-      }
     }
   }
   setMenuOpen('type', false);
@@ -2095,7 +2086,7 @@ async function addDetailToCalendar() {
 
   const result = await shareFileOrDownload(createIcsFile([event], event.title), {
     title: event.title,
-    text: 'Añade esta actividad al calendario de Fiestas Valladolid 2026'
+    text: `Añade esta actividad al calendario de ${SITE_CONFIG.name || 'Fiestas 2026'}`
   });
   if (result !== 'cancelled') trackPlanCalendarExported(event.id);
   if (result === 'shared' || result === 'downloaded') showDetailFeedback(result === 'shared' ? 'Actividad compartida para añadirla al calendario.' : 'Calendario descargado.');
@@ -2105,7 +2096,7 @@ async function addDetailToCalendar() {
 async function shareSite(event) {
   const trigger = event?.currentTarget;
   const shareUrl = trigger?.dataset.shareUrl || '';
-  const shareTitle = trigger?.dataset.shareTitle || 'Fiestas Valladolid 2026';
+  const shareTitle = trigger?.dataset.shareTitle || SITE_CONFIG.name || 'Fiestas 2026';
   const shareText = trigger?.dataset.shareText || SITE_SHARE_MESSAGE;
   const clipboardText = shareUrl ? `${shareText}\n\n${shareUrl}` : shareText;
   try {
@@ -2195,7 +2186,7 @@ async function initDetailMap() {
       html: `<span class="fiestas-detail-map-marker-content"><i class="fiestas-detail-map-marker-icon fa-solid fa-location-dot" aria-hidden="true"></i><span class="fiestas-detail-map-marker-label">${escapeHtml(title)}</span></span>`
     });
     let tileLayer = createCartoLayer(leaflet).addTo(map);
-    document.addEventListener('aldeapucela:themechange', () => {
+    document.addEventListener('fiestas:themechange', () => {
       map.removeLayer(tileLayer);
       tileLayer = createCartoLayer(leaflet).addTo(map);
     });

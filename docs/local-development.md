@@ -1,6 +1,6 @@
 # Desarrollo local
 
-Esta guía explica cómo ejecutar y validar Fiestas Valladolid 2026 en local. La documentación general del producto está en [README.md](../README.md).
+Esta guía explica cómo ejecutar y validar Fiestas Monte 26 en local. La documentación general del producto está en [README.md](../README.md).
 
 ## Requisitos
 
@@ -35,7 +35,7 @@ El comando:
 La aplicación queda disponible en:
 
 ~~~text
-http://127.0.0.1:8002/
+http://127.0.0.1:8005/
 ~~~
 
 Para usar otro puerto:
@@ -94,12 +94,6 @@ La fuente principal es:
 src/data/fiestas-2026/events.json
 ~~~
 
-El programa de referencia está en:
-
-~~~text
-src/data/fiestas-2026/programa2026.md
-~~~
-
 Cada actividad necesita un ID entero positivo, único y estable. El build deriva el slug del título y crea rutas del tipo:
 
 ~~~text
@@ -141,22 +135,16 @@ node scripts/enrich-event-locations.mjs --dry-run --provider=nominatim --repair
 
 Los informes y la caché se guardan en <code>.cache/fiestas/</code>, una carpeta ignorada por Git.
 
-## Enlazado de imágenes
+## Identidad y publicación
 
-El script compara actividades locales con las fichas públicas de Eventos de Aldea Pucela y puede escribir las imágenes coincidentes en <code>events.json</code>:
-
-~~~bash
-npm run images:link
-~~~
-
-Es una operación que modifica el archivo de datos. Revisa el diff antes de conservar sus resultados.
+La configuración de identidad, enlaces locales, paleta, coordenadas y dominio está en <code>src/data/fiestas-2026/site.json</code>. El build genera <code>calendar.ics</code>, <code>rss.xml</code>, <code>sitemap.xml</code>, <code>robots.txt</code> y <code>CNAME</code>.
 
 ## Compartir temporalmente el servidor
 
 Con <code>npm run dev</code> activo:
 
 ~~~bash
-cloudflared tunnel --url http://127.0.0.1:8002
+cloudflared tunnel --url http://127.0.0.1:8005
 ~~~
 
 Cloudflare mostrará una URL temporal de <code>trycloudflare.com</code>. No es un despliegue permanente.
@@ -188,4 +176,4 @@ El build admite estas variables:
 | <code>FIESTAS_MATOMO_URL</code> | Cambia la URL base de Matomo. |
 | <code>FIESTAS_MATOMO_SITE_ID</code> | Cambia el site ID de Matomo. |
 
-La taxonomía y los límites de privacidad están en [docs/matomo.md](matomo.md).
+La analítica usa Matomo en <code>https://stats.nukeador.com/</code>, con site ID <code>30</code>. En producción se activa por defecto; para desarrollo puede desactivarse con <code>FIESTAS_ANALYTICS_ENABLED=false</code>. El tracker no debe cambiarse sin actualizar también la política de privacidad y la configuración de consentimiento correspondiente.

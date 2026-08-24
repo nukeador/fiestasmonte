@@ -2,18 +2,18 @@
 
 ## Project Structure & Module Organization
 
-This repository contains the standalone Fiestas Valladolid 2026 experience. Source data lives in `src/data/fiestas-2026/events.json`. Nunjucks templates are in `src/templates/`, page styles in `src/styles/`, and browser modules in `src/scripts/`. The generated site is written to `dist/` and should not be edited by hand.
+This repository contains the standalone Fiestas Monte 26 experience for Montemayor de Pililla. Source data lives in `src/data/fiestas-2026/events.json` and site identity in `src/data/fiestas-2026/site.json`. Nunjucks templates are in `src/templates/`, page styles in `src/styles/`, and browser modules in `src/scripts/`. The generated site is written to `dist/` and should not be edited by hand.
 
 ## Build, Test, and Development Commands
 
 - `npm install`: install Nunjucks, Tailwind, PostCSS, and Autoprefixer.
-- `npm run build`: generate `/fiestas-2026/`, event detail pages, CSS, JS, sitemap, and robots files.
-- `npm run dev`: build once and serve the output at `http://127.0.0.1:8002/fiestas-2026/`.
+- `npm run build`: generate the root site, event detail pages, CSS, JS, feeds, sitemap, robots file, and GitHub Pages `CNAME`.
+- `npm run dev`: build once and serve the output at `http://127.0.0.1:8005/`.
 - `npm run clean`: remove generated `dist/` output.
 
 ## Coding Style & Naming Conventions
 
-Use ES modules and two-space indentation in JavaScript, Nunjucks, and CSS. Keep event ids lowercase and URL-safe, matching the detail path pattern `/fiestas-2026/e/<id>/`. Prefer descriptive data fields over template-only conditionals.
+Use ES modules and two-space indentation in JavaScript, Nunjucks, and CSS. Keep event ids numeric and URL-safe slugs matching the detail path pattern `/e/<id>/<slug>/`. Prefer descriptive data fields over template-only conditionals.
 
 ## Testing Guidelines
 
@@ -25,4 +25,4 @@ Use short imperative commit messages, for example `Extract fiestas standalone bu
 
 ## URL Policy
 
-Keep Fiestas 2026 routes local. Links to the rest of Aldea Pucela Eventos must be absolute with base `https://eventos.aldeapucela.org/`.
+Keep agenda routes local. External links should point only to the Montemayor de Pililla web ecosystem, official notices, maps, or the project repository.

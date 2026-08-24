@@ -3,8 +3,8 @@
   <aside class="menu-drawer-panel" role="dialog" aria-modal="true" aria-label="Secciones">
     <div class="menu-drawer-head">
       <div>
-        <p class="menu-drawer-kicker">ALDEA PUCELA</p>
-        <h2 class="menu-drawer-title">Fiestas 2026</h2>
+        <p class="menu-drawer-kicker">MONTEMAYORDEPILILLA.COM</p>
+        <h2 class="menu-drawer-title">{{ site.name }}</h2>
       </div>
       <button class="menu-drawer-close" type="button" data-menu-close aria-label="Cerrar menú">
         <i class="fa-solid fa-xmark"></i>
@@ -19,26 +19,26 @@
         <i class="menu-drawer-link-icon fa-solid fa-ranking-star" aria-hidden="true"></i>
         <span>Populares</span>
       </a>
-      <p class="menu-drawer-section-title">Comunidad</p>
-      <a class="menu-drawer-link" href="https://aldeapucela.org" target="_blank" rel="noopener noreferrer">
-        <img class="menu-drawer-link-logo" src="/assets/favicon.png" alt="" />
-        <span>Aldea Pucela</span>
+      <p class="menu-drawer-section-title">Montemayor de Pililla</p>
+      <a class="menu-drawer-link" href="{{ site.municipalityUrl }}" target="_blank" rel="noopener noreferrer">
+        <img class="menu-drawer-link-logo" src="{{ site.logoUrl }}" alt="" />
+        <span>montemayordepililla.com</span>
       </a>
-      <a class="menu-drawer-link" href="https://eventos.aldeapucela.org" target="_blank" rel="noopener noreferrer">
+      <a class="menu-drawer-link" href="{{ site.officialNoticesUrl }}" target="_blank" rel="noopener noreferrer">
         <i class="menu-drawer-link-icon fa-solid fa-calendar-days" aria-hidden="true"></i>
-        <span>Eventos culturales</span>
+        <span>Bandos del Ayuntamiento</span>
       </a>
-      <a class="menu-drawer-link" href="https://aldeapucela.org/boletin/" target="_blank" rel="noopener noreferrer">
+      <a class="menu-drawer-link" href="{{ site.municipalityContactUrl }}" target="_blank" rel="noopener noreferrer">
         <i class="menu-drawer-link-icon fa-regular fa-envelope" aria-hidden="true"></i>
-        <span>Boletín semanal</span>
+        <span>Contacto</span>
       </a>
-      <a class="menu-drawer-link" href="https://t.me/aldeapucela/59137" target="_blank" rel="noopener noreferrer">
+      <a class="menu-drawer-link" href="{{ site.telegramUrl }}" target="_blank" rel="noopener noreferrer">
         <i class="menu-drawer-link-icon fa-brands fa-telegram" aria-hidden="true"></i>
-        <span>Chat de fiestas</span>
+        <span>Grupo de Telegram</span>
       </a>
-      <a class="menu-drawer-link" href="https://aldeapucela.org/whatsapp" target="_blank" rel="noopener noreferrer">
-        <i class="menu-drawer-link-icon fa-brands fa-whatsapp" aria-hidden="true"></i>
-        <span>Canal de WhatsApp</span>
+      <a class="menu-drawer-link" href="{{ site.blueskyUrl }}" target="_blank" rel="noopener noreferrer">
+        <i class="menu-drawer-link-icon fa-brands fa-bluesky" aria-hidden="true"></i>
+        <span>Bluesky</span>
       </a>
       <p class="menu-drawer-section-title">En tu dispositivo</p>
       <button class="menu-drawer-link menu-drawer-pwa-action" type="button" data-pwa-install hidden>
@@ -71,7 +71,7 @@
     <div class="install-app-modal-header">
       <div>
         <p class="fiestas-plan-kicker">EN TU IPHONE</p>
-        <h2 id="pwa-ios-help-title">Añade Fiestas Valladolid a tu pantalla de inicio</h2>
+        <h2 id="pwa-ios-help-title">Añade {{ site.name }} a tu pantalla de inicio</h2>
       </div>
       <button class="install-app-modal-close" type="button" data-pwa-ios-help-close aria-label="Cerrar ayuda">
         <i class="fa-solid fa-xmark" aria-hidden="true"></i>

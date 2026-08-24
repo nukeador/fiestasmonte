@@ -1,5 +1,5 @@
-export const FAVORITES_STORAGE_KEY = 'fiestasPucela:favorites';
-export const PLANS_STORAGE_KEY = 'fiestasPucela:plans';
+export const FAVORITES_STORAGE_KEY = 'fiestasMonte:favorites';
+export const PLANS_STORAGE_KEY = 'fiestasMonte:plans';
 export const PLANS_SCHEMA_VERSION = 1;
 export const DEFAULT_PLAN_ICON = 'layers';
 export const PLAN_ICON_OPTIONS = Object.freeze([

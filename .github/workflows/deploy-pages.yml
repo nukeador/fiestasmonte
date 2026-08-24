@@ -3,8 +3,7 @@ name: Deploy Pages
 on:
   push:
     branches:
-      - master
-      - main
+      - fiestasmonte26
   workflow_dispatch:
 
 permissions:
@@ -18,7 +17,7 @@ concurrency:
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/fiestasmonte26'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,6 +31,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Test
+        run: npm test
 
       - name: Build site
         run: npm run build
@@ -47,7 +49,7 @@ jobs:
           path: dist
 
   deploy:
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/fiestasmonte26'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

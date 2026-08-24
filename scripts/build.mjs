@@ -10,11 +10,12 @@ import autoprefixer from 'autoprefixer';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'dist');
-const publicBaseUrl = 'https://fiestas.aldeapucela.org';
+const site = JSON.parse(await fs.readFile(path.join(root, 'src', 'data', 'fiestas-2026', 'site.json'), 'utf8'));
+const publicBaseUrl = site.publicBaseUrl;
 const analyticsConfig = {
-  enabled: parseBooleanEnv(process.env.FIESTAS_ANALYTICS_ENABLED),
-  trackerUrl: process.env.FIESTAS_MATOMO_URL || 'https://stats.aldeapucela.org/',
-  siteId: process.env.FIESTAS_MATOMO_SITE_ID || '29'
+  enabled: parseBooleanEnv(process.env.FIESTAS_ANALYTICS_ENABLED) ?? true,
+  trackerUrl: process.env.FIESTAS_MATOMO_URL || 'https://stats.nukeador.com/',
+  siteId: process.env.FIESTAS_MATOMO_SITE_ID || '30'
 };
 const communityPlanIcons = new Set([
   'stars', 'music', 'microphone', 'cocktail', 'beer', 'food', 'dance', 'theater', 'masks',
@@ -142,8 +143,8 @@ async function copyCommunityPlansData(assetVersionSeed) {
   const sourcePath = path.join(root, 'src', 'data', 'community-plans.json');
   const raw = await fs.readFile(sourcePath, 'utf8');
   const value = JSON.parse(raw);
-  if (value?.schemaVersion !== 1 || value?.festival !== 'valladolid-2026' || !Array.isArray(value?.plans)) {
-    throw new Error('The community plans catalog must use schemaVersion 1 and festival valladolid-2026.');
+  if (value?.schemaVersion !== 1 || value?.festival !== site.festivalId || !Array.isArray(value?.plans)) {
+    throw new Error(`The community plans catalog must use schemaVersion 1 and festival ${site.festivalId}.`);
   }
   const ids = new Set();
   const plans = value.plans.map((entry, index) => {
@@ -164,7 +165,7 @@ async function copyCommunityPlansData(assetVersionSeed) {
   });
   const content = JSON.stringify({
     schemaVersion: 1,
-    festival: 'valladolid-2026',
+    festival: site.festivalId,
     ...(value.updatedAt ? { updatedAt: String(value.updatedAt) } : {}),
     plans
   }, null, 2) + '\n';
@@ -222,7 +223,7 @@ async function loadCommunityPlanMemberships(communityPlans) {
     const fileName = path.basename(new URL(communityPlan.url, publicBaseUrl).pathname);
     const raw = await fs.readFile(path.join(sourceDir, fileName), 'utf8');
     const value = JSON.parse(raw);
-    if (value?.schemaVersion !== 1 || value?.festival !== 'valladolid-2026' || !Array.isArray(value?.plans)) {
+    if (value?.schemaVersion !== 1 || value?.festival !== site.festivalId || !Array.isArray(value?.plans)) {
       throw new Error(`Community plan "${communityPlan.id}" has an invalid export.`);
     }
 
@@ -276,6 +277,7 @@ async function copyAssetDir(sourceDir, currentDir, assetVersionSeed) {
     }
     if (!entry.isFile()) continue;
     const relPath = path.relative(sourceDir, sourcePath);
+    if (relPath.startsWith(`events${path.sep}`) || relPath.startsWith(`icons${path.sep}`) || relPath === 'favicon.png') continue;
     const targetPath = path.join(dist, 'assets', relPath);
     const content = await fs.readFile(sourcePath);
     await fs.mkdir(path.dirname(targetPath), { recursive: true });
@@ -311,7 +313,7 @@ async function loadEvents() {
     image: event.image ? String(event.image) : '',
     location: String(event.location || ''),
     zone: String(event.zone || ''),
-    neighborhood: inferNeighborhood(event),
+    neighborhood: inferArea(event),
     type: String(event.type || 'Evento'),
     tags: normalizeTags(event.tags, event.type),
     description: String(event.description || ''),
@@ -332,7 +334,7 @@ async function loadEvents() {
       slug: slugify(event.title),
       icon: fiestas2026Icon(event.type),
       socialImagePath: '/assets/social/categories/' + socialCategorySlug(event.type) + '.jpg',
-      socialImageAlt: 'Icono morado de la categoría ' + event.type + ' sobre fondo blanco',
+      socialImageAlt: 'Imagen de la categoría ' + event.type + ' de las Fiestas 2026',
       socialImageWidth: 512,
       socialImageHeight: 512,
       urlPath: '/e/' + event.id + '/' + slugify(event.title) + '/',
@@ -396,7 +398,7 @@ function timeToMinutes(value) {
 }
 
 function eventImageUrl(event) {
-  if (!event.image) return publicBaseUrl + event.socialImagePath;
+  if (!event.image) return /^https?:\/\//i.test(event.socialImagePath) ? event.socialImagePath : publicBaseUrl + event.socialImagePath;
   return /^https?:\/\//i.test(event.image) ? event.image : publicBaseUrl + event.image;
 }
 
@@ -413,17 +415,18 @@ function eventStructuredData(event) {
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: {
       '@type': 'Place',
-      name: event.location || event.zone || 'Valladolid',
+      name: event.location || event.zone || site.location.name,
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Valladolid',
-        addressCountry: 'ES'
+        addressLocality: site.location.name,
+        addressRegion: site.location.province,
+        addressCountry: site.location.country
       }
     },
     organizer: {
       '@type': 'Organization',
-      name: 'Aldea Pucela',
-      url: 'https://aldeapucela.org'
+      name: 'Vecinos de Montemayor de Pililla',
+      url: publicBaseUrl
     }
   };
   if (event.endTime) data.endDate = eventDateTime(eventEndDate(event.date, event.startTime, event.endTime), event.endTime);
@@ -490,49 +493,12 @@ function sortMinutes(time = '') {
 function ticketKind(ticket) {
   if (!ticket?.required) return 'free';
   const text = normalizeForMatch([ticket.label, ticket.url, ticket.note].filter(Boolean).join(' '));
-  if (text.includes('espaciosjovenesvalladolid')) return 'registration';
+  if (text.includes('inscrip') || text.includes('reserva') || text.includes('plazas limitadas')) return 'registration';
   return 'paid';
 }
 
-function inferNeighborhood(event = {}) {
-  const text = normalizeForMatch([event.zone, event.location].filter(Boolean).join(' '));
-  const rules = [
-    ['Arturo Eyries', /\barturo eyries\b/],
-    ['Barrio España', /\bbarrio espana\b/],
-    ['Belén - Pilarica', /\b(belen|pilarica|santos pilarica|padre ventura)\b/],
-    ['Buenos Aires', /\bbuenos aires\b/],
-    ['Caño Argales', /\b(estacion de ariza|cano hondo)\b/],
-    ['Centro', /\b(plaza mayor|fuente dorada|portugalete|recoletos|campo grande|academia de caballeria|san lorenzo|catedral|san pablo|san nicolas|plaza espana|plaza del salvador|plaza de la universidad|pza de la universidad|calderon|zorrilla|carrion|cervantes|sala borja|museo patio herreriano|constitucion|teresa gil|regalado|rinconada|marques del duero|cantarranas|chancilleria|cadenas de san gregorio|casa del sol|plaza poniente|plaza del rosarillo|dos de mayo|marquesina|zona centro|hospital)\b/],
-    ['Circular - Vadillos - San Juan', /\b(circular|vadillos|san juan|batallas|santa lucia|calle gerona)\b/],
-    ['Covaresa', /\bcovaresa\b/],
-    ['Delicias', /\b(delicias|parque de la paz|arca real|bombberos|bomberos|gutierrez semprun|beneficencia|camino cementerio|cno cementerio)\b/],
-    ['El Peral - Santa Ana - Las Villas', /\b(el peral|santa ana|las villas|villaverde de medina|villavaquerin)\b/],
-    ['Fuente Berrocal', /\bfuente berrocal\b/],
-    ['Girón', /\bgiron\b/],
-    ['Huerta del Rey', /\b(huerta del rey|cupula del milenio|milenio|feria de valladolid|auditorio feria|pabellon feria|calle de las mieses|mieses|pio del rio hortega|rastrojo|cebada)\b/],
-    ['La Overuela', /\boveruela\b/],
-    ['La Rubia', /\b(la rubia|lava|farola|4 de marzo|espanta)\b/],
-    ['La Victoria', /\b(la victoria|puente jardin|fuente el sol|obregon|san sebastian)\b/],
-    ['Las Flores', /\b(las flores|plaza mayo)\b/],
-    ['Moreras', /\bmoreras\b/],
-    ['Nuevo Hospital', /\b(nuevo hospital|pifano)\b/],
-    ['Pajarillos - San Isidro', /\b(pajarillos|san isidro|biologo jose antonio valverde|ciguena)\b/],
-    ['Parque Alameda', /\b(parque alameda|canada|paula lopez|andres de laorden)\b/],
-    ['Parquesol', /\b(parquesol|marcos fernandez|manuel silvela|enrique cubero|amadeo arias|jose luis bellido|feria de folklore|cardenal marcelo|contiendas)\b/],
-    ['Pinar de Antequera', /\bpinar de antequera\b/],
-    ['Pinar de Jalón', /\bpinar de jalon|everest\b/],
-    ['Plaza de Toros', /\bplaza de toros\b/],
-    ['Puente Duero', /\bpuente duero\b/],
-    ['Puente Colgante', /\bpuente colgante\b/],
-    ['Rondilla', /\b(rondilla|ribera de castilla|cardenal torquemada|alberto fernandez|rio esgueva|encuentro de los pueblos)\b/],
-    ['Valparaíso', /\b(valparaiso|quinto centenario|nuevo mundo)\b/],
-    ['Villa del Prado', /\b(villa del prado|juan pablo ii)\b/],
-    ['Zona Sur', /\b(zona sur|paseo zorrilla|ctra rueda|rueda 64|residencia asistida|caamano|santa marta|juana jugan)\b/],
-    ['Pajarillos - San Isidro', /\b(fernando ferreiro|andres de la orden)\b/],
-    ['Belén - Pilarica', /\b(paseo del cauce|cauce 50)\b/],
-    ['La Rubia', /\balbacete\b/]
-  ];
-  return rules.find(([, pattern]) => pattern.test(text))?.[0] || '';
+function inferArea(event = {}) {
+  return String(event.zone || event.location || '').trim();
 }
 
 function normalizeForMatch(value = '') {
@@ -552,6 +518,7 @@ function normalizeTags(tags, type) {
 
 function pageContext({ assetVersion, cssVersion, jsVersion }) {
   return {
+    site,
     activeNav: 'fiestas-2026',
     pageCss: 'fiestas-2026.' + cssVersion + '.css',
     pageJs: 'fiestas-2026.' + jsVersion + '.js',
@@ -559,11 +526,100 @@ function pageContext({ assetVersion, cssVersion, jsVersion }) {
     assetVersion,
     cssVersion,
     jsVersion,
-    // Integración externa aprobada: el modal de suscripción usa el calendario/RSS global de Aldea Pucela Eventos.
     categoryFeeds: [],
     publicBaseUrl,
-    analyticsConfig
+    calendarUrl: `${publicBaseUrl}/calendar.ics`,
+    webcalUrl: `webcal://${new URL(publicBaseUrl).host}/calendar.ics`,
+    rssUrl: `${publicBaseUrl}/rss.xml`,
+    analyticsConfig,
+    fiestasDateRange: formatDateRange(site, site.dateRange)
   };
+}
+
+function formatDateRange(currentSite, fallbackDates = []) {
+  const dates = Array.isArray(fallbackDates) ? fallbackDates : [];
+  if (dates.length) return dates.join('–');
+  return currentSite.location?.name || 'Fiestas 2026';
+}
+
+function xmlEscape(value = '') {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
+}
+
+function icsEscape(value = '') {
+  return String(value)
+    .replaceAll('\\', '\\\\')
+    .replaceAll(';', '\\;')
+    .replaceAll(',', '\\,')
+    .replaceAll(/\r?\n/g, '\\n');
+}
+
+function icsDateTime(date, time = '00:00') {
+  const normalizedTime = /^\d{2}:\d{2}$/.test(time) ? time : '00:00';
+  return `${date.replaceAll('-', '')}T${normalizedTime.replace(':', '')}00`;
+}
+
+function createCalendarFeed(events) {
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'PRODID:-//Fiestas 2026//Montemayor de Pililla//ES',
+    `X-WR-CALNAME:${icsEscape(site.fullName)}`,
+    'X-WR-TIMEZONE:Europe/Madrid'
+  ];
+  for (const event of events) {
+    const start = icsDateTime(event.date, event.startTime);
+    const end = event.endTime ? icsDateTime(eventEndDate(event.date, event.startTime, event.endTime), event.endTime) : start;
+    const location = event.location || event.zone || site.location.name;
+    const description = [event.summary, event.description].filter(Boolean).join('\n\n');
+    lines.push(
+      'BEGIN:VEVENT',
+      `UID:${icsEscape(`${event.id}@fiestas.montemayordepililla.com`)}`,
+      `DTSTAMP:${icsDateTime('2026-01-01', '00:00')}Z`,
+      `DTSTART;TZID=Europe/Madrid:${start}`,
+      `DTEND;TZID=Europe/Madrid:${end}`,
+      `SUMMARY:${icsEscape(event.title)}`,
+      `LOCATION:${icsEscape(location)}`,
+      `DESCRIPTION:${icsEscape(description || event.dateLabel)}`,
+      `URL:${icsEscape(event.canonicalUrl)}`,
+      ...(event.coordinates ? [`GEO:${event.coordinates.lat};${event.coordinates.lng}`] : []),
+      'END:VEVENT'
+    );
+  }
+  lines.push('END:VCALENDAR', '');
+  return lines.join('\r\n');
+}
+
+function createRssFeed(events) {
+  const items = events.map((event) => [
+    '<item>',
+    `<title>${xmlEscape(event.title)}</title>`,
+    `<link>${xmlEscape(event.canonicalUrl)}</link>`,
+    `<guid isPermaLink="true">${xmlEscape(event.canonicalUrl)}</guid>`,
+    `<pubDate>${new Date(`${event.date}T${event.startTime || '00:00'}:00+02:00`).toUTCString()}</pubDate>`,
+    `<description>${xmlEscape([event.dateLabel, event.startTime, event.location, event.summary || event.description].filter(Boolean).join(' · '))}</description>`,
+    '</item>'
+  ].join(''));
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0">',
+    '<channel>',
+    `<title>${xmlEscape(site.fullName)}</title>`,
+    `<link>${xmlEscape(publicBaseUrl)}/</link>`,
+    `<description>${xmlEscape(site.description)}</description>`,
+    '<language>es-ES</language>',
+    ...items,
+    '</channel>',
+    '</rss>',
+    ''
+  ].join('\n');
 }
 
 function render(template, context) {
@@ -598,17 +654,22 @@ async function build() {
   const versions = { assetVersion, cssVersion, jsVersion };
   const events = await loadEvents();
   const summary = buildSummary(events);
-  const socialImage = publicBaseUrl + '/assets/social/fiestas-valladolid-2026.jpg';
+  const socialImage = /^https?:\/\//i.test(site.socialImagePath)
+    ? site.socialImagePath
+    : publicBaseUrl + site.socialImagePath;
+  const dateRange = summary.dates.length
+    ? `${summary.dates[0].dayNumber}–${summary.dates.at(-1).dayNumber} ${summary.dates[0].monthLabel}`
+    : site.location.name;
 
   const homeContext = {
     ...pageContext(versions),
-    title: 'Fiestas Valladolid 2026 | Aldea Pucela',
-    meta: { description: 'Agenda de las Fiestas de Valladolid 2026 por días, horarios, espacios, categorías y mapa.' },
+    title: `${site.name} | ${site.location.name}`,
+    meta: { description: site.description },
     canonicalUrl: publicBaseUrl + '/',
     social: {
-      type: 'website', title: 'Fiestas Valladolid 2026 | Aldea Pucela',
-      description: 'Agenda de las Fiestas de Valladolid 2026 por días, horarios, espacios, categorías y mapa.',
-      image: socialImage, imageAlt: 'Fiestas de Valladolid 2026 | Aldea Pucela',
+      type: 'website', title: `${site.name} | ${site.location.name}`,
+      description: site.description,
+      image: socialImage, imageAlt: site.fullName,
       imageWidth: 1200, imageHeight: 630, imageType: 'image/jpeg', url: publicBaseUrl + '/'
     },
     fiestasEvents: events,
@@ -616,75 +677,76 @@ async function build() {
     fiestasDates: summary.dates,
     fiestasTypes: summary.types,
     fiestasAreas: summary.areas,
+    fiestasDateRange: dateRange,
     communityPlans
   };
 
   await writeFile('index.html', render('fiestas-2026.njk', homeContext));
   await writeFile('mapa/index.html', render('fiestas-2026.njk', {
     ...homeContext,
-    title: 'Mapa de Fiestas Valladolid 2026 | Aldea Pucela',
+    title: `Mapa | ${site.name}`,
     canonicalUrl: publicBaseUrl + '/mapa/',
     social: {
       ...homeContext.social,
-      title: 'Mapa de Fiestas Valladolid 2026 | Aldea Pucela',
+      title: `Mapa | ${site.name}`,
       url: publicBaseUrl + '/mapa/'
     }
   }));
 
   await writeFile('populares/index.html', render('fiestas-2026-popular.njk', {
     ...homeContext,
-    title: 'Actividades populares | Fiestas Valladolid 2026',
+    title: `Actividades populares | ${site.name}`,
     meta: { description: 'Estas son las actividades más guardadas por los vecinos y vecinas.' },
     canonicalUrl: publicBaseUrl + '/populares/',
     social: {
       ...homeContext.social,
-      title: 'Actividades populares | Fiestas Valladolid 2026',
+      title: `Actividades populares | ${site.name}`,
       description: 'Estas son las actividades más guardadas por los vecinos y vecinas.',
-      imageAlt: 'Actividades populares de las Fiestas Valladolid 2026',
+      imageAlt: `Actividades populares de ${site.fullName}`,
       url: publicBaseUrl + '/populares/'
     }
   }));
 
   await writeFile('plan/index.html', render('fiestas-2026-plan.njk', {
     ...homeContext,
-    title: 'Mi plan | Fiestas Valladolid 2026',
+    title: `Mi plan | ${site.name}`,
     robotsMeta: 'noindex,follow',
     canonicalUrl: publicBaseUrl + '/plan/',
     social: {
       ...homeContext.social,
-      title: 'Mi plan | Fiestas Valladolid 2026',
+      title: `Mi plan | ${site.name}`,
       url: publicBaseUrl + '/plan/'
     }
   }));
 
   await writeFile('plan/importar/index.html', render('fiestas-2026-plan-import.njk', {
     ...homeContext,
-    title: 'Importar plan | Fiestas Valladolid 2026',
+    title: `Importar plan | ${site.name}`,
     canonicalUrl: publicBaseUrl + '/plan/importar/',
     robotsMeta: 'noindex,follow',
     social: {
       ...homeContext.social,
-      title: 'Importar plan | Fiestas Valladolid 2026',
+      title: `Importar plan | ${site.name}`,
       url: publicBaseUrl + '/plan/importar/'
     }
   }));
 
   await writeFile('planes/index.html', render('fiestas-2026-community-plans.njk', {
     ...homeContext,
-    title: 'Planes vecinales | Fiestas Valladolid 2026',
+    title: `Planes vecinales | ${site.name}`,
     canonicalUrl: publicBaseUrl + '/planes/',
     social: {
       ...homeContext.social,
-      title: 'Planes vecinales | Fiestas Valladolid 2026',
-      description: 'Descubre colecciones de actividades creadas por vecinos para las Fiestas de Valladolid 2026.',
+      title: `Planes vecinales | ${site.name}`,
+      description: `Descubre colecciones de actividades creadas por vecinos para ${site.fullName}.`,
       url: publicBaseUrl + '/planes/'
     }
   }));
 
   for (const communityPlan of communityPlans) {
     const planPath = `/planes/${communityPlan.id}/`;
-    const planTitle = `${communityPlan.name} | Planes vecinales | Fiestas Valladolid 2026`;
-    const planDescription = `${communityPlan.name}, creado por ${communityPlan.author}, para disfrutar las Fiestas de Valladolid 2026.`;
+    const planTitle = `${communityPlan.name} | Planes vecinales | ${site.name}`;
+    const planDescription = `${communityPlan.name}, creado por ${communityPlan.author}, para disfrutar ${site.fullName}.`;
     await writeFile(`planes/${communityPlan.id}/index.html`, render('fiestas-2026-community-plan.njk', {
       ...homeContext,
       title: planTitle,
@@ -706,11 +768,11 @@ async function build() {
   for (const event of events) {
     await writeFile('e/' + event.id + '/' + event.slug + '/index.html', render('fiestas-2026-detail.njk', {
       ...pageContext(versions),
-      title: event.title + ' | Fiestas Valladolid 2026',
+      title: event.title + ' | ' + site.name,
       meta: { description: event.summary || event.description || event.dateLabel },
       canonicalUrl: publicBaseUrl + event.urlPath,
       social: {
-        type: 'article', title: event.title + ' | Fiestas Valladolid 2026',
+        type: 'article', title: event.title + ' | ' + site.name,
         description: event.summary || event.description || event.dateLabel,
         image: eventImageUrl(event),
         imageAlt: event.image ? event.title : event.socialImageAlt,
@@ -736,6 +798,9 @@ async function build() {
   ].join('\n');
   await writeFile('sitemap.xml', sitemap);
   await writeFile('robots.txt', ['User-agent: *', 'Allow: /', 'Sitemap: ' + publicBaseUrl + '/sitemap.xml', ''].join('\n'));
+  await writeFile('CNAME', `${new URL(publicBaseUrl).hostname}\n`);
+  await writeFile('calendar.ics', createCalendarFeed(events));
+  await writeFile('rss.xml', createRssFeed(events));
   console.log('Built fiestas repo with ' + events.length + ' events.');
 }
 

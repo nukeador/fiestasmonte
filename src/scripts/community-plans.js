@@ -3,11 +3,11 @@ import { trackCommunityPlanAdded, trackFavoriteChanged, trackPlanShared } from '
 import { renderPlanTimeline } from './plans-page.js';
 
 const CATALOG_SCHEMA_VERSION = 1;
-const FESTIVAL_ID = 'valladolid-2026';
+const FESTIVAL_ID = 'montemayor-2026';
 const MAX_PLAN_NAME_LENGTH = 80;
 const MAX_ACTIVITY_IDS = 200;
 const MAX_JSON_BYTES = 256 * 1024;
-const PLAN_ADD_COUNTS_API_URL = 'https://api.aldeapucela.org/fiestas/plan-adds';
+const PLAN_ADD_COUNTS_API_URL = '';
 
 export function setupCommunityPlansPage(rawEvents = []) {
   const page = document.querySelector('[data-community-plans-page]');
@@ -261,6 +261,7 @@ async function enrichEntry(entry, eventById) {
 }
 
 async function loadPlanAddCounts() {
+  if (!PLAN_ADD_COUNTS_API_URL) return null;
   try {
     const value = await fetchJson(PLAN_ADD_COUNTS_API_URL);
     if (!value?.ok || !Array.isArray(value.plans)) return null;

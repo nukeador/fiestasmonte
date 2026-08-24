@@ -5,7 +5,7 @@ import { spawn } from 'node:child_process';
 const root = path.resolve(import.meta.dirname, '..');
 const outputDir = path.join(root, 'docs', 'screenshots');
 const chromePath = process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const baseUrl = process.env.FIESTAS_BASE_URL || 'http://127.0.0.1:8002';
+const baseUrl = process.env.FIESTAS_BASE_URL || 'http://127.0.0.1:8005';
 const debugPort = Number(process.env.CHROME_DEBUG_PORT || 9223);
 const userDataDir = `/tmp/fiestas-readme-chrome-${Date.now()}`;
 
@@ -74,7 +74,7 @@ const shots = [
   },
   {
     name: '06-detalle-evento.png',
-    path: '/e/1/gira-de-verano-nintendo/',
+    path: '/e/433/paella-popular/',
     viewport: { width: 1440, height: 1100 },
     prepare: async (page) => {
       await page.waitForSelector('.fiestas-detail');
@@ -97,7 +97,7 @@ const shots = [
     viewport: { width: 390, height: 900, mobile: true },
     prepare: async (page) => {
       await page.waitForSelector('.fiestas-event-card');
-      await page.click('[data-fiestas-mobile-filters-toggle]');
+      await page.click('[data-fiestas-areas-toggle]');
       await page.wait(400);
     }
   },
@@ -223,8 +223,8 @@ class CdpPage {
     await this.send('Page.enable');
     await this.send('Page.addScriptToEvaluateOnNewDocument', {
       source: `
-        localStorage.setItem('aldeapucela_theme', ${JSON.stringify(theme)});
-        localStorage.removeItem('fiestasPucela:favorites');
+        localStorage.setItem('fiestasMonte:theme', ${JSON.stringify(theme)});
+        localStorage.removeItem('fiestasMonte:favorites');
       `
     });
   }

@@ -20,11 +20,11 @@
   </script>
   <div class="fiestas-scroll-header" data-fiestas-scroll-header aria-hidden="true" inert>
     <button class="fiestas-scroll-brand" type="button" data-fiestas-scroll-top aria-label="Volver arriba" title="Volver arriba">
-      <img src="/assets/favicon.png" alt="" aria-hidden="true" />
+      <img src="{{ site.logoUrl }}" alt="{{ site.location.name }}" aria-hidden="true" />
     </button>
     <span class="fiestas-scroll-day" data-fiestas-scroll-day aria-live="polite">Agenda de fiestas</span>
     <div class="fiestas-scroll-actions">
-      <button class="fiestas-scroll-action" type="button" data-fiestas-share-site aria-label="Compartir Fiestas Valladolid 2026" title="Compartir Fiestas Valladolid 2026">
+      <button class="fiestas-scroll-action" type="button" data-fiestas-share-site aria-label="Compartir {{ site.name }}" title="Compartir {{ site.name }}">
         <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
       </button>
       <button class="fiestas-scroll-action" type="button" data-fiestas-scroll-search aria-label="Abrir buscador" title="Abrir buscador">
@@ -37,11 +37,11 @@
       <img class="fiestas-hero-fireworks" src="/assets/hero-fireworks.png" alt="" aria-hidden="true" />
       <div class="fiestas-hero-top">
         <a class="fiestas-brand" href="/" aria-label="Portada de Fiestas 2026">
-          <img src="/assets/favicon.png" alt="" />
-          <span id="fiestas-title" class="fiestas-title">Fiestas 2026</span>
+          <img src="{{ site.logoUrl }}" alt="{{ site.location.name }}" />
+          <span id="fiestas-title" class="fiestas-title">{{ site.name }}</span>
         </a>
         <div class="fiestas-hero-actions">
-          <button class="fiestas-share-toggle" type="button" data-fiestas-share-site aria-label="Compartir Fiestas Valladolid 2026" title="Compartir Fiestas Valladolid 2026">
+          <button class="fiestas-share-toggle" type="button" data-fiestas-share-site aria-label="Compartir {{ site.name }}" title="Compartir {{ site.name }}">
             <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
           </button>
           <button class="fiestas-search-toggle" type="button" data-fiestas-search-toggle aria-expanded="false" aria-controls="fiestas-search-panel" aria-label="Abrir buscador">
@@ -51,10 +51,10 @@
       </div>
       <div class="fiestas-hero-copy">
         <p class="fiestas-hero-credit">
-          <span>Creado por</span>
-          <a class="fiestas-hero-subtitle" href="https://aldeapucela.org" target="_blank" rel="noopener noreferrer">Aldea Pucela</a>
+          <span>Creada por</span>
+          <a class="fiestas-hero-subtitle" href="{{ site.municipalityUrl }}" target="_blank" rel="noopener noreferrer">montemayordepililla.com</a>
         </p>
-        <p class="fiestas-intro">Valladolid · 4-13 septiembre</p>
+        <p class="fiestas-intro">{{ site.location.name }} · {{ fiestasDateRange | lower }} 2026</p>
         <p class="fiestas-share-feedback" data-fiestas-share-feedback role="status" aria-live="polite" hidden></p>
       </div>
     </header>
@@ -68,7 +68,7 @@
         <button class="fiestas-date-card is-active" type="button" data-date="all" aria-pressed="true">
           <span>Todos</span>
           <strong>Días</strong>
-          <small>4-13 SEP</small>
+          <small>{{ fiestasDateRange }}</small>
         </button>
         {% for day in fiestasDates %}
         <button class="fiestas-date-card" type="button" data-date="{{ day.date }}" aria-pressed="false">
@@ -205,7 +205,7 @@
     <section class="fiestas-map-view" data-fiestas-map-view hidden>
       <header class="fiestas-map-header" aria-label="Cabecera del mapa">
         <a class="fiestas-map-brand" href="/" aria-label="Volver a la agenda de Fiestas 2026">
-          <img src="/assets/favicon.png" alt="" aria-hidden="true" />
+          <img src="{{ site.logoUrl }}" alt="{{ site.location.name }}" aria-hidden="true" />
           <span>Mapa</span>
         </a>
         <button class="fiestas-map-date-toggle" type="button" data-fiestas-map-date-toggle aria-expanded="false" aria-controls="fiestas-date-panel">
@@ -232,9 +232,9 @@
           <strong data-fiestas-map-sheet-title>Actividades del día</strong>
           <small data-fiestas-map-sheet-count>0 actividades</small>
         </button>
-        <button class="fiestas-map-location-note" type="button" data-fiestas-location-note aria-label="Clic para compartir ubicación" hidden>
+        <button class="fiestas-map-location-note" type="button" data-fiestas-location-note aria-label="Centrar en mi ubicación" hidden>
           <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
-          <span>Clic para compartir ubicación</span>
+          <span>Centrar en mi ubicación</span>
         </button>
         <div class="fiestas-map-sheet-preview" data-fiestas-map-sheet-preview></div>
         <div class="fiestas-map-sheet-list" data-fiestas-map-sheet-list></div>

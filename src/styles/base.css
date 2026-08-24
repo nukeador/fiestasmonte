@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    --color-primary: #66517d;
-    --color-primary-dark: #4f3e62;
-    --bg-body: #f4f4f4;
-    --bg-container: #fefefe;
+    --color-primary: #336699;
+    --color-primary-dark: #28547e;
+    --bg-body: #e2ebed;
+    --bg-container: #f2fafc;
     --bg-card: #ffffff;
     --bg-card-hover: #f7f7f8;
-    --bg-highlight: #f1e8d5;
-    --text-main: #27272a;
+    --bg-highlight: #d4e2ed;
+    --text-main: #17324a;
     --text-secondary: #52525b;
     --text-muted: #71717a;
-    --text-header: #1f1f24;
-    --border-light: #e3dbd0;
+    --text-header: #17324a;
+    --border-light: #d4e2ed;
     --border-subtle: rgba(39, 39, 42, 0.05);
     --shadow-subtle: rgba(55, 48, 39, 0.06);
     --shadow-card: rgba(55, 48, 39, 0.12);
   }
 
   html {
-    background-color: #fbfaf8;
-    color: #1f2430;
+    background-color: #e2ebed;
+    color: #17324a;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     min-height: 100vh;
-    background-color: #fbfaf8;
-    color: #1f2430;
+    background-color: #e2ebed;
+    color: #17324a;
     font-family: Inter, ui-sans-serif, system-ui, sans-serif;
     line-height: 1.5rem;
   }
@@ -174,7 +174,7 @@
   }
 
   .pill-active {
-    @apply border-[#4a3a70] bg-[#4a3a70] text-white hover:border-[#413262] hover:bg-[#413262] hover:text-white;
+    @apply border-[#28547e] bg-[#28547e] text-white hover:border-[#204563] hover:bg-[#204563] hover:text-white;
   }
 
   .btn-primary {
@@ -336,7 +336,7 @@
   }
 
   .compact-badge-success {
-    @apply bg-emerald-50 text-emerald-700;
+    @apply bg-brand-50 text-brand-700;
   }
 
   .event-compact {
@@ -385,7 +385,7 @@
 
   .event-compact-action-active,
   .event-compact-action.event-compact-action-active {
-    @apply border-[#6a4d9b] bg-[#6a4d9b] text-white shadow-md;
+    @apply border-[#336699] bg-[#336699] text-white shadow-md;
   }
 
   .event-compact-action-active i {
@@ -428,7 +428,7 @@
   }
 
   .mobile-chip-active {
-    @apply border-[#4a3a70] bg-[#4a3a70] text-white;
+    @apply border-[#28547e] bg-[#28547e] text-white;
   }
 
   .mobile-chip-active .mobile-chip-icon {
@@ -440,7 +440,7 @@
   }
 
   .mobile-filter-modal-trigger {
-    @apply border-[#d8d0e8] bg-[#f6f2fb] text-[#4a3a70];
+    @apply border-[#d8d0e8] bg-[#f6f2fb] text-[#28547e];
     display: none;
   }
 
@@ -449,7 +449,7 @@
   }
 
   .mobile-filter-modal-trigger.mobile-chip-active {
-    @apply border-[#4a3a70] bg-[#4a3a70] text-white;
+    @apply border-[#28547e] bg-[#28547e] text-white;
   }
 
   .mobile-filter-sheet {
@@ -500,7 +500,7 @@
 
   .mobile-filter-sheet-option.mobile-chip-active,
   .mobile-filter-sheet-option.pill-active {
-    @apply border-[#4a3a70] bg-[#4a3a70] text-white;
+    @apply border-[#28547e] bg-[#28547e] text-white;
   }
 
   .mobile-filter-sheet-option.mobile-chip-active i,
@@ -526,7 +526,7 @@
   }
 
   .mobile-filter-sheet-clear {
-    @apply border-[#d8d0e8] bg-[#f6f2fb] text-[#4a3a70];
+    @apply border-[#d8d0e8] bg-[#f6f2fb] text-[#28547e];
   }
 
   @keyframes mobile-filter-sheet-in {
@@ -600,7 +600,7 @@
   }
 
   .compact-badge-success {
-    @apply bg-emerald-50 text-emerald-700;
+    @apply bg-brand-50 text-brand-700;
   }
 
   .event-compact {
@@ -649,7 +649,7 @@
 
   .event-compact-action-active,
   .event-compact-action.event-compact-action-active {
-    @apply border-[#6a4d9b] bg-[#6a4d9b] text-white shadow-md;
+    @apply border-[#336699] bg-[#336699] text-white shadow-md;
   }
 
   .event-compact-action-active i {
@@ -658,7 +658,7 @@
 
   .week-day-group .event-compact-action.event-compact-action-active,
   .saved-day-group .event-compact-action.event-compact-action-active {
-    @apply border-[#6a4d9b] bg-[#6a4d9b] text-white shadow-md;
+    @apply border-[#336699] bg-[#336699] text-white shadow-md;
   }
 
   .week-day-group .event-compact-action.event-compact-action-active i,
@@ -1756,7 +1756,7 @@ html.dark .site-footer-copy a {
 
   html.dark .event-compact-action-active,
   html.dark .event-compact-action.event-compact-action-active {
-    @apply border-[#6f59a8] bg-[#6f59a8] text-white;
+    @apply border-[#336699] bg-[#336699] text-white;
   }
 
   html.dark .event-compact-action-active i {
@@ -1765,7 +1765,7 @@ html.dark .site-footer-copy a {
 
   html.dark .week-day-group .event-compact-action.event-compact-action-active,
   html.dark .saved-day-group .event-compact-action.event-compact-action-active {
-    @apply border-[#6f59a8] bg-[#6f59a8] text-white shadow-md;
+    @apply border-[#336699] bg-[#336699] text-white shadow-md;
   }
 
   html.dark .week-day-group .event-compact-action.event-compact-action-active i,
@@ -1779,7 +1779,8 @@ html.dark .site-footer-copy a {
   }
 
   html.dark .compact-badge-success {
-    @apply bg-emerald-900/35 text-emerald-200;
+    background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+    color: #99ccff;
   }
 
   html.dark .pill,
@@ -1795,7 +1796,7 @@ html.dark .site-footer-copy a {
 
   html.dark .mobile-chip-active,
   html.dark .pill-active {
-    @apply border-[#7e5db5] bg-[#7e5db5] text-white;
+    @apply border-[#3f7fb5] bg-[#3f7fb5] text-white;
   }
 
   html.dark .mobile-chip-active .mobile-chip-icon,
@@ -1883,7 +1884,7 @@ html.dark .site-footer-copy a {
 
   html.dark .mobile-filter-sheet-option.mobile-chip-active,
   html.dark .mobile-filter-sheet-option.pill-active {
-    @apply border-[#7e5db5] bg-[#7e5db5] text-white;
+    @apply border-[#3f7fb5] bg-[#3f7fb5] text-white;
   }
 
   html.dark .mobile-filter-sheet-option.mobile-chip-active i,
