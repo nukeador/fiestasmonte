@@ -51,7 +51,7 @@ jobs:
   deploy:
     if: github.ref == 'refs/heads/fiestasmonte26'
     environment:
-      name: github-pages
+      name: fiestasmonte-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
