@@ -123,9 +123,7 @@ const els = {
   areaList: document.querySelector('[data-fiestas-areas]'),
   areaToggle: document.querySelector('[data-fiestas-areas-toggle]'),
   areaLabel: document.querySelector('[data-fiestas-areas-label]'),
-  fiestasList: document.querySelector('[data-fiestas-fiestas]'),
-  fiestasToggle: document.querySelector('[data-fiestas-fiestas-toggle]'),
-  fiestasLabel: document.querySelector('[data-fiestas-fiestas-label]'),
+  fiestasSwitch: document.querySelector('[data-fiestas-only]'),
   siteShare: document.querySelector('[data-fiestas-share-site]'),
   siteShareFeedback: document.querySelector('[data-fiestas-share-feedback]'),
   searchToggle: document.querySelector('[data-fiestas-search-toggle]'),
@@ -394,30 +392,25 @@ function bindControls() {
     render({ updateUrl: true });
   });
 
-  els.fiestasList?.addEventListener('change', (event) => {
-    const input = event.target.closest('input[data-fiestas-only]');
-    if (!input) return;
-    state.onlyFiestas = input.checked;
-    trackFilterApplied('fiestas', input.checked ? 'only' : 'all', state.view);
+  els.fiestasSwitch?.addEventListener('change', (event) => {
+    state.onlyFiestas = event.target.checked;
+    trackFilterApplied('fiestas', state.onlyFiestas ? 'only' : 'all', state.view);
     state.focusedClusterEventIds = null;
     render({ updateUrl: true });
   });
 
-  [els.areaList, els.typeList, els.fiestasList].forEach((list) => {
+  [els.areaList, els.typeList].forEach((list) => {
     list?.addEventListener('pointerdown', (event) => event.stopPropagation());
     list?.addEventListener('click', (event) => event.stopPropagation());
   });
 
   els.areaToggle?.addEventListener('click', () => setMenuOpen('area', els.areaToggle.getAttribute('aria-expanded') !== 'true'));
   els.typeToggle?.addEventListener('click', () => setMenuOpen('type', els.typeToggle.getAttribute('aria-expanded') !== 'true'));
-  els.fiestasToggle?.addEventListener('click', () => setMenuOpen('fiestas', els.fiestasToggle.getAttribute('aria-expanded') !== 'true'));
-
   document.querySelectorAll('[data-fiestas-filter-accept]').forEach((acceptButton) => {
     acceptButton.addEventListener('click', (event) => {
       event.preventDefault();
       setMenuOpen('area', false);
       setMenuOpen('type', false);
-      setMenuOpen('fiestas', false);
     });
   });
 
@@ -449,7 +442,6 @@ function bindControls() {
     if (els.search) els.search.value = '';
     setMenuOpen('type', false);
     setMenuOpen('area', false);
-    setMenuOpen('fiestas', false);
     render({ updateUrl: true });
   });
 
@@ -518,7 +510,6 @@ function bindControls() {
     if (!event.target.closest('.fiestas-type-menu') && !event.target.closest('[data-fiestas-filter-backdrop]')) {
       setMenuOpen('area', false);
       setMenuOpen('type', false);
-      setMenuOpen('fiestas', false);
     }
   });
 
@@ -1426,10 +1417,9 @@ function renderCheckedFilters() {
 function renderFilterLabels() {
   if (els.typeLabel) els.typeLabel.textContent = setLabel(state.selectedTypes, 'Tipos', 'tipo', 'tipos');
   if (els.areaLabel) els.areaLabel.textContent = setLabel(state.selectedAreas, 'Zonas', 'zona', 'zonas');
-  if (els.fiestasLabel) els.fiestasLabel.textContent = 'Solo fiestas';
   els.typeToggle?.classList.toggle('is-active', state.selectedTypes.size > 0);
   els.areaToggle?.classList.toggle('is-active', state.selectedAreas.size > 0);
-  els.fiestasToggle?.classList.toggle('is-active', state.onlyFiestas);
+  els.fiestasSwitch?.closest('[data-fiestas-fiestas-switch]')?.classList.toggle('is-active', state.onlyFiestas);
   if (els.clearFilters) els.clearFilters.hidden = !hasActiveFilters();
 }
 
@@ -1471,8 +1461,7 @@ function removeFilter(kind, value) {
 function setMenuOpen(kind, open) {
   const menus = {
     area: [els.areaList, els.areaToggle],
-    type: [els.typeList, els.typeToggle],
-    fiestas: [els.fiestasList, els.fiestasToggle]
+    type: [els.typeList, els.typeToggle]
   };
   const [list, toggle] = menus[kind] || [];
   if (!list || !toggle) return;
@@ -1524,7 +1513,6 @@ function setMapFilterPanelOpen(open, options = {}) {
     state.mapFilterPanelOpen = true;
     setMenuOpen('type', false);
     setMenuOpen('area', false);
-    setMenuOpen('fiestas', false);
     setSearchOpen(true, { focus: false });
     renderShellState(getFilteredEvents());
     updateFilterModalState();
@@ -1535,7 +1523,6 @@ function setMapFilterPanelOpen(open, options = {}) {
   state.mapFilterPanelOpen = false;
   setMenuOpen('type', false);
   setMenuOpen('area', false);
-  setMenuOpen('fiestas', false);
   if (state.view === 'map') setSearchOpen(false, { focus: false });
   renderShellState(getFilteredEvents());
   updateFilterModalState();
@@ -1577,7 +1564,6 @@ function handleOverlayKeydown(event) {
     }
     setMenuOpen('type', false);
     setMenuOpen('area', false);
-    setMenuOpen('fiestas', false);
     return;
   }
 
@@ -1810,7 +1796,6 @@ function applyInitialUrlState() {
   }
   setMenuOpen('type', false);
   setMenuOpen('area', false);
-  setMenuOpen('fiestas', false);
   isApplyingUrlState = false;
 }
 
@@ -1852,7 +1837,7 @@ function isMapPath() {
 }
 
 function updateFilterModalState() {
-  const isOpen = state.mapFilterPanelOpen || [els.areaList, els.typeList, els.fiestasList].some((list) => list && !list.hidden);
+  const isOpen = state.mapFilterPanelOpen || [els.areaList, els.typeList].some((list) => list && !list.hidden);
   if (isOpen) {
     ensureFilterBackdrop();
     document.body.classList.add('fiestas-filter-open');
@@ -1890,7 +1875,6 @@ function ensureFilterBackdrop() {
     }
     setMenuOpen('type', false);
     setMenuOpen('area', false);
-    setMenuOpen('fiestas', false);
   });
   document.body.append(filterBackdrop);
   return filterBackdrop;
