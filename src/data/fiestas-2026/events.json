@@ -463,7 +463,7 @@
       "lng": -4.4583948,
       "source": "OpenStreetMap Nominatim"
     },
-    "type": "Otros",
+    "type": "Deporte",
     "ticket": {
       "required": false,
       "status": "unknown",
@@ -472,7 +472,7 @@
       "note": "El programa no indica venta de entradas para este evento."
     },
     "tags": [
-      "Otros",
+      "Deporte",
       "Semana Cultural"
     ]
   },
@@ -494,7 +494,7 @@
       "lng": -4.4583948,
       "source": "OpenStreetMap Nominatim"
     },
-    "type": "Otros",
+    "type": "Peñas",
     "ticket": {
       "required": false,
       "status": "unknown",
@@ -503,7 +503,7 @@
       "note": "El programa no indica venta de entradas para este evento."
     },
     "tags": [
-      "Otros",
+      "Peñas",
       "Semana Cultural"
     ]
   },
