@@ -61,10 +61,10 @@ La producción es una web estática: el contenido se genera en <code>dist/</code
 
 La agenda enlaza con la web vecinal principal de [Montemayor de Pililla](https://www.montemayordepililla.com/), sus avisos oficiales en [Bandomovil](https://www.bandomovil.com/montemayordepililla) y sus canales locales. La información oficial del programa se conserva como referencia en [Bandomovil](https://montemayordepililla.bandomovil.com/comunicado.php?id=1628854).
 
-El logotipo usa el [escudo de Montemayor de Pililla de Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Escudo_de_Montemayor_de_Pililla.svg), obra de Rastrojo, con licencia [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). La web incluye una versión SVG para el logo y un PNG de 32 × 32 píxeles para el favicon.
+El logotipo usa el [escudo de Montemayor de Pililla de Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Escudo_de_Montemayor_de_Pililla.svg), obra de Rastrojo, con licencia [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). La web incluye una versión SVG para el logo y versiones PNG del mismo escudo para el favicon y la instalación como PWA.
 
 El preview para redes se genera en <code>src/assets/social/fiestas-montemayor-2026.jpg</code> con formato Open Graph de 1200 × 630 píxeles.
-La composición usa como referencia fotográfica la [Iglesia de Santa María Magdalena](https://www.tuscasasrurales.com/img-guias-viaje/valladolid/montemayor-de-pililla/max/iglesia-de-santa-maria-magdalena.jpg) y el escudo oficial indicado arriba.
+La composición usa como referencia fotográfica la [Iglesia de Santa María Magdalena](https://www.tuscasasrurales.com/img-guias-viaje/valladolid/montemayor-de-pililla/max/iglesia-de-santa-maria-magdalena.jpg) y el escudo oficial indicado arriba. Los iconos de la PWA usan el mismo escudo en tamaños de 32, 180, 192 y 512 píxeles.
 
 ## Estructura técnica
 

@@ -18,6 +18,7 @@
   "planAddCountsUrl": "https://tasks.nukeador.com/webhook/fiestas-montemayor/plan-adds",
   "logoUrl": "/assets/montemayordepililla-escudo.svg",
   "faviconUrl": "/assets/montemayordepililla-favicon.png",
+  "appleTouchIconUrl": "/assets/montemayordepililla-apple-touch-icon.png",
   "socialImagePath": "/assets/social/fiestas-montemayor-2026.jpg",
   "logoSourceUrl": "https://commons.wikimedia.org/wiki/File:Escudo_de_Montemayor_de_Pililla.svg",
   "logoLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",

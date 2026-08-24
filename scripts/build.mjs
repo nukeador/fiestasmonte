@@ -277,7 +277,7 @@ async function copyAssetDir(sourceDir, currentDir, assetVersionSeed) {
     }
     if (!entry.isFile()) continue;
     const relPath = path.relative(sourceDir, sourcePath);
-    if (relPath.startsWith(`events${path.sep}`) || relPath === 'favicon.png') continue;
+    if (relPath.startsWith(`events${path.sep}`)) continue;
     const targetPath = path.join(dist, 'assets', relPath);
     const content = await fs.readFile(sourcePath);
     await fs.mkdir(path.dirname(targetPath), { recursive: true });

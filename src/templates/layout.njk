@@ -12,7 +12,7 @@
     <title>{{ title or site.name + ' | ' + site.location.name }}</title>
     <link rel="icon" type="image/png" href="{{ site.faviconUrl }}" />
     <link rel="manifest" href="/assets/manifest.webmanifest" />
-    <link rel="apple-touch-icon" sizes="32x32" href="{{ site.faviconUrl }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.appleTouchIconUrl }}" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} RSS" href="{{ publicBaseUrl }}/rss.xml" />
     <link rel="alternate" type="text/calendar" title="{{ site.name }} Calendario" href="{{ publicBaseUrl }}/calendar.ics" />
     {% if canonicalUrl %}<link rel="canonical" href="{{ canonicalUrl }}" />{% endif %}
