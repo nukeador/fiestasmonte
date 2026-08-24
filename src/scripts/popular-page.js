@@ -25,6 +25,5 @@ function getCount(saveCounts, activityId) {
 function sortMinutes(time = '') {
   if (!/^\d{2}:\d{2}$/.test(String(time))) return 99 * 60;
   const [hour, minute] = String(time).split(':').map(Number);
-  const minutes = hour * 60 + minute;
-  return hour < 6 ? minutes + 24 * 60 : minutes;
+  return hour * 60 + minute;
 }

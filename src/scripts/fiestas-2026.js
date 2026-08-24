@@ -1682,8 +1682,7 @@ function sortMinutes(time = '') {
   if (!time) return 99 * 60;
   const [hour, minute] = String(time).split(':').map(Number);
   if (!Number.isFinite(hour) || !Number.isFinite(minute)) return 99 * 60;
-  const minutes = hour * 60 + minute;
-  return hour < 6 ? minutes + 24 * 60 : minutes;
+  return hour * 60 + minute;
 }
 
 function timeRange(event) {

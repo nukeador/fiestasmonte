@@ -1679,8 +1679,7 @@ function compareEvents(a, b) {
 function sortMinutes(time = '') {
   const [hour, minute] = String(time || '').split(':').map(Number);
   if (!Number.isFinite(hour) || !Number.isFinite(minute)) return 99 * 60;
-  const value = hour * 60 + minute;
-  return hour < 6 ? value + 24 * 60 : value;
+  return hour * 60 + minute;
 }
 
 function formatTime(event) {

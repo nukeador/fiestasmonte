@@ -515,11 +515,10 @@
     "endTime": null,
     "title": "Pregón de fiestas en homenaje a las trabajadoras y trabajadores del Ayuntamiento",
     "location": "Montemayor de Pililla",
-    "description": "Pregón de fiestas en homenaje a las trabajadoras y trabajadores del Ayuntamiento, a cargo de D. Luis García Cabezudo, funcionario durante más de 40 años en Montemayor de Pililla. A continuación, desfile de disfraces infantil acompañado por la charanga “La Resaka”.",
-    "summary": "Pregón de fiestas en homenaje a las trabajadoras y trabajadores del Ayuntamiento, a cargo de D. Luis García Cabezudo, funcionario durante más de 40 años en Montemayor de Pililla. A continuación, desfile de disfraces infantil acompañado por la charanga “La Resaka”.",
+    "description": "Pregón de fiestas en homenaje a las trabajadoras y trabajadores del Ayuntamiento, a cargo de D. Luis García Cabezudo, funcionario durante más de 40 años en Montemayor de Pililla.",
+    "summary": "Pregón de fiestas en homenaje a las trabajadoras y trabajadores del Ayuntamiento, a cargo de D. Luis García Cabezudo, funcionario durante más de 40 años en Montemayor de Pililla.",
     "performances": [
-      "D. Luis García Cabezudo",
-      "Charanga “La Resaka”"
+      "D. Luis García Cabezudo"
     ],
     "organizers": [
       "Ayuntamiento de Montemayor de Pililla"
@@ -544,17 +543,16 @@
   },
   {
     "id": 18,
-    "date": "2026-09-11",
-    "dateLabel": "Viernes 11 de septiembre",
-    "startTime": "00:00",
+    "date": "2026-09-10",
+    "dateLabel": "Jueves 10 de septiembre",
+    "startTime": "23:59",
     "endTime": null,
-    "title": "Desfile de disfraces para adultos y sesión de baile",
-    "location": "Plaza Mayor",
-    "description": "Desfile de disfraces para adultos desde la plaza de toros hasta la Plaza Mayor, acompañado por la charanga “La Resaka”. A continuación, sesión de baile con la orquesta “Dakar”. El programa lo incluye dentro de la sección del jueves 10.",
-    "summary": "Desfile de disfraces para adultos desde la plaza de toros hasta la Plaza Mayor, acompañado por la charanga “La Resaka”. A continuación, sesión de baile con la orquesta “Dakar”. El programa lo incluye dentro de la sección del jueves 10.",
+    "title": "DESFILE DE DISFRACES PARA ADULTOS",
+    "location": "Desde la plaza de toros hasta la Plaza Mayor",
+    "description": "Desfile de disfraces para adultos desde la plaza de toros hasta la Plaza Mayor, acompañado por la charanga “La Resaka”. El programa oficial lo incluye dentro de la jornada del jueves 10 y marca las 00:00; se muestra a las 23:59 para que aparezca como última actividad del jueves.",
+    "summary": "Desfile de disfraces para adultos desde la plaza de toros hasta la Plaza Mayor, acompañado por la charanga “La Resaka”. El programa oficial lo incluye dentro de la jornada del jueves 10 y marca las 00:00; se muestra a las 23:59 para que aparezca como última actividad del jueves.",
     "performances": [
-      "Charanga “La Resaka”",
-      "Orquesta “Dakar”"
+      "Charanga “La Resaka”"
     ],
     "organizers": [],
     "collaborators": [],
@@ -563,7 +561,7 @@
       "lng": -4.4585578,
       "source": "OpenStreetMap Nominatim"
     },
-    "type": "Música",
+    "type": "Otros",
     "ticket": {
       "required": false,
       "status": "unknown",
@@ -572,8 +570,7 @@
       "note": "El programa no indica venta de entradas para este evento."
     },
     "tags": [
-      "Música",
-      "Peñas"
+      "Otros"
     ]
   },
   {
@@ -741,11 +738,9 @@
     "endTime": null,
     "title": "Primer encierro nocturno",
     "location": "Calles acotadas de Montemayor de Pililla",
-    "description": "Primer encierro nocturno por las calles acotadas de la localidad. Al finalizar, segunda sesión de baile con la macro-disco “Epika Show” en la Plaza Mayor.",
-    "summary": "Primer encierro nocturno por las calles acotadas de la localidad. Al finalizar, segunda sesión de baile con la macro-disco “Epika Show” en la Plaza Mayor.",
-    "performances": [
-      "Epika Show"
-    ],
+    "description": "Primer encierro nocturno por las calles acotadas de la localidad.",
+    "summary": "Primer encierro nocturno por las calles acotadas de la localidad.",
+    "performances": [],
     "organizers": [],
     "collaborators": [],
     "coordinates": {
@@ -771,10 +766,10 @@
     "dateLabel": "Sábado 12 de septiembre",
     "startTime": "10:00",
     "endTime": null,
-    "title": "Primer encierro por el campo y por las calles",
+    "title": "PRIMER ENCIERRO POR EL CAMPO",
     "location": "Montemayor de Pililla",
-    "description": "Primer encierro por el campo y, a continuación, encierro por las calles acotadas de la localidad.",
-    "summary": "Primer encierro por el campo y, a continuación, encierro por las calles acotadas de la localidad.",
+    "description": "Primer encierro por el campo.",
+    "summary": "Primer encierro por el campo.",
     "performances": [],
     "organizers": [],
     "collaborators": [],
@@ -801,10 +796,10 @@
     "dateLabel": "Sábado 12 de septiembre",
     "startTime": "18:30",
     "endTime": null,
-    "title": "Festejo de rejones y capea",
+    "title": "FESTEJO DE REJONES Y CAPEA",
     "location": "Plaza de toros “La Empalizada”",
-    "description": "Festejo de rejones a cargo del caballero rejoneador de Huelva D. Manuel Sánchez “El Panita”, que lidiará un novillo del “Monte Bayón”. A continuación, capea para aficionados.",
-    "summary": "Festejo de rejones a cargo del caballero rejoneador de Huelva D. Manuel Sánchez “El Panita”, que lidiará un novillo del “Monte Bayón”. A continuación, capea para aficionados.",
+    "description": "Festejo de rejones a cargo del caballero rejoneador de Huelva D. Manuel Sánchez “El Panita”, que lidiará un novillo del “Monte Bayón”. Después tendrá lugar una capea para aficionados, sin hora independiente indicada en el programa.",
+    "summary": "Festejo de rejones a cargo del caballero rejoneador de Huelva D. Manuel Sánchez “El Panita”, que lidiará un novillo del “Monte Bayón”. Después tendrá lugar una capea para aficionados, sin hora independiente indicada en el programa.",
     "performances": [
       "Manuel Sánchez “El Panita”"
     ],
@@ -867,11 +862,9 @@
     "endTime": null,
     "title": "Segundo encierro nocturno",
     "location": "Calles acotadas de Montemayor de Pililla",
-    "description": "Segundo encierro nocturno por las calles acotadas de la localidad. Al finalizar, segunda sesión de baile a cargo de la orquesta “Voodoo” en la Plaza Mayor.",
-    "summary": "Segundo encierro nocturno por las calles acotadas de la localidad. Al finalizar, segunda sesión de baile a cargo de la orquesta “Voodoo” en la Plaza Mayor.",
-    "performances": [
-      "Voodoo"
-    ],
+    "description": "Segundo encierro nocturno por las calles acotadas de la localidad.",
+    "summary": "Segundo encierro nocturno por las calles acotadas de la localidad.",
+    "performances": [],
     "organizers": [],
     "collaborators": [],
     "coordinates": {
@@ -897,10 +890,10 @@
     "dateLabel": "Domingo 13 de septiembre",
     "startTime": "10:00",
     "endTime": null,
-    "title": "Segundo encierro por el campo y por las calles",
+    "title": "SEGUNDO ENCIERRO POR EL CAMPO",
     "location": "Montemayor de Pililla",
-    "description": "Segundo encierro por el campo y, a continuación, encierro por las calles acotadas de la localidad.",
-    "summary": "Segundo encierro por el campo y, a continuación, encierro por las calles acotadas de la localidad.",
+    "description": "Segundo encierro por el campo.",
+    "summary": "Segundo encierro por el campo.",
     "performances": [],
     "organizers": [],
     "collaborators": [],
@@ -1087,7 +1080,7 @@
     "dateLabel": "Miércoles 9 de septiembre",
     "startTime": "19:30",
     "endTime": null,
-    "title": "LIMONADA DE PEÑAS",
+    "title": "Limonada de peñas",
     "location": "Plaza Mayor",
     "description": "Limonada organizada por las peñas, con inicio desde la Plaza Mayor.",
     "summary": "Limonada organizada por las peñas, con inicio desde la Plaza Mayor.",
@@ -1119,8 +1112,8 @@
     "dateLabel": "Miércoles 9 de septiembre",
     "startTime": "21:00",
     "endTime": null,
-    "title": "FIESTA LAS NÓMADAS",
-    "location": "Montemayor de Pililla",
+    "title": "Fiesta Las Nómadas",
+    "location": "Peña Las Nómadas",
     "description": "Fiesta de la peña Las Nómadas, aproximadamente después de la limonada de las 19:30.",
     "summary": "Fiesta de la peña Las Nómadas, aproximadamente después de la limonada de las 19:30.",
     "performances": [],
@@ -1151,8 +1144,8 @@
     "dateLabel": "Jueves 10 de septiembre",
     "startTime": "21:00",
     "endTime": null,
-    "title": "TRUCHA SOUND FESTIVAL XI - SIDRADA",
-    "location": "Montemayor de Pililla",
+    "title": "Trucha Sound Festival XI - Sidrada",
+    "location": "Peña Los Bugas",
     "description": "Trucha Sound Festival XI - Sidrada, organizado por la peña Los Bugas aproximadamente después del pregón y el desfile infantil.",
     "summary": "Trucha Sound Festival XI - Sidrada, organizado por la peña Los Bugas aproximadamente después del pregón y el desfile infantil.",
     "performances": [],
@@ -1184,8 +1177,8 @@
     "dateLabel": "Viernes 11 de septiembre",
     "startTime": "04:00",
     "endTime": null,
-    "title": "FIESTA LA TEJA",
-    "location": "Montemayor de Pililla",
+    "title": "Fiesta La Teja",
+    "location": "Peña Alok-2",
     "description": "Fiesta de la peña Alok-2. El programa la incluye dentro de la jornada del jueves 10; por su horario, se muestra el viernes 11 a las 04:00.",
     "summary": "Fiesta de la peña Alok-2. El programa la incluye dentro de la jornada del jueves 10; por su horario, se muestra el viernes 11 a las 04:00.",
     "performances": [],
@@ -1216,8 +1209,8 @@
     "dateLabel": "Viernes 11 de septiembre",
     "startTime": "13:00",
     "endTime": null,
-    "title": "PASCUAL RACE - CARRERA DE MOTOS PARA NIÑOS DE 0 A 4 AÑOS",
-    "location": "Montemayor de Pililla",
+    "title": "Pascual Race - carrera de motos para niños de 0 a 4 años",
+    "location": "Peña Pascual",
     "description": "Carrera de motos para niños de 0 a 4 años, organizada por la peña Pascual. Es necesario confirmar asistencia en el +34 617 14 84 19.",
     "summary": "Carrera de motos para niños de 0 a 4 años, organizada por la peña Pascual. Es necesario confirmar asistencia en el +34 617 14 84 19.",
     "performances": [],
@@ -1250,8 +1243,8 @@
     "dateLabel": "Viernes 11 de septiembre",
     "startTime": "16:00",
     "endTime": "19:00",
-    "title": "FIESTA CONTENTONGO XX ANIVERSARIO",
-    "location": "Montemayor de Pililla",
+    "title": "Fiesta Contentongo XX aniversario",
+    "location": "Peña Las Contenta me tienes",
     "description": "Fiesta Contentongo con motivo de su XX aniversario, organizada por la peña Las Contenta me tienes.",
     "summary": "Fiesta Contentongo con motivo de su XX aniversario, organizada por la peña Las Contenta me tienes.",
     "performances": [],
@@ -1282,8 +1275,8 @@
     "dateLabel": "Sábado 12 de septiembre",
     "startTime": "05:00",
     "endTime": "08:00",
-    "title": "DANZA DEL SAPO V",
-    "location": "Montemayor de Pililla",
+    "title": "Danza del Sapo V",
+    "location": "Peña El Desmadre",
     "description": "Danza del Sapo V, organizada por la peña El Desmadre. Se muestra el sábado 12 por corresponder a la madrugada posterior a la jornada del viernes 11.",
     "summary": "Danza del Sapo V, organizada por la peña El Desmadre. Se muestra el sábado 12 por corresponder a la madrugada posterior a la jornada del viernes 11.",
     "performances": [],
@@ -1314,8 +1307,8 @@
     "dateLabel": "Sábado 12 de septiembre",
     "startTime": "15:30",
     "endTime": "18:00",
-    "title": "VII BABRERA CIRCUS PARTY + CHUPITADA",
-    "location": "Montemayor de Pililla",
+    "title": "VII Babrera Circus Party + chupitada",
+    "location": "Peñas La Babrera y KPY",
     "description": "VII Babrera Circus Party + Chupitada, organizada por las peñas La Babrera y KPY.",
     "summary": "VII Babrera Circus Party + Chupitada, organizada por las peñas La Babrera y KPY.",
     "performances": [],
@@ -1347,8 +1340,8 @@
     "dateLabel": "Sábado 12 de septiembre",
     "startTime": "21:00",
     "endTime": null,
-    "title": "XV METERLA EN LA VIGA",
-    "location": "Montemayor de Pililla",
+    "title": "XV Meterla en la viga",
+    "location": "Peña El Badulake",
     "description": "XV Meterla en la viga, organizada por la peña El Badulake aproximadamente después del festejo taurino de las 18:30.",
     "summary": "XV Meterla en la viga, organizada por la peña El Badulake aproximadamente después del festejo taurino de las 18:30.",
     "performances": [],
@@ -1379,8 +1372,8 @@
     "dateLabel": "Sábado 12 de septiembre",
     "startTime": "12:00",
     "endTime": null,
-    "title": "FIESTA DEL CORZO III",
-    "location": "Montemayor de Pililla",
+    "title": "Fiesta del Corzo III",
+    "location": "Peña La Movida",
     "description": "Fiesta del Corzo III, organizada por la peña La Movida, desde aproximadamente las 12:00, después del encierro de las 10:00, y con actividades de peña entre un encierro y el siguiente.",
     "summary": "Fiesta del Corzo III, organizada por la peña La Movida, desde aproximadamente las 12:00, después del encierro de las 10:00, y con actividades de peña entre un encierro y el siguiente.",
     "performances": [],
@@ -1411,8 +1404,8 @@
     "dateLabel": "Domingo 13 de septiembre",
     "startTime": "15:30",
     "endTime": null,
-    "title": "CONCIERTO FLAMENCO POP-ROCK CON AARÓN MIGUEL",
-    "location": "Montemayor de Pililla",
+    "title": "Concierto flamenco pop-rock con Aarón Miguel",
+    "location": "Peñas Las Druidas y Gres-k",
     "description": "Concierto flamenco pop-rock con Aarón Miguel, organizado por las peñas Las Druidas y Gres-k.",
     "summary": "Concierto flamenco pop-rock con Aarón Miguel, organizado por las peñas Las Druidas y Gres-k.",
     "performances": [
@@ -1447,8 +1440,8 @@
     "dateLabel": "Domingo 13 de septiembre",
     "startTime": "21:00",
     "endTime": null,
-    "title": "VIVA EL VINO (NÚMERO)",
-    "location": "Montemayor de Pililla",
+    "title": "Viva el vino (número)",
+    "location": "Peña La Talankera",
     "description": "Viva el vino (número), organizado por la peña La Talankera aproximadamente después del festejo taurino de las 18:30.",
     "summary": "Viva el vino (número), organizado por la peña La Talankera aproximadamente después del festejo taurino de las 18:30.",
     "performances": [],
@@ -1479,7 +1472,7 @@
     "dateLabel": "Lunes 14 de septiembre",
     "startTime": "01:30",
     "endTime": null,
-    "title": "JUEGO DEL PAÑUELO",
+    "title": "Juego del pañuelo",
     "location": "Plaza Mayor",
     "description": "Juego del pañuelo, organizado por la peña El 13 La Víspera durante el descanso de la sesión de baile del domingo 13. Hora aproximada: 01:30 del lunes 14.",
     "summary": "Juego del pañuelo, organizado por la peña El 13 La Víspera durante el descanso de la sesión de baile del domingo 13. Hora aproximada: 01:30 del lunes 14.",
@@ -1511,8 +1504,8 @@
     "dateLabel": "Lunes 14 de septiembre",
     "startTime": "21:00",
     "endTime": null,
-    "title": "FIESTA LA TALANKERA",
-    "location": "Montemayor de Pililla",
+    "title": "Fiesta La Talankera",
+    "location": "Peña La Talankera",
     "description": "Fiesta de la peña La Talankera por la noche. Hora aproximada: 21:00, antes de la sesión de baile de las 23:30.",
     "summary": "Fiesta de la peña La Talankera por la noche. Hora aproximada: 21:00, antes de la sesión de baile de las 23:30.",
     "performances": [],
@@ -1535,6 +1528,194 @@
     },
     "tags": [
       "Peñas"
+    ]
+  },
+  {
+    "id": 49,
+    "date": "2026-09-10",
+    "dateLabel": "Jueves 10 de septiembre",
+    "startTime": "19:30",
+    "endTime": null,
+    "title": "DESFILE DE DISFRACES INFANTIL",
+    "location": "Montemayor de Pililla",
+    "description": "Desfile de disfraces infantil acompañado por la charanga “La Resaka”, a continuación del pregón de las 19:00. Hora aproximada: 19:30.",
+    "summary": "Desfile de disfraces infantil acompañado por la charanga “La Resaka”, a continuación del pregón de las 19:00. Hora aproximada: 19:30.",
+    "performances": [
+      "Charanga “La Resaka”"
+    ],
+    "organizers": [],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Infantil y familiar",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Infantil y familiar"
+    ]
+  },
+  {
+    "id": 50,
+    "date": "2026-09-10",
+    "dateLabel": "Jueves 10 de septiembre",
+    "startTime": "23:59",
+    "endTime": null,
+    "title": "SESIÓN DE BAILE CON LA ORQUESTA “DAKAR”",
+    "location": "Plaza Mayor",
+    "description": "Sesión de baile con la orquesta “Dakar”, a continuación del desfile de disfraces para adultos. El programa oficial marca las 00:00 dentro de la jornada del jueves 10; se muestra a las 23:59 para que aparezca como última actividad del jueves.",
+    "summary": "Sesión de baile con la orquesta “Dakar”, a continuación del desfile de disfraces para adultos. El programa oficial marca las 00:00 dentro de la jornada del jueves 10; se muestra a las 23:59 para que aparezca como última actividad del jueves.",
+    "performances": [
+      "Orquesta “Dakar”"
+    ],
+    "organizers": [],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música"
+    ]
+  },
+  {
+    "id": 51,
+    "date": "2026-09-12",
+    "dateLabel": "Sábado 12 de septiembre",
+    "startTime": "02:00",
+    "endTime": null,
+    "title": "SEGUNDA SESIÓN DE BAILE CON LA MACRO-DISCO “EPIKA SHOW”",
+    "location": "Plaza Mayor",
+    "description": "Segunda sesión de baile con la macro-disco “Epika Show” en la Plaza Mayor, después del primer encierro nocturno de la 01:00. Hora aproximada: 02:00.",
+    "summary": "Segunda sesión de baile con la macro-disco “Epika Show” en la Plaza Mayor, después del primer encierro nocturno de la 01:00. Hora aproximada: 02:00.",
+    "performances": [
+      "Epika Show"
+    ],
+    "organizers": [],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música"
+    ]
+  },
+  {
+    "id": 52,
+    "date": "2026-09-12",
+    "dateLabel": "Sábado 12 de septiembre",
+    "startTime": "12:30",
+    "endTime": null,
+    "title": "PRIMER ENCIERRO POR LAS CALLES",
+    "location": "Calles acotadas de Montemayor de Pililla",
+    "description": "Primer encierro por las calles acotadas de la localidad, después del encierro por el campo de las 10:00. Hora aproximada: 12:30.",
+    "summary": "Primer encierro por las calles acotadas de la localidad, después del encierro por el campo de las 10:00. Hora aproximada: 12:30.",
+    "performances": [],
+    "organizers": [],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Toros",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Toros"
+    ]
+  },
+  {
+    "id": 53,
+    "date": "2026-09-13",
+    "dateLabel": "Domingo 13 de septiembre",
+    "startTime": "02:00",
+    "endTime": null,
+    "title": "SEGUNDA SESIÓN DE BAILE CON LA ORQUESTA “VOODOO”",
+    "location": "Plaza Mayor",
+    "description": "Segunda sesión de baile a cargo de la orquesta “Voodoo” en la Plaza Mayor, después del segundo encierro nocturno de la 01:00. Hora aproximada: 02:00.",
+    "summary": "Segunda sesión de baile a cargo de la orquesta “Voodoo” en la Plaza Mayor, después del segundo encierro nocturno de la 01:00. Hora aproximada: 02:00.",
+    "performances": [
+      "Voodoo"
+    ],
+    "organizers": [],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música"
+    ]
+  },
+  {
+    "id": 54,
+    "date": "2026-09-13",
+    "dateLabel": "Domingo 13 de septiembre",
+    "startTime": "12:30",
+    "endTime": null,
+    "title": "SEGUNDO ENCIERRO POR LAS CALLES",
+    "location": "Calles acotadas de Montemayor de Pililla",
+    "description": "Segundo encierro por las calles acotadas de la localidad, después del encierro por el campo de las 10:00. Hora aproximada: 12:30.",
+    "summary": "Segundo encierro por las calles acotadas de la localidad, después del encierro por el campo de las 10:00. Hora aproximada: 12:30.",
+    "performances": [],
+    "organizers": [],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Toros",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Toros"
     ]
   }
 ]
