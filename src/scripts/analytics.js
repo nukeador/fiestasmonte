@@ -14,7 +14,7 @@ const categoryActions = {
   pwa: new Set(['install_clicked', 'install_accepted', 'install_cancelled', 'installed', 'ios_help_opened', 'sw_registration_error'])
 };
 
-const filterNames = new Set(['type', 'area', 'ticket']);
+const filterNames = new Set(['type', 'area', 'fiestas']);
 let analyticsReady = false;
 const trackedFavoriteIds = new Set();
 const trackedCommunityPlanIds = new Set();

@@ -152,26 +152,18 @@
           </div>
         </div>
         <div class="fiestas-type-menu">
-          <button class="fiestas-type-menu-button" type="button" data-fiestas-tickets-toggle aria-expanded="false">
+          <button class="fiestas-type-menu-button" type="button" data-fiestas-fiestas-toggle aria-expanded="false">
             <svg class="fiestas-filter-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M4 7.5A2.5 2.5 0 0 0 4 12a2.5 2.5 0 0 0 0 4.5V18h16v-1.5a2.5 2.5 0 0 0 0-4.5 2.5 2.5 0 0 0 0-4.5V6H4v1.5Z" />
-              <path d="M12 6v12" stroke-dasharray="1.5 1.5" />
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 18.5v-13Z" />
+              <path d="M8 3v4M16 3v4M4 9h16M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01" />
             </svg>
-            <span data-fiestas-tickets-label>Precio</span>
+            <span data-fiestas-fiestas-label>Solo fiestas</span>
           </button>
-          <div class="fiestas-type-list" data-fiestas-tickets hidden>
+          <div class="fiestas-type-list" data-fiestas-fiestas hidden>
             <div class="fiestas-type-options">
               <label class="fiestas-type-option">
-                <input type="checkbox" value="free" data-ticket-kind="free" />
-                <span>Gratis</span>
-              </label>
-              <label class="fiestas-type-option">
-                <input type="checkbox" value="paid" data-ticket-kind="paid" />
-                <span>Pago</span>
-              </label>
-              <label class="fiestas-type-option">
-                <input type="checkbox" value="registration" data-ticket-kind="registration" />
-                <span>Inscripción</span>
+                <input type="checkbox" value="true" data-fiestas-only />
+                <span>Desde el pregón · 10 de septiembre</span>
               </label>
             </div>
             <button class="fiestas-filter-accept" type="button" data-fiestas-filter-accept>
