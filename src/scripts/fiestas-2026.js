@@ -21,6 +21,7 @@ import { createIcsFile, shareFileOrDownload } from './plan-export.js';
 import { setupPlanImportPage, setupPlanSelector, setupPlansPage } from './plans-page.js';
 import { setupCommunityPlanDetailPage, setupCommunityPlansPage } from './community-plans.js';
 import { rankPopularEvents } from './popular-page.js';
+import { setupMapDirections } from './map-directions.js';
 
 const collator = new Intl.Collator('es', { numeric: true, sensitivity: 'base' });
 const defaultQueryKeys = ['date', 'q', 'type', 'area', 'ticket', 'fiestas', 'view', 'event'];
@@ -1927,36 +1928,7 @@ function trackDetailExternalAction(action) {
 }
 
 function initDetailDirections() {
-  const link = document.querySelector('[data-fiestas-directions]');
-  if (!link) return;
-
-  const lat = Number(link.dataset.lat);
-  const lng = Number(link.dataset.lng);
-  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
-
-  const title = link.dataset.title || 'Actividad';
-  const platform = getMapPlatform();
-  if (platform === 'android') {
-    const label = encodeURIComponent(title);
-    link.href = `geo:0,0?q=${lat},${lng}(${label})`;
-    link.removeAttribute('target');
-    link.removeAttribute('rel');
-    return;
-  }
-
-  if (platform === 'ios') {
-    link.href = `http://maps.apple.com/?daddr=${lat},${lng}&dirflg=d`;
-    link.removeAttribute('target');
-    link.removeAttribute('rel');
-  }
-}
-
-function getMapPlatform() {
-  const userAgent = navigator.userAgent || '';
-  if (/Android/i.test(userAgent)) return 'android';
-  if (/iPad|iPhone|iPod/i.test(userAgent)) return 'ios';
-  if (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) return 'ios';
-  return 'desktop';
+  setupMapDirections();
 }
 
 function updateDetailFavorite(options = {}) {

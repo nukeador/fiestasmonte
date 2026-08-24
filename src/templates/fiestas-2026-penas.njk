@@ -1,0 +1,96 @@
+{% extends "layout.njk" %}
+
+{% block bodyClass %}fiestas-page fiestas-penas-page{% endblock %}
+{% block footerClass %} site-footer--fiestas{% endblock %}
+
+{% block extraHead %}
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+{% endblock %}
+
+{% block body %}
+<main class="fiestas-app fiestas-penas-app is-map-mode" data-penas-app>
+  <script>
+    window.__FIESTAS_PENAS__ = {{ penasJson | safe }};
+  </script>
+
+  <section class="fiestas-map-view penas-map-view" data-penas-map-view>
+    <header class="fiestas-map-header" aria-label="Cabecera del mapa de peñas">
+      <a class="fiestas-map-brand" href="/" aria-label="Volver a la agenda de Fiestas 2026">
+        <img src="{{ site.logoUrl }}" alt="{{ site.location.name }}" />
+        <span>Peñas</span>
+      </a>
+      <a class="fiestas-map-date-toggle penas-map-agenda-link" href="/">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+        <span>Agenda</span>
+      </a>
+    </header>
+
+    <div class="fiestas-map-canvas penas-map" data-penas-map role="application" aria-label="Mapa interactivo de las peñas"></div>
+    <div class="fiestas-map-topbar penas-map-topbar" aria-label="Controles del mapa">
+      <button class="fiestas-map-control fiestas-map-control--icon" type="button" data-penas-locate aria-label="Centrar en mi ubicación" title="Centrar en mi ubicación">
+        <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
+      </button>
+    </div>
+    <p class="penas-map-empty" data-penas-empty hidden>No hay ninguna peña con ese nombre.</p>
+
+    <section class="fiestas-map-sheet penas-map-sheet is-collapsed" data-penas-sheet aria-label="Peñas de Montemayor de Pililla">
+      <button class="fiestas-map-sheet-handle" type="button" data-penas-sheet-toggle aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <strong>Peñas de Montemayor</strong>
+        <small data-penas-count>{{ penas | length }} peñas</small>
+      </button>
+      <div class="penas-sheet-controls">
+        <label class="penas-sheet-search">
+          <span class="sr-only">Buscar una peña</span>
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input type="search" data-penas-search placeholder="Buscar una peña" autocomplete="off" />
+        </label>
+      </div>
+      <div class="fiestas-map-sheet-preview penas-sheet-preview" data-penas-sheet-preview></div>
+      <div class="fiestas-map-sheet-list penas-sheet-list" data-penas-sheet-list role="list"></div>
+    </section>
+    <button class="fiestas-map-sheet-tab" type="button" data-penas-sheet-open hidden>
+      <i class="fa-solid fa-list" aria-hidden="true"></i>
+      <span>Ver peñas</span>
+    </button>
+  </section>
+</main>
+
+<nav class="fiestas-bottom-nav" aria-label="Navegación de fiestas">
+  <a class="fiestas-bottom-link" href="/">
+    <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+    <span>Agenda</span>
+  </a>
+  <a class="fiestas-bottom-link" href="/mapa/">
+    <svg class="fiestas-bottom-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" />
+      <circle cx="12" cy="10" r="2.35" />
+    </svg>
+    <span>Mapa</span>
+  </a>
+  <a class="fiestas-bottom-link is-active" href="/penas/" aria-current="page">
+    <i class="fa-solid fa-people-group" aria-hidden="true"></i>
+    <span>Peñas</span>
+  </a>
+  <a class="fiestas-bottom-link" href="/plan/">
+    <i class="fa-regular fa-heart" aria-hidden="true"></i>
+    <span>Mi plan</span>
+  </a>
+  <button class="fiestas-bottom-link" type="button" data-menu-open aria-label="Abrir más opciones">
+    <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+    <span>Más</span>
+  </button>
+</nav>
+
+{% include "partials/menu-drawer.njk" %}
+{% include "partials/subscribe-modal.njk" %}
+{% endblock %}
+
+{% block extraScripts %}
+<script type="module" src="/assets/js/penas-page.{{ jsVersion }}.js" defer></script>
+{% endblock %}

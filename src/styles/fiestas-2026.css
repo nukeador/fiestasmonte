@@ -1200,7 +1200,7 @@
     left: 0;
     z-index: 200;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     border-top: 1px solid #e3e6ec;
     background: #fff;
     padding: 0.35rem max(0.75rem, env(safe-area-inset-left)) max(0.5rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-right));
@@ -3690,6 +3690,298 @@
 
     .fiestas-save {
       width: 2.2rem;
+    }
+  }
+}
+
+@layer components {
+  .fiestas-penas-app,
+  .fiestas-penas-app.is-map-mode {
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .fiestas-penas-app .fiestas-map-view {
+    position: fixed;
+    inset: 0 0 calc(4.85rem + env(safe-area-inset-bottom)) 0;
+    z-index: 10;
+    min-height: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 0;
+    background: #d9e5e5;
+  }
+
+  .fiestas-penas-app .fiestas-map-canvas,
+  .fiestas-penas-app .penas-map {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .fiestas-penas-app .fiestas-map-header {
+    z-index: 40;
+  }
+
+  .fiestas-penas-app .fiestas-map-brand span {
+    font-size: 1.35rem;
+  }
+
+  .penas-map-empty {
+    position: absolute;
+    top: 12rem;
+    right: 1rem;
+    left: 1rem;
+    z-index: 28;
+    display: grid;
+    gap: 0.8rem;
+    border: 1px dashed #d4dae4;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.94);
+    padding: 1.2rem;
+    color: #667085;
+    text-align: center;
+  }
+
+  .penas-map-empty[hidden] {
+    display: none;
+  }
+
+  .fiestas-penas-app .penas-map-sheet {
+    grid-template-rows: auto auto minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .penas-sheet-controls {
+    display: grid;
+    gap: 0.55rem;
+    min-width: 0;
+    padding: 0 1rem 0.65rem;
+  }
+
+  .penas-sheet-search {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.55rem;
+    border: 1px solid #d7dde7;
+    border-radius: 0.8rem;
+    background: #fff;
+    color: #667085;
+    padding: 0 0.8rem;
+  }
+
+  .penas-sheet-search input {
+    min-width: 0;
+    flex: 1 1 auto;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #1f2937;
+    font: inherit;
+    font-size: 0.88rem;
+  }
+
+  .penas-sheet-source {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.4rem;
+    color: #28547e;
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .penas-sheet-source:hover,
+  .penas-sheet-source:focus-visible {
+    text-decoration: underline;
+  }
+
+  .fiestas-penas-app .penas-sheet-preview,
+  .fiestas-penas-app .penas-sheet-list {
+    min-height: 0;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .fiestas-penas-app .penas-sheet-preview {
+    overflow: hidden;
+    padding-bottom: 0.75rem;
+  }
+
+  .fiestas-penas-app .penas-sheet-list {
+    overflow: auto;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+
+  .penas-map-sheet.is-collapsed .penas-sheet-list,
+  .penas-map-sheet.is-hidden .penas-sheet-list {
+    display: none;
+  }
+
+  .penas-map-sheet.is-expanded .penas-sheet-preview,
+  .penas-map-sheet.is-hidden .penas-sheet-preview {
+    display: none;
+  }
+
+  .penas-map-result {
+    --fiestas-type-color: #ba6d18;
+  }
+
+  .penas-map-result-main {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    align-items: center;
+    min-width: 0;
+    gap: 0.65rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    padding: 0.72rem 0 0.72rem 0.05rem;
+    text-align: left;
+  }
+
+  .penas-map-result-main:focus-visible {
+    border-radius: 0.6rem;
+    outline: 3px solid rgba(51, 102, 153, 0.25);
+    outline-offset: -3px;
+  }
+
+  .penas-map-result .fiestas-map-result-icon.penas-initials {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 9999px;
+    background: #ba6d18;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 950;
+    letter-spacing: 0.02em;
+  }
+
+  .penas-map-result.is-selected .fiestas-map-result-icon.penas-initials {
+    background: #3f7fb5;
+    box-shadow: 0 0 0 4px rgba(63, 127, 181, 0.18);
+  }
+
+  .penas-map-result .fiestas-map-result-copy {
+    overflow: hidden;
+  }
+
+  .penas-map-result .fiestas-map-result-title {
+    display: block;
+  }
+
+  .penas-map-result .fiestas-map-result-meta {
+    max-width: 100%;
+  }
+
+  .penas-map-result .fiestas-map-result-focus {
+    color: #3f7fb5;
+  }
+
+  .penas-map-marker.leaflet-div-icon {
+    border: 0;
+    background: transparent;
+  }
+
+  .penas-map-marker button {
+    display: grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    place-items: center;
+    border: 2px solid #fff;
+    border-radius: 9999px;
+    background: #ba6d18;
+    box-shadow: 0 0.45rem 1.1rem rgba(15, 23, 42, 0.28);
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.68rem;
+    font-weight: 950;
+    letter-spacing: 0.02em;
+    transition: background 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .penas-map-marker.is-selected button,
+  .penas-map-marker button:hover,
+  .penas-map-marker button:focus-visible {
+    background: #3f7fb5;
+    box-shadow: 0 0 0 4px rgba(63, 127, 181, 0.25), 0 0.45rem 1.1rem rgba(15, 23, 42, 0.28);
+    outline: 0;
+    transform: scale(1.16);
+  }
+
+  .penas-popup {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 10rem;
+    color: #17324a;
+  }
+
+  .penas-popup-kicker {
+    color: #ba6d18;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+
+  .penas-popup strong {
+    font-size: 1rem;
+    line-height: 1.15;
+  }
+
+  .penas-popup a {
+    color: #336699;
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+
+  html.dark .fiestas-penas-app .penas-sheet-search {
+    border-color: #3a4b59;
+    background: #18242c;
+    color: #aab9bf;
+  }
+
+  html.dark .penas-sheet-search input,
+  html.dark .penas-map-empty,
+  html.dark .penas-popup {
+    color: #e5edf0;
+  }
+
+  html.dark .penas-map-empty {
+    border-color: #35454e;
+    background: rgba(24, 36, 44, 0.95);
+  }
+
+  @media (max-width: 560px) {
+    .fiestas-penas-app .fiestas-map-header {
+      padding-right: 0.85rem;
+      padding-left: 0.85rem;
+    }
+
+    .fiestas-penas-app .fiestas-map-brand {
+      gap: 0.55rem;
+    }
+
+    .fiestas-penas-app .fiestas-map-brand img {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .fiestas-penas-app .fiestas-map-brand span {
+      font-size: 1.15rem;
+    }
+
+    .fiestas-penas-app .fiestas-map-date-toggle {
+      min-height: 2.55rem;
+      padding: 0 0.72rem;
+    }
+
+    .penas-sheet-source {
+      font-size: 0.7rem;
     }
   }
 }
@@ -7398,5 +7690,552 @@ html.dark .fiestas-community-plan-detail-icon {
 
   .fiestas-plan-editor-panel {
     border-radius: 1.25rem;
+  }
+}
+
+@layer components {
+  .fiestas-penas-app {
+    min-height: 100vh;
+  }
+
+  .penas-screen {
+    width: min(100%, 74rem);
+    margin: 0 auto;
+    padding: 1.1rem 1rem 2rem;
+  }
+
+  .penas-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.1rem;
+  }
+
+  .penas-brand {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.7rem;
+    color: #17324a;
+  }
+
+  .penas-brand img {
+    width: 2.65rem;
+    height: 2.65rem;
+    object-fit: contain;
+  }
+
+  .penas-brand span {
+    display: grid;
+    gap: 0.05rem;
+  }
+
+  .penas-brand small,
+  .penas-section-kicker {
+    color: #ba6d18;
+    font-size: 0.64rem;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+    line-height: 1.1;
+  }
+
+  .penas-brand strong {
+    font-size: 1.15rem;
+    font-weight: 950;
+    line-height: 1.1;
+  }
+
+  .penas-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-bottom: 1px solid transparent;
+    color: #336699;
+    font-size: 0.78rem;
+    font-weight: 850;
+  }
+
+  .penas-back-link:hover,
+  .penas-back-link:focus-visible {
+    border-bottom-color: currentColor;
+  }
+
+  .penas-intro {
+    max-width: 39rem;
+    padding: 3.2rem 0 2.3rem;
+  }
+
+  .penas-intro .fiestas-plan-kicker {
+    margin: 0 0 0.55rem;
+    color: #ba6d18;
+  }
+
+  .penas-intro h1 {
+    max-width: 33rem;
+    margin: 0;
+    color: #17324a;
+    font-size: clamp(2rem, 5vw, 3.35rem);
+    font-weight: 950;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+  }
+
+  .penas-intro > p:last-child {
+    max-width: 31rem;
+    margin: 1rem 0 0;
+    color: #596a78;
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .penas-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(19rem, 0.65fr);
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .penas-map-column,
+  .penas-list-column {
+    min-width: 0;
+    border: 1px solid #d4e0e3;
+    border-radius: 1.15rem;
+    background: #f7fbfb;
+    box-shadow: 0 0.9rem 2.5rem rgba(23, 50, 74, 0.07);
+  }
+
+  .penas-map-column {
+    overflow: hidden;
+  }
+
+  .penas-list-column {
+    padding: 1rem;
+  }
+
+  .penas-section-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.05rem 0.8rem;
+  }
+
+  .penas-list-head {
+    padding: 0 0 0.85rem;
+  }
+
+  .penas-section-head h2 {
+    margin: 0.2rem 0 0;
+    color: #17324a;
+    font-size: 1.25rem;
+    font-weight: 950;
+    letter-spacing: -0.03em;
+  }
+
+  .penas-map-count,
+  .penas-list-count {
+    color: #73818b;
+    font-size: 0.72rem;
+    font-weight: 850;
+    white-space: nowrap;
+  }
+
+  .penas-map {
+    min-height: min(62vh, 38rem);
+    background: #d9e5e5;
+  }
+
+  .penas-map.is-error {
+    display: grid;
+    min-height: min(62vh, 38rem);
+    place-items: center;
+    padding: 2rem;
+    color: #667085;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .penas-map-source {
+    margin: 0;
+    padding: 0.7rem 1.05rem 0.9rem;
+    color: #7a8991;
+    font-size: 0.68rem;
+    line-height: 1.4;
+  }
+
+  .penas-map-source a {
+    color: #336699;
+    font-weight: 750;
+  }
+
+  .penas-search {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid #cbd9dc;
+    border-radius: 0.75rem;
+    background: #fff;
+    padding: 0.7rem 0.8rem;
+    color: #71808a;
+  }
+
+  .penas-search input {
+    min-width: 0;
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #17324a;
+    font: inherit;
+    font-size: 0.84rem;
+  }
+
+  .penas-list {
+    max-height: min(62vh, 38rem);
+    margin-top: 0.7rem;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .penas-list-item {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: 0.55rem;
+    align-items: center;
+    border: 0;
+    border-bottom: 1px solid #dfe8e9;
+    background: transparent;
+    padding: 0.74rem 0.1rem;
+    color: #17324a;
+    text-align: left;
+    transition: background 150ms ease, padding 150ms ease;
+  }
+
+  .penas-list-item:hover,
+  .penas-list-item:focus-visible,
+  .penas-list-item.is-selected {
+    background: #edf5f5;
+    padding-right: 0.45rem;
+    padding-left: 0.45rem;
+  }
+
+  .penas-list-item.is-selected {
+    color: #9b5b16;
+  }
+
+  .penas-list-index {
+    color: #a8b6bb;
+    font-size: 0.68rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 900;
+  }
+
+  .penas-list-copy {
+    display: grid;
+    min-width: 0;
+    gap: 0.18rem;
+  }
+
+  .penas-list-copy strong {
+    overflow: hidden;
+    font-size: 0.86rem;
+    font-weight: 850;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .penas-list-copy small {
+    color: #819099;
+    font-size: 0.66rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .penas-list-item > i {
+    color: #9caab0;
+    font-size: 0.7rem;
+  }
+
+  .penas-empty {
+    margin: 1rem 0 0;
+    color: #71808a;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .penas-map-marker.leaflet-div-icon {
+    border: 0;
+    background: transparent;
+  }
+
+  .penas-map-marker button {
+    display: grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    place-items: center;
+    border: 2px solid #fff;
+    border-radius: 50% 50% 50% 0;
+    background: #ba6d18;
+    box-shadow: 0 0.3rem 0.8rem rgba(23, 50, 74, 0.28);
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.78rem;
+    transform: rotate(-45deg);
+    transition: background 150ms ease, transform 150ms ease;
+  }
+
+  .penas-map-marker button i {
+    transform: rotate(45deg);
+  }
+
+  .penas-map-marker.is-selected button,
+  .penas-map-marker button:hover,
+  .penas-map-marker button:focus-visible {
+    background: #17324a;
+    transform: rotate(-45deg) scale(1.16);
+  }
+
+  .penas-popup {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 10rem;
+    color: #17324a;
+  }
+
+  .penas-popup-kicker {
+    color: #ba6d18;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+
+  .penas-popup strong {
+    font-size: 1rem;
+    line-height: 1.15;
+  }
+
+  .penas-popup a {
+    color: #336699;
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+
+  html.dark .penas-brand,
+  html.dark .penas-intro h1,
+  html.dark .penas-section-head h2,
+  html.dark .penas-list-item,
+  html.dark .penas-search input,
+  html.dark .penas-popup {
+    color: #e5edf0;
+  }
+
+  html.dark .penas-map-column,
+  html.dark .penas-list-column {
+    border-color: #35454e;
+    background: #18242c;
+    box-shadow: none;
+  }
+
+  html.dark .penas-intro > p:last-child,
+  html.dark .penas-map-source,
+  html.dark .penas-list-copy small,
+  html.dark .penas-map-count,
+  html.dark .penas-list-count,
+  html.dark .penas-empty {
+    color: #aab9bf;
+  }
+
+  html.dark .penas-search {
+    border-color: #3b4c55;
+    background: #111b21;
+  }
+
+  html.dark .penas-list-item {
+    border-bottom-color: #2c3b43;
+  }
+
+  html.dark .penas-list-item:hover,
+  html.dark .penas-list-item:focus-visible,
+  html.dark .penas-list-item.is-selected {
+    background: #24363e;
+  }
+
+  @media (max-width: 860px) {
+    .penas-workspace {
+      grid-template-columns: 1fr;
+    }
+
+    .penas-list {
+      max-height: 28rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .penas-screen {
+      padding-top: 0.75rem;
+    }
+
+    .penas-intro {
+      padding: 2.5rem 0 1.8rem;
+    }
+
+    .penas-intro h1 {
+      font-size: 2.35rem;
+    }
+
+    .penas-map {
+      min-height: 55vh;
+    }
+  }
+}
+
+@layer components {
+  .fiestas-penas-app .penas-map-sheet {
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+
+  .fiestas-penas-app .penas-map-sheet.is-expanded {
+    height: min(42dvh, 22rem);
+    max-height: min(42dvh, 22rem);
+  }
+
+  .fiestas-penas-app .penas-map-sheet.is-expanded .penas-sheet-list {
+    max-height: calc(min(42dvh, 22rem) - 8.5rem);
+  }
+
+  .fiestas-penas-app .penas-map-result {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .fiestas-penas-app .penas-map-result-main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fiestas-penas-app .penas-map-result .fiestas-map-result-focus {
+    display: grid;
+    width: 2.75rem;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    min-height: 2.75rem;
+    place-items: center;
+    align-self: center;
+    border: 0;
+    border-radius: 9999px;
+    background: transparent;
+    color: #3f7fb5;
+    font-size: 1.15rem;
+    padding: 0;
+  }
+
+  .fiestas-penas-app .penas-map-result .fiestas-map-result-focus:hover,
+  .fiestas-penas-app .penas-map-result .fiestas-map-result-focus:focus-visible {
+    background: rgba(63, 127, 181, 0.1);
+    color: #28547e;
+    outline: 3px solid rgba(63, 127, 181, 0.18);
+    outline-offset: 1px;
+  }
+
+  .fiestas-penas-app .penas-map-marker button {
+    background: var(--pena-color, #ba6d18);
+  }
+
+  .fiestas-penas-app .penas-map-marker.is-selected button,
+  .fiestas-penas-app .penas-map-marker button:hover,
+  .fiestas-penas-app .penas-map-marker button:focus-visible {
+    background: var(--pena-color, #ba6d18);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--pena-color, #ba6d18) 28%, transparent), 0 0.45rem 1.1rem rgba(15, 23, 42, 0.28);
+  }
+
+  .fiestas-penas-app .penas-map-sheet.is-dragging {
+    transition: none;
+  }
+
+  .fiestas-penas-app .penas-popup-route {
+    display: inline-grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border-radius: 9999px;
+    color: #336699;
+    font-size: 1.15rem;
+  }
+
+  .fiestas-penas-app .penas-popup-title-row {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.55rem;
+  }
+
+  .fiestas-penas-app .penas-popup-title-row strong {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .fiestas-penas-app .penas-popup-route:hover,
+  .fiestas-penas-app .penas-popup-route:focus-visible {
+    background: rgba(63, 127, 181, 0.1);
+    color: #28547e;
+    outline: 3px solid rgba(63, 127, 181, 0.18);
+    outline-offset: 1px;
+  }
+
+  .fiestas-penas-app .penas-map-topbar {
+    top: auto;
+    right: 0.85rem;
+    bottom: calc(11.75rem + env(safe-area-inset-bottom));
+    z-index: 25;
+  }
+
+  .fiestas-penas-app .penas-map-view.is-sheet-expanded .penas-map-topbar {
+    top: auto;
+    bottom: calc(min(42dvh, 22rem) + 1rem);
+  }
+
+  .fiestas-penas-app .leaflet-top.leaflet-right {
+    top: calc(max(0.55rem, env(safe-area-inset-top)) + 5.8rem);
+    right: 0.85rem;
+    z-index: 24;
+  }
+
+  .fiestas-penas-app .leaflet-control-zoom {
+    overflow: hidden;
+    border: 1px solid #d7dde7;
+    border-radius: 9999px;
+    box-shadow: 0 0.8rem 1.9rem rgba(15, 23, 42, 0.18);
+  }
+
+  .fiestas-penas-app .leaflet-control-zoom a {
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 0;
+    background: #fff;
+    color: #1f2937;
+    font-size: 1.25rem;
+    line-height: 2.65rem;
+  }
+
+  .fiestas-penas-app .leaflet-control-zoom a + a {
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .fiestas-penas-app .fiestas-map-control[disabled] {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  html.dark .fiestas-penas-app .leaflet-control-zoom,
+  html.dark .fiestas-penas-app .leaflet-control-zoom a {
+    border-color: #3a4b59;
+    background: #18242c;
+    color: #e5edf0;
+  }
+
+  html.dark .fiestas-penas-app .leaflet-control-zoom a + a {
+    border-top-color: #3a4b59;
   }
 }

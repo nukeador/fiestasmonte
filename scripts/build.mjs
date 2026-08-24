@@ -84,7 +84,7 @@ async function compileCss(cssVersionSeed) {
 async function copyJs(jsVersionSeed) {
   const jsDir = path.join(dist, 'assets', 'js');
   await fs.mkdir(jsDir, { recursive: true });
-  const files = ['analytics.js', 'plan-storage.js', 'plan-export.js', 'plans-page.js', 'community-plans.js', 'popular-page.js', 'fiestas-2026.js', 'menu-drawer.js', 'pwa.js', 'scroll-top.js', 'subscribe.js', 'theme.js'];
+  const files = ['analytics.js', 'plan-storage.js', 'plan-export.js', 'plans-page.js', 'community-plans.js', 'popular-page.js', 'fiestas-2026.js', 'penas-page.js', 'map-directions.js', 'menu-drawer.js', 'pwa.js', 'scroll-top.js', 'subscribe.js', 'theme.js'];
   for (const file of files) {
     const content = await fs.readFile(path.join(root, 'src', 'scripts', file), 'utf8');
     await fs.writeFile(path.join(jsDir, file), content);
@@ -172,6 +172,39 @@ async function copyCommunityPlansData(assetVersionSeed) {
   await writeFile('data/planes.json', content);
   assetVersionSeed.push(['data/planes.json', createHash('sha256').update(content).digest('hex')]);
   return plans;
+}
+
+async function loadPenas() {
+  const sourcePath = path.join(root, 'src', 'data', 'penas.json');
+  const value = JSON.parse(await fs.readFile(sourcePath, 'utf8'));
+  if (!value || typeof value !== 'object' || !Array.isArray(value.peñas) || !value.peñas.length) {
+    throw new Error('The peñas catalog must contain a non-empty peñas array.');
+  }
+
+  const ids = new Set();
+  const penas = value.peñas.map((entry, index) => {
+    const id = Number(entry?.id);
+    const name = String(entry?.name || '').trim();
+    const lat = Number(entry?.coordinates?.lat);
+    const lng = Number(entry?.coordinates?.lng);
+    if (!Number.isInteger(id) || id < 1 || ids.has(id)) throw new Error(`Peña ${index + 1} has an invalid or duplicated id.`);
+    if (!name) throw new Error(`Peña ${index + 1} must have a name.`);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) throw new Error(`Peña "${name}" must have valid coordinates.`);
+    ids.add(id);
+    return { id, name, coordinates: { lat, lng } };
+  });
+
+  return {
+    sourceUrl: String(value.sourceUrl || '').trim(),
+    sourceName: String(value.sourceName || 'Mapa público de peñas').trim(),
+    penas
+  };
+}
+
+async function copyPenasData(assetVersionSeed, penasData) {
+  const content = JSON.stringify(penasData, null, 2) + '\n';
+  await writeFile('data/penas.json', content);
+  assetVersionSeed.push(['data/penas.json', createHash('sha256').update(content).digest('hex')]);
 }
 
 function normalizeCommunityPlanUrl(value) {
@@ -633,6 +666,8 @@ async function build() {
   await compileCss(cssVersionSeed);
   const jsFiles = await copyJs(jsVersionSeed);
   await copyStaticAssets(assetVersionSeed);
+  const penasData = await loadPenas();
+  await copyPenasData(assetVersionSeed, penasData);
   const communityPlans = await copyCommunityPlansData(assetVersionSeed);
   await copyCommunityPlanFiles(assetVersionSeed);
   const communityPlanMemberships = await loadCommunityPlanMemberships(communityPlans);
@@ -690,6 +725,23 @@ async function build() {
       title: `Mapa | ${site.name}`,
       url: publicBaseUrl + '/mapa/'
     }
+  }));
+
+  await writeFile('penas/index.html', render('fiestas-2026-penas.njk', {
+    ...pageContext(versions),
+    title: `Peñas | ${site.name}`,
+    meta: { description: 'Mapa público de las peñas de Montemayor de Pililla y sus coordenadas.' },
+    canonicalUrl: publicBaseUrl + '/penas/',
+    social: {
+      ...homeContext.social,
+      title: `Peñas | ${site.name}`,
+      description: 'Mapa público de las peñas de Montemayor de Pililla y sus coordenadas.',
+      imageAlt: `Mapa de peñas de ${site.location.name}`,
+      url: publicBaseUrl + '/penas/'
+    },
+    penas: penasData.penas,
+    penasJson: JSON.stringify(penasData.penas),
+    penasSourceUrl: penasData.sourceUrl
   }));
 
   await writeFile('populares/index.html', render('fiestas-2026-popular.njk', {
@@ -787,7 +839,7 @@ async function build() {
     }));
   }
 
-  const urls = ['/', '/mapa/', '/populares/', '/planes/', ...communityPlans.map((plan) => `/planes/${plan.id}/`), ...events.map((event) => event.urlPath)];
+  const urls = ['/', '/mapa/', '/penas/', '/populares/', '/planes/', ...communityPlans.map((plan) => `/planes/${plan.id}/`), ...events.map((event) => event.urlPath)];
   const sitemap = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
