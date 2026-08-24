@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "festival": "montemayor-2026",
+  "plans": [
+    {
+      "name": "Todos los encierros",
+      "icon": "layers",
+      "activityIds": ["24", "25", "28", "29"]
+    }
+  ]
+}

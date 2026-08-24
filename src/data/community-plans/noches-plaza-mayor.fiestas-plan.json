@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "festival": "montemayor-2026",
+  "plans": [
+    {
+      "name": "Noches de baile en la Plaza Mayor",
+      "icon": "music",
+      "activityIds": ["18", "23", "27", "31", "34"]
+    }
+  ]
+}
