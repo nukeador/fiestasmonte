@@ -8245,6 +8245,10 @@ html.dark .fiestas-community-plan-detail-icon {
     border-top-color: #3a4b59;
   }
 
+  html.dark .fiestas-penas-app .penas-map-marker button {
+    border-color: #18242c;
+  }
+
   html.dark .fiestas-penas-app .leaflet-popup-content-wrapper,
   html.dark .fiestas-penas-app .leaflet-popup-tip {
     border-color: #35454e;
