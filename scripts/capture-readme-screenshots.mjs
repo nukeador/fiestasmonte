@@ -74,7 +74,7 @@ const shots = [
   },
   {
     name: '06-detalle-evento.png',
-    path: '/e/433/paella-popular/',
+    path: '/e/19/paella-popular/',
     viewport: { width: 1440, height: 1100 },
     prepare: async (page) => {
       await page.waitForSelector('.fiestas-detail');
