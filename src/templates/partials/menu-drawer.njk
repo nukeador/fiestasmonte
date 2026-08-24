@@ -65,6 +65,19 @@
   </aside>
 </div>
 
+<div class="install-progress-modal" data-pwa-install-progress hidden>
+  <button class="install-progress-modal-backdrop" type="button" data-pwa-install-progress-close aria-label="Cerrar estado de instalación"></button>
+  <section class="install-progress-modal-panel" role="dialog" aria-modal="true" aria-labelledby="pwa-install-progress-title" aria-describedby="pwa-install-progress-copy">
+    <button class="install-progress-modal-close" type="button" data-pwa-install-progress-close aria-label="Cerrar estado de instalación">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+    <span class="install-progress-spinner" aria-hidden="true"></span>
+    <h2 id="pwa-install-progress-title">Instalando tu aplicación</h2>
+    <p class="fiestas-plan-kicker">EN TU DISPOSITIVO</p>
+    <p id="pwa-install-progress-copy">La aplicación aparecerá en tu pantalla de inicio en unos segundos.</p>
+  </section>
+</div>
+
 <div class="install-app-modal" data-pwa-ios-help hidden>
   <button class="install-app-modal-backdrop" type="button" data-pwa-ios-help-backdrop aria-label="Cerrar ayuda"></button>
   <section class="install-app-modal-panel" role="dialog" aria-modal="true" aria-labelledby="pwa-ios-help-title">

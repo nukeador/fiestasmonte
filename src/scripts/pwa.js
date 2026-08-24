@@ -8,11 +8,17 @@ import {
 } from './analytics.js';
 
 const DISMISSED_KEY = 'fiestasMonte:pwa-install-dismissed';
-const INSTALLED_KEY = 'fiestasMonte:pwa-installed';
 const IOS_HELP_SEEN_KEY = 'fiestasMonte:pwa-ios-help-seen';
 let deferredInstallPrompt = null;
 let previousFocus = null;
 let installRequestSource = 'install';
+let installProgressTimer = null;
+let installProgressHideTimer = null;
+let installProgressShownAt = 0;
+let installCompleted = false;
+
+const INSTALL_PROGRESS_TIMEOUT = 25000;
+const INSTALL_PROGRESS_MIN_VISIBLE = 12000;
 
 function isStandalone() {
   return window.matchMedia?.('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -37,20 +43,6 @@ function setDismissed() {
   } catch (_) {}
 }
 
-function wasInstalled() {
-  try {
-    return window.localStorage.getItem(INSTALLED_KEY) === 'true';
-  } catch (_) {
-    return false;
-  }
-}
-
-function markInstalled() {
-  try {
-    window.localStorage.setItem(INSTALLED_KEY, 'true');
-  } catch (_) {}
-}
-
 function wasIosHelpSeen() {
   try {
     return window.localStorage.getItem(IOS_HELP_SEEN_KEY) === 'true';
@@ -66,7 +58,7 @@ function markIosHelpSeen() {
 }
 
 function updateInstallHint() {
-  const installed = isStandalone() || wasInstalled();
+  const installed = isStandalone();
   const installButton = document.querySelector('[data-pwa-install]');
   const iosButton = document.querySelector('[data-pwa-ios-help-open]');
   const installDot = document.querySelector('[data-pwa-install-hint]');
@@ -78,7 +70,7 @@ function updateInstallHint() {
 function updateInstallActions() {
   const installButton = document.querySelector('[data-pwa-install]');
   const iosButton = document.querySelector('[data-pwa-ios-help-open]');
-  const installed = isStandalone() || wasInstalled();
+  const installed = isStandalone();
   const dismissed = wasDismissed();
   const canInstall = Boolean(deferredInstallPrompt) && !installed;
   const canShowInlineInstall = canInstall && !dismissed;
@@ -112,6 +104,43 @@ function getIosDialog() {
   return document.querySelector('[data-pwa-ios-help]');
 }
 
+function getInstallProgressDialog() {
+  return document.querySelector('[data-pwa-install-progress]');
+}
+
+function hideInstallProgress() {
+  const dialog = getInstallProgressDialog();
+  if (installProgressTimer) window.clearTimeout(installProgressTimer);
+  if (installProgressHideTimer) window.clearTimeout(installProgressHideTimer);
+  installProgressTimer = null;
+  installProgressHideTimer = null;
+  if (dialog) dialog.hidden = true;
+}
+
+function scheduleInstallProgressHide() {
+  const dialog = getInstallProgressDialog();
+  if (!dialog || dialog.hidden) return;
+  const elapsed = Date.now() - installProgressShownAt;
+  const delay = Math.max(0, INSTALL_PROGRESS_MIN_VISIBLE - elapsed);
+  if (installProgressHideTimer) window.clearTimeout(installProgressHideTimer);
+  installProgressHideTimer = window.setTimeout(() => {
+    installProgressHideTimer = null;
+    hideInstallProgress();
+  }, delay);
+}
+
+function showInstallProgress() {
+  const dialog = getInstallProgressDialog();
+  if (!dialog) return;
+  dialog.hidden = false;
+  installProgressShownAt = Date.now();
+  if (installProgressTimer) window.clearTimeout(installProgressTimer);
+  if (installProgressHideTimer) window.clearTimeout(installProgressHideTimer);
+  installProgressTimer = window.setTimeout(hideInstallProgress, INSTALL_PROGRESS_TIMEOUT);
+  installProgressHideTimer = null;
+  if (installCompleted) scheduleInstallProgressHide();
+}
+
 function openIosHelp() {
   const dialog = getIosDialog();
   if (!dialog) return;
@@ -141,10 +170,11 @@ async function promptInstall(source = 'install') {
 
   let choice;
   try {
-    await promptEvent.prompt();
+    promptEvent.prompt();
     choice = await promptEvent.userChoice;
   } catch (_) {
     deferredInstallPrompt = null;
+    hideInstallProgress();
     installRequestSource = 'install';
     updateInstallActions();
     return false;
@@ -153,7 +183,9 @@ async function promptInstall(source = 'install') {
   deferredInstallPrompt = null;
   if (choice.outcome === 'accepted') {
     trackPwaInstallAccepted(source);
+    showInstallProgress();
   } else if (choice.outcome === 'dismissed') {
+    hideInstallProgress();
     setDismissed();
     trackPwaInstallCancelled(source);
     installRequestSource = 'install';
@@ -177,15 +209,17 @@ export function setupPwa() {
 
   window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
+    installCompleted = false;
     deferredInstallPrompt = event;
     updateInstallActions();
   });
 
   window.addEventListener('appinstalled', () => {
-    markInstalled();
     deferredInstallPrompt = null;
+    installCompleted = true;
     trackPwaInstalled(installRequestSource);
     installRequestSource = 'install';
+    scheduleInstallProgressHide();
     updateInstallActions();
   });
 
@@ -198,6 +232,11 @@ export function setupPwa() {
   });
 
   document.addEventListener('click', (event) => {
+    if (event.target.closest('[data-pwa-install-progress-close]')) {
+      event.preventDefault();
+      hideInstallProgress();
+      return;
+    }
     if (event.target.closest('[data-pwa-install]')) {
       event.preventDefault();
       updateInstallHint();
@@ -219,6 +258,8 @@ export function setupPwa() {
   window.addEventListener('keydown', (event) => {
     const dialog = getIosDialog();
     if (event.key === 'Escape' && dialog && !dialog.hidden) closeIosHelp();
+    const progressDialog = getInstallProgressDialog();
+    if (event.key === 'Escape' && progressDialog && !progressDialog.hidden) hideInstallProgress();
   });
 }
 
