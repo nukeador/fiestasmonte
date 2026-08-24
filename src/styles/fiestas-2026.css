@@ -624,76 +624,6 @@
     flex: 0 0 auto;
   }
 
-  .fiestas-fiestas-switch {
-    position: relative;
-    display: inline-flex;
-    min-height: 3rem;
-    align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    border: 1px solid #e3e6ec;
-    border-radius: 9999px;
-    background: #fff;
-    color: #252b37;
-    cursor: pointer;
-    overflow: hidden;
-    padding: 0 0.7rem;
-    font-size: clamp(0.8rem, 3vw, 0.95rem);
-    font-weight: 800;
-    white-space: nowrap;
-  }
-
-  .fiestas-fiestas-switch input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .fiestas-fiestas-switch:focus-within {
-    outline: 3px solid rgba(63, 127, 181, 0.28);
-    outline-offset: 2px;
-  }
-
-  .fiestas-switch-control {
-    display: inline-flex;
-    width: 2.35rem;
-    height: 1.35rem;
-    flex: 0 0 auto;
-    align-items: center;
-    border: 1px solid #cbd5e1;
-    border-radius: 9999px;
-    background: #e8eef3;
-    padding: 0.12rem;
-    transition: background 160ms ease, border-color 160ms ease;
-  }
-
-  .fiestas-switch-thumb {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.22);
-    transform: translateX(0);
-    transition: transform 160ms ease;
-  }
-
-  .fiestas-fiestas-switch input:checked + .fiestas-switch-control {
-    border-color: #3f7fb5;
-    background: #3f7fb5;
-  }
-
-  .fiestas-fiestas-switch input:checked + .fiestas-switch-control .fiestas-switch-thumb {
-    transform: translateX(1rem);
-  }
-
-  .fiestas-fiestas-switch.is-active {
-    border-color: #3f7fb5;
-    background: #3f7fb5;
-    color: #fff;
-  }
-
   .fiestas-type-menu-button,
   .fiestas-favorite-filter,
   .fiestas-clear-filter,
@@ -743,6 +673,12 @@
   .fiestas-type-menu-button {
     min-height: 2.5rem;
     border-radius: 0.72rem;
+  }
+
+  .fiestas-fiestas-toggle {
+    gap: 0.35rem;
+    padding-right: 0.45rem;
+    padding-left: 0.45rem;
   }
 
   .fiestas-filter-row .fiestas-favorite-filter {
@@ -3182,7 +3118,6 @@
   html.dark .fiestas-date-nav,
   html.dark .fiestas-search,
   html.dark .fiestas-type-menu-button,
-  html.dark .fiestas-fiestas-switch,
   html.dark .fiestas-favorite-filter,
   html.dark .fiestas-clear-filter,
   html.dark .fiestas-type-list,

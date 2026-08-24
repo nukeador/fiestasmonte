@@ -123,7 +123,7 @@ const els = {
   areaList: document.querySelector('[data-fiestas-areas]'),
   areaToggle: document.querySelector('[data-fiestas-areas-toggle]'),
   areaLabel: document.querySelector('[data-fiestas-areas-label]'),
-  fiestasSwitch: document.querySelector('[data-fiestas-only]'),
+  fiestasToggle: document.querySelector('[data-fiestas-fiestas-toggle]'),
   siteShare: document.querySelector('[data-fiestas-share-site]'),
   siteShareFeedback: document.querySelector('[data-fiestas-share-feedback]'),
   searchToggle: document.querySelector('[data-fiestas-search-toggle]'),
@@ -392,8 +392,8 @@ function bindControls() {
     render({ updateUrl: true });
   });
 
-  els.fiestasSwitch?.addEventListener('change', (event) => {
-    state.onlyFiestas = event.target.checked;
+  els.fiestasToggle?.addEventListener('click', () => {
+    state.onlyFiestas = !state.onlyFiestas;
     trackFilterApplied('fiestas', state.onlyFiestas ? 'only' : 'all', state.view);
     state.focusedClusterEventIds = null;
     render({ updateUrl: true });
@@ -1409,9 +1409,6 @@ function renderCheckedFilters() {
   document.querySelectorAll('input[data-area]').forEach((input) => {
     input.checked = state.selectedAreas.has(input.dataset.area || input.value);
   });
-  document.querySelectorAll('input[data-fiestas-only]').forEach((input) => {
-    input.checked = state.onlyFiestas;
-  });
 }
 
 function renderFilterLabels() {
@@ -1419,7 +1416,8 @@ function renderFilterLabels() {
   if (els.areaLabel) els.areaLabel.textContent = setLabel(state.selectedAreas, 'Zonas', 'zona', 'zonas');
   els.typeToggle?.classList.toggle('is-active', state.selectedTypes.size > 0);
   els.areaToggle?.classList.toggle('is-active', state.selectedAreas.size > 0);
-  els.fiestasSwitch?.closest('[data-fiestas-fiestas-switch]')?.classList.toggle('is-active', state.onlyFiestas);
+  els.fiestasToggle?.classList.toggle('is-active', state.onlyFiestas);
+  els.fiestasToggle?.setAttribute('aria-pressed', String(state.onlyFiestas));
   if (els.clearFilters) els.clearFilters.hidden = !hasActiveFilters();
 }
 
