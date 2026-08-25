@@ -558,6 +558,14 @@ function monthLabel(date = '') {
   return months[String(date).split('-')[1]] || '';
 }
 
+function formatSummaryDateRange(dates = []) {
+  const first = dates[0];
+  const last = dates.at(-1);
+  if (!first || !last) return '';
+  if (first.monthLabel === last.monthLabel) return `${first.dayNumber}–${last.dayNumber} ${first.monthLabel}`;
+  return `${first.dayNumber} ${first.monthLabel} – ${last.dayNumber} ${last.monthLabel}`;
+}
+
 function sortMinutes(time = '') {
   if (!time) return 99 * 60;
   const [hour, minute] = String(time).split(':').map(Number);
@@ -736,7 +744,7 @@ async function build() {
     ? site.socialImagePath
     : publicBaseUrl + site.socialImagePath;
   const dateRange = summary.dates.length
-    ? `${summary.dates[0].dayNumber}–${summary.dates.at(-1).dayNumber} ${summary.dates[0].monthLabel}`
+    ? formatSummaryDateRange(summary.dates)
     : site.location.name;
 
   const homeContext = {
