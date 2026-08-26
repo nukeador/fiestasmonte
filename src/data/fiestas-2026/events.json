@@ -1541,9 +1541,9 @@
     "startTime": "14:00",
     "endTime": null,
     "title": "IV Bingo Bingo",
-    "location": null,
-    "description": "IV Bingo Bingo, organizado por Noelia, Begoña y Mikel, aproximadamente después del encierro. El dinero recaudado será para las actividades de peñas del año que viene.",
-    "summary": "IV Bingo Bingo, organizado por Noelia, Begoña y Mikel, aproximadamente después del encierro. El dinero recaudado será para las actividades de peñas del año que viene.",
+    "location": "Plaza Mayor",
+    "description": "IV Bingo Bingo en la Plaza Mayor de Montemayor de Pililla, organizado por Noelia, Begoña y Mikel, aproximadamente después del encierro. El dinero recaudado será para las actividades de peñas del año que viene.",
+    "summary": "IV Bingo Bingo en la Plaza Mayor de Montemayor de Pililla, organizado por Noelia, Begoña y Mikel, aproximadamente después del encierro. El dinero recaudado será para las actividades de peñas del año que viene.",
     "performances": [],
     "organizers": [
       "Noelia",
@@ -1551,7 +1551,11 @@
       "Mikel"
     ],
     "collaborators": [],
-    "coordinates": null,
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
     "type": "Peñas",
     "ticket": {
       "required": false,
