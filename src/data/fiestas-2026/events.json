@@ -1370,14 +1370,14 @@
   },
   {
     "id": 44,
-    "date": "2026-09-12",
-    "dateLabel": "Sábado 12 de septiembre",
-    "startTime": "12:00",
+    "date": "2026-09-13",
+    "dateLabel": "Domingo 13 de septiembre",
+    "startTime": "02:00",
     "endTime": null,
     "title": "Fiesta del Corzo III",
     "location": "Peña La Movida",
-    "description": "Fiesta del Corzo III, organizada por la peña La Movida, desde aproximadamente las 12:00, después del encierro de las 10:00, y con actividades de peña entre un encierro y el siguiente.",
-    "summary": "Fiesta del Corzo III, organizada por la peña La Movida, desde aproximadamente las 12:00, después del encierro de las 10:00, y con actividades de peña entre un encierro y el siguiente.",
+    "description": "Fiesta del Corzo III, organizada por la peña La Movida, desde aproximadamente las 02:00, después del segundo encierro nocturno de la 01:00 y antes del segundo encierro por el campo de las 10:00.",
+    "summary": "Fiesta del Corzo III, organizada por la peña La Movida, desde aproximadamente las 02:00, después del segundo encierro nocturno de la 01:00 y antes del segundo encierro por el campo de las 10:00.",
     "performances": [],
     "organizers": [
       "Peña La Movida"
@@ -1504,14 +1504,14 @@
   },
   {
     "id": 48,
-    "date": "2026-09-14",
-    "dateLabel": "Lunes 14 de septiembre",
-    "startTime": "21:00",
+    "date": "2026-09-15",
+    "dateLabel": "Martes 15 de septiembre",
+    "startTime": "04:30",
     "endTime": null,
     "title": "Fiesta de la pintura",
     "location": "Peña La Talankera",
-    "description": "Fiesta de la pintura, organizada por la peña La Talankera, después de la sesión de baile.",
-    "summary": "Fiesta de la pintura, organizada por la peña La Talankera, después de la sesión de baile.",
+    "description": "Fiesta de la pintura, organizada por la peña La Talankera, aproximadamente a las 04:30 del martes 15 de septiembre, después de la sesión de baile del lunes.",
+    "summary": "Fiesta de la pintura, organizada por la peña La Talankera, aproximadamente a las 04:30 del martes 15 de septiembre, después de la sesión de baile del lunes.",
     "performances": [],
     "organizers": [
       "Peña La Talankera"
