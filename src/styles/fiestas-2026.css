@@ -8346,4 +8346,69 @@ html.dark .fiestas-community-plan-detail-icon {
       display: none;
     }
   }
+
+  /* Los controles azules mantienen contraste en oscuro sin reutilizar el azul claro. */
+  html.dark .fiestas-type-menu-button.is-active,
+  html.dark .fiestas-favorite-filter.is-active,
+  html.dark .fiestas-active-chip,
+  html.dark .fiestas-filter-accept,
+  html.dark .fiestas-map-filter-toggle.is-active,
+  html.dark .fiestas-detail-copy-button,
+  html.dark .fiestas-community-primary,
+  html.dark .fiestas-plan-action-primary,
+  html.dark .fiestas-plan-share-button,
+  html.dark .fiestas-plan-share-native,
+  html.dark .fiestas-community-plan-add,
+  html.dark .fiestas-plan-date.is-active {
+    background: #285b80;
+    color: #f3f7fa;
+  }
+
+  html.dark .fiestas-type-menu-button.is-active,
+  html.dark .fiestas-favorite-filter.is-active,
+  html.dark .fiestas-active-chip,
+  html.dark .fiestas-filter-accept,
+  html.dark .fiestas-map-filter-toggle.is-active,
+  html.dark .fiestas-plan-action-primary,
+  html.dark .fiestas-plan-share-native {
+    border-color: #3d78a0;
+  }
+
+  html.dark .fiestas-type-menu-button.is-active:hover,
+  html.dark .fiestas-type-menu-button.is-active:focus-visible,
+  html.dark .fiestas-favorite-filter.is-active:hover,
+  html.dark .fiestas-favorite-filter.is-active:focus-visible,
+  html.dark .fiestas-filter-accept:hover,
+  html.dark .fiestas-filter-accept:focus-visible,
+  html.dark .fiestas-map-filter-toggle.is-active:hover,
+  html.dark .fiestas-map-filter-toggle.is-active:focus-visible,
+  html.dark .fiestas-detail-copy-button:hover,
+  html.dark .fiestas-community-primary:hover,
+  html.dark .fiestas-community-primary:focus-visible,
+  html.dark .fiestas-plan-action-primary:hover,
+  html.dark .fiestas-plan-action-primary:focus-visible,
+  html.dark .fiestas-plan-share-button:hover,
+  html.dark .fiestas-plan-share-button:focus-visible,
+  html.dark .fiestas-plan-share-native:hover,
+  html.dark .fiestas-plan-share-native:focus-visible,
+  html.dark .fiestas-community-plan-add:hover,
+  html.dark .fiestas-community-plan-add:focus-visible {
+    background: #36789f;
+    color: #fff;
+  }
+
+  html.dark .fiestas-type-menu-button.is-active:hover,
+  html.dark .fiestas-type-menu-button.is-active:focus-visible,
+  html.dark .fiestas-favorite-filter.is-active:hover,
+  html.dark .fiestas-favorite-filter.is-active:focus-visible,
+  html.dark .fiestas-filter-accept:hover,
+  html.dark .fiestas-filter-accept:focus-visible,
+  html.dark .fiestas-map-filter-toggle.is-active:hover,
+  html.dark .fiestas-map-filter-toggle.is-active:focus-visible,
+  html.dark .fiestas-plan-action-primary:hover,
+  html.dark .fiestas-plan-action-primary:focus-visible,
+  html.dark .fiestas-plan-share-native:hover,
+  html.dark .fiestas-plan-share-native:focus-visible {
+    border-color: #5794b9;
+  }
 }
