@@ -1078,13 +1078,15 @@
     "id": 35,
     "date": "2026-09-09",
     "dateLabel": "Miércoles 9 de septiembre",
-    "startTime": "19:30",
+    "startTime": "20:00",
     "endTime": null,
     "title": "Limonada de peñas",
     "location": "Plaza Mayor",
-    "description": "Limonada organizada por las peñas, con inicio desde la Plaza Mayor.",
-    "summary": "Limonada organizada por las peñas, con inicio desde la Plaza Mayor.",
-    "performances": [],
+    "description": "Limonada organizada por las peñas junto a la charanga “Sal del compás”, con inicio desde la Plaza Mayor.",
+    "summary": "Limonada organizada por las peñas junto a la charanga “Sal del compás”, con inicio desde la Plaza Mayor.",
+    "performances": [
+      "Charanga “Sal del compás”"
+    ],
     "organizers": [
       "Peñas de Montemayor de Pililla"
     ],
@@ -1110,12 +1112,12 @@
     "id": 36,
     "date": "2026-09-09",
     "dateLabel": "Miércoles 9 de septiembre",
-    "startTime": "21:00",
+    "startTime": "01:00",
     "endTime": null,
-    "title": "Fiesta Las Nómadas",
+    "title": "Neon Party",
     "location": "Peña Las Nómadas",
-    "description": "Fiesta de la peña Las Nómadas, aproximadamente después de la limonada de las 19:30.",
-    "summary": "Fiesta de la peña Las Nómadas, aproximadamente después de la limonada de las 19:30.",
+    "description": "Neon Party, organizada por la peña Las Nómadas.",
+    "summary": "Neon Party, organizada por la peña Las Nómadas.",
     "performances": [],
     "organizers": [
       "Peña Las Nómadas"
@@ -1146,8 +1148,8 @@
     "endTime": null,
     "title": "Trucha Sound Festival XI - Sidrada",
     "location": "Peña Los Bugas",
-    "description": "Trucha Sound Festival XI - Sidrada, organizado por la peña Los Bugas aproximadamente después del pregón y el desfile infantil.",
-    "summary": "Trucha Sound Festival XI - Sidrada, organizado por la peña Los Bugas aproximadamente después del pregón y el desfile infantil.",
+    "description": "Trucha Sound Festival XI - Sidrada, organizado por la peña Los Bugas aproximadamente después del pregón.",
+    "summary": "Trucha Sound Festival XI - Sidrada, organizado por la peña Los Bugas aproximadamente después del pregón.",
     "performances": [],
     "organizers": [
       "Peña Los Bugas"
@@ -1176,11 +1178,11 @@
     "date": "2026-09-11",
     "dateLabel": "Viernes 11 de septiembre",
     "startTime": "04:00",
-    "endTime": null,
+    "endTime": "08:00",
     "title": "Fiesta La Teja",
     "location": "Peña Alok-2",
-    "description": "Fiesta de la peña Alok-2. El programa la incluye dentro de la jornada del jueves 10; por su horario, se muestra el viernes 11 a las 04:00.",
-    "summary": "Fiesta de la peña Alok-2. El programa la incluye dentro de la jornada del jueves 10; por su horario, se muestra el viernes 11 a las 04:00.",
+    "description": "Fiesta de la peña Alok-2. El programa la incluye dentro de la jornada del jueves 10; por su horario, se muestra el viernes 11 de 04:00 a 08:00.",
+    "summary": "Fiesta de la peña Alok-2. El programa la incluye dentro de la jornada del jueves 10; por su horario, se muestra el viernes 11 de 04:00 a 08:00.",
     "performances": [],
     "organizers": [
       "Peña Alok-2"
@@ -1506,10 +1508,10 @@
     "dateLabel": "Lunes 14 de septiembre",
     "startTime": "21:00",
     "endTime": null,
-    "title": "Fiesta La Talankera",
+    "title": "Fiesta de la pintura",
     "location": "Peña La Talankera",
-    "description": "Fiesta de la peña La Talankera por la noche. Hora aproximada: 21:00, antes de la sesión de baile de las 23:30.",
-    "summary": "Fiesta de la peña La Talankera por la noche. Hora aproximada: 21:00, antes de la sesión de baile de las 23:30.",
+    "description": "Fiesta de la pintura, organizada por la peña La Talankera, después de la sesión de baile.",
+    "summary": "Fiesta de la pintura, organizada por la peña La Talankera, después de la sesión de baile.",
     "performances": [],
     "organizers": [
       "Peña La Talankera"
@@ -1520,6 +1522,36 @@
       "lng": -4.458080927397533,
       "source": "peñas.montemayordepililla.cc"
     },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El programa no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas"
+    ]
+  },
+  {
+    "id": 56,
+    "date": "2026-09-12",
+    "dateLabel": "Sábado 12 de septiembre",
+    "startTime": "14:00",
+    "endTime": null,
+    "title": "IV Bingo Bingo",
+    "location": null,
+    "description": "IV Bingo Bingo, organizado por Noelia, Begoña y Mikel, aproximadamente después del encierro. El dinero recaudado será para las actividades de peñas del año que viene.",
+    "summary": "IV Bingo Bingo, organizado por Noelia, Begoña y Mikel, aproximadamente después del encierro. El dinero recaudado será para las actividades de peñas del año que viene.",
+    "performances": [],
+    "organizers": [
+      "Noelia",
+      "Begoña",
+      "Mikel"
+    ],
+    "collaborators": [],
+    "coordinates": null,
     "type": "Peñas",
     "ticket": {
       "required": false,
