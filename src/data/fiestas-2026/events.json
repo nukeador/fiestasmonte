@@ -1755,38 +1755,5 @@
     "tags": [
       "Toros"
     ]
-  },
-  {
-    "id": 55,
-    "date": "2026-08-27",
-    "dateLabel": "Jueves 27 de agosto",
-    "startTime": "20:00",
-    "endTime": null,
-    "title": "Actuación de la Semana Cultural de la Asociación “Las Arenas”",
-    "location": "Cine Arenas - Teatro municipal",
-    "description": "Actuación de la Semana Cultural de la Asociación de jubilados y pensionistas “Las Arenas”. La actuación se traslada de la Plaza Mayor al Cine Arenas - Teatro municipal.",
-    "summary": "Actuación de la Semana Cultural de la Asociación de jubilados y pensionistas “Las Arenas”. La actuación se traslada de la Plaza Mayor al Cine Arenas - Teatro municipal.",
-    "performances": [],
-    "organizers": [
-      "Asociación de jubilados y pensionistas “Las Arenas”"
-    ],
-    "collaborators": [],
-    "coordinates": {
-      "lat": 41.5078374,
-      "lng": -4.4562643,
-      "source": "OpenStreetMap Nominatim"
-    },
-    "type": "Otros",
-    "ticket": {
-      "required": false,
-      "status": "unknown",
-      "label": "Entrada no indicada",
-      "url": null,
-      "note": "El comunicado no indica venta de entradas para este evento."
-    },
-    "tags": [
-      "Otros",
-      "Semana Cultural"
-    ]
   }
 ]
