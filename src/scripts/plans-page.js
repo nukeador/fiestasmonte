@@ -3,6 +3,7 @@ import {
   DEFAULT_PLAN_ICON,
   deletePlan,
   getPlanIcon,
+  isUnmodifiedCommunityPlan,
   makeUniquePlanName,
   normalizePlanIcon,
   PLAN_ICON_OPTIONS,
@@ -13,7 +14,8 @@ import {
   setPlanActivity,
   subscribeToPlans,
   updatePlan,
-  writeFavoriteIds
+  writeFavoriteIds,
+  writePlans
 } from './plan-storage.js';
 import { createIcsFile, createPlanImportUrl, decodePlanImportHash, shareFileOrDownload } from './plan-export.js';
 import {
@@ -37,6 +39,7 @@ const MAX_IMPORT_ACTIVITIES = 200;
 const IMPORT_PREVIEW_ACTIVITY_LIMIT = 3;
 const COMMUNITY_PLANS_CATALOG_URL = '/data/planes.json';
 let communityPlansCatalogPromise = null;
+let communityPlansSyncPromise = null;
 let selectorInitialized = false;
 
 export function setupPlansPage(rawEvents = []) {
@@ -61,6 +64,8 @@ export function setupPlansPage(rawEvents = []) {
   let shareDialogUrl = '';
   let shareDialogResolution = 0;
   let deleteDialogReturnFocus = null;
+  let calendarDialogData = null;
+  let calendarDialogReturnFocus = null;
 
   if (state.view === 'plan' && !state.selectedPlanId) state.selectedPlanId = state.plans[0]?.id || '';
 
@@ -95,7 +100,9 @@ export function setupPlansPage(rawEvents = []) {
     shareDialogMessage: document.querySelector('[data-plan-share-message]'),
     shareDialogFeedback: document.querySelector('[data-plan-share-feedback]'),
     shareDialogNative: document.querySelector('[data-plan-share-native]'),
-    shareDialogCopy: document.querySelector('[data-plan-share-copy]')
+    shareDialogCopy: document.querySelector('[data-plan-share-copy]'),
+    calendarDialog: document.querySelector('[data-plan-calendar-dialog]'),
+    calendarDialogDownload: document.querySelector('[data-plan-calendar-download]')
   };
 
   const showShareDialogFeedback = (message, isError = false) => {
@@ -118,6 +125,42 @@ export function setupPlansPage(rawEvents = []) {
     const returnFocus = shareDialogReturnFocus;
     shareDialogReturnFocus = null;
     returnFocus?.focus();
+  };
+
+  const closeCalendarDialog = (restoreFocus = true) => {
+    if (!els.calendarDialog) return;
+    els.calendarDialog.hidden = true;
+    document.body.classList.remove('fiestas-plan-calendar-open');
+    const returnFocus = calendarDialogReturnFocus;
+    calendarDialogData = null;
+    calendarDialogReturnFocus = null;
+    if (restoreFocus) returnFocus?.focus();
+  };
+
+  const openCalendarDialog = (events, name, analyticsId, trigger) => {
+    if (!events.length) {
+      showFeedback(els.feedback, 'No hay actividades para exportar.');
+      return;
+    }
+    calendarDialogData = { events, name, analyticsId };
+    calendarDialogReturnFocus = trigger || null;
+    els.calendarDialog.hidden = false;
+    document.body.classList.add('fiestas-plan-calendar-open');
+    els.calendarDialogDownload?.focus();
+  };
+
+  const downloadCalendarFromDialog = async () => {
+    if (!calendarDialogData || !els.calendarDialogDownload) return;
+    const { events, name, analyticsId } = calendarDialogData;
+    els.calendarDialogDownload.disabled = true;
+    try {
+      const result = await shareFileOrDownload(createIcsFile(events, name), { forceDownload: true });
+      if (result !== 'cancelled') trackPlanCalendarExported(analyticsId);
+      closeCalendarDialog(false);
+      showFeedback(els.feedback, result === 'downloaded' ? 'Calendario descargado.' : 'No se pudo descargar el calendario.');
+    } finally {
+      if (els.calendarDialogDownload) els.calendarDialogDownload.disabled = false;
+    }
   };
 
   const closePlanManageMenu = (restoreFocus = false) => {
@@ -374,6 +417,10 @@ export function setupPlansPage(rawEvents = []) {
   els.shareDialog?.querySelectorAll('[data-plan-share-close]').forEach((button) => {
     button.addEventListener('click', closeShareDialog);
   });
+  els.calendarDialog?.querySelectorAll('[data-plan-calendar-close]').forEach((button) => {
+    button.addEventListener('click', () => closeCalendarDialog());
+  });
+  els.calendarDialogDownload?.addEventListener('click', downloadCalendarFromDialog);
   els.shareDialogCopy?.addEventListener('click', async () => {
     const message = els.shareDialogMessage?.value || '';
     if (!message) return;
@@ -457,7 +504,7 @@ export function setupPlansPage(rawEvents = []) {
       const action = manageAction.dataset.planManageAction;
       closePlanManageMenu();
       if (action === 'calendar') {
-        await exportCalendar(eventsForPlan(plan, state.events), plan.name, els.feedback, plan.id);
+        openCalendarDialog(eventsForPlan(plan, state.events), plan.name, plan.id, manageAction);
       } else if (action === 'edit') {
         openPlanEditor(plan, manageAction);
       } else if (action === 'delete') {
@@ -569,14 +616,19 @@ export function setupPlansPage(rawEvents = []) {
 
     const exportSavedButton = event.target.closest('[data-plan-export-saved]');
     if (exportSavedButton) {
-      await exportCalendar(state.events.filter((eventItem) => readFavoriteIds().includes(eventItem.id)), 'Mis guardados', els.feedback, 'saved');
+      openCalendarDialog(
+        state.events.filter((eventItem) => readFavoriteIds().includes(eventItem.id)),
+        'Mis guardados',
+        'saved',
+        exportSavedButton
+      );
       return;
     }
 
     const exportCalendarButton = event.target.closest('[data-plan-export-calendar]');
     if (exportCalendarButton) {
       const plan = getActionPlan(exportCalendarButton.dataset.planExportCalendar, state, state.events);
-      if (plan) await exportCalendar(eventsForPlan(plan, state.events), plan.name, els.feedback, plan.id);
+      if (plan) openCalendarDialog(eventsForPlan(plan, state.events), plan.name, plan.id, exportCalendarButton);
       return;
     }
 
@@ -632,12 +684,14 @@ export function setupPlansPage(rawEvents = []) {
   });
   window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && els.shareDialog && !els.shareDialog.hidden) closeShareDialog();
+    if (event.key === 'Escape' && els.calendarDialog && !els.calendarDialog.hidden) closeCalendarDialog();
     if (event.key === 'Escape' && els.editor && !els.editor.hidden) closePlanEditor();
     if (event.key === 'Escape' && els.deleteConfirm && !els.deleteConfirm.hidden) closeDeleteConfirmation();
     if (event.key === 'Escape' && els.manageMenu && !els.manageMenu.hidden) closePlanManageMenu(true);
   });
   subscribeToPlans(() => render());
   render();
+  void synchronizeUnmodifiedCommunityPlans(new Set(state.events.map((event) => event.id)));
 }
 
 export function setupPlanImportPage(rawEvents = []) {
@@ -850,6 +904,9 @@ export function setupPlanSelector() {
     render();
     selector.hidden = false;
     selector.querySelector('[data-plan-selector-close]')?.focus();
+    void synchronizeUnmodifiedCommunityPlans().then(() => {
+      if (!selector.hidden && activityId === nextActivityId) render();
+    });
   };
   const render = () => {
     const list = selector.querySelector('[data-plan-selector-list]');
@@ -1081,7 +1138,7 @@ function renderPlanDetail(container, plan, events, plans, selectedDay, feedback,
   const bottomActions = document.createElement('div');
   bottomActions.className = 'fiestas-plan-bottom-actions';
   bottomActions.append(
-    actionButton('Compartir mi plan', 'fa-arrow-up-from-bracket', { className: 'fiestas-plan-share-button', 'data-plan-share': plan.id }),
+    actionButton(options.isSaved ? 'Compartir mis guardados' : 'Compartir este plan', 'fa-arrow-up-from-bracket', { className: 'fiestas-plan-share-button', 'data-plan-share': plan.id }),
     actionButton('Añadir al calendario', 'fa-calendar-plus', { className: 'fiestas-plan-calendar-button', 'data-plan-export-calendar': plan.id })
   );
   container.append(bottomActions);
@@ -1284,19 +1341,6 @@ function groupEventsByDate(events) {
   return [...groups.entries()];
 }
 
-async function exportCalendar(events, name, feedback, analyticsId) {
-  if (!events.length) {
-    showFeedback(feedback, 'No hay actividades para exportar.');
-    return;
-  }
-  const result = await shareFileOrDownload(createIcsFile(events, name), {
-    title: name,
-    text: 'Añade este plan al calendario de Fiestas 2026'
-  });
-  if (result !== 'cancelled') trackPlanCalendarExported(analyticsId);
-  showFeedback(feedback, result === 'shared' ? 'Calendario compartido.' : result === 'downloaded' ? 'Calendario descargado.' : 'Compartición cancelada.');
-}
-
 function createPlanShareText(plan) {
   return `Échale un vistazo al plan «${plan.name}» para las Fiestas Mayores de Montemayor de Pililla 2026.`;
 }
@@ -1337,6 +1381,74 @@ async function loadCommunityPlanForSharing(sourcePlanId) {
     throw new Error('Invalid community plan export');
   }
   return sourcePlan;
+}
+
+export async function synchronizeUnmodifiedCommunityPlans(eventIds = null) {
+  if (communityPlansSyncPromise) return communityPlansSyncPromise;
+
+  const knownEventIds = eventIds instanceof Set
+    ? eventIds
+    : new Set((window.__FIESTAS_2026_EVENTS__ || []).map((event) => String(event?.id || '').trim()).filter(Boolean));
+  communityPlansSyncPromise = (async () => {
+    const candidates = readPlans().filter(isUnmodifiedCommunityPlan);
+    if (!candidates.length) return false;
+
+    const sourceIds = [...new Set(candidates.map((plan) => plan.sourcePlanId))];
+    const sourceEntries = await Promise.all(sourceIds.map(async (sourcePlanId) => {
+      try {
+        const sourcePlan = await loadCommunityPlanForSharing(sourcePlanId);
+        return [sourcePlanId, normalizeCommunitySourcePlan(sourcePlan, knownEventIds)];
+      } catch (_) {
+        return [sourcePlanId, null];
+      }
+    }));
+    const sourcePlans = new Map(sourceEntries.filter(([, sourcePlan]) => sourcePlan));
+
+    const result = mergeCommunityPlanUpdates(readPlans(), sourcePlans);
+    if (result.changed) writePlans(result.plans);
+    return result.changed;
+  })().catch(() => false);
+
+  return communityPlansSyncPromise;
+}
+
+export function mergeCommunityPlanUpdates(plans, sourcePlans) {
+  const sources = sourcePlans instanceof Map ? sourcePlans : new Map();
+  let changed = false;
+  const nextPlans = (Array.isArray(plans) ? plans : []).map((plan) => {
+    if (!isUnmodifiedCommunityPlan(plan)) return plan;
+    const sourcePlan = sources.get(plan.sourcePlanId);
+    if (!sourcePlan || plansMatchSource(plan, sourcePlan)) return plan;
+    changed = true;
+    return {
+      ...plan,
+      name: sourcePlan.name,
+      icon: sourcePlan.icon,
+      activityIds: [...sourcePlan.activityIds]
+    };
+  });
+
+  return { plans: nextPlans, changed };
+}
+
+function normalizeCommunitySourcePlan(sourcePlan, eventIds = null) {
+  if (!sourcePlan || typeof sourcePlan !== 'object') return null;
+  const name = String(sourcePlan.name || '').trim();
+  if (!name || name.length > MAX_PLAN_NAME_LENGTH || /[<>]/.test(name) || /[\u0000-\u001f\u007f]/.test(name)) return null;
+  if (!Array.isArray(sourcePlan.activityIds) || sourcePlan.activityIds.length > MAX_IMPORT_ACTIVITIES) return null;
+
+  const rawIcon = sourcePlan.icon === undefined || sourcePlan.icon === null
+    ? ''
+    : String(sourcePlan.icon).trim().toLocaleLowerCase('en');
+  if (rawIcon && !PLAN_ICON_OPTIONS.some((option) => option.id === rawIcon)) return null;
+
+  const activityIds = [...new Set(sourcePlan.activityIds.map(String).map((id) => id.trim()).filter(Boolean))];
+  if (eventIds && activityIds.some((id) => !eventIds.has(id))) return null;
+  return {
+    name,
+    icon: normalizePlanIcon(rawIcon),
+    activityIds
+  };
 }
 
 async function fetchJsonForSharing(url) {
@@ -1599,7 +1711,8 @@ function getPlanView() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('plan')) return 'plan';
   if (params.get('view') === 'saved') return 'saved';
-  return 'plans';
+  if (params.get('view') === 'plans' || params.get('tab') === 'plans') return 'plans';
+  return 'saved';
 }
 
 function renderPlanPicker(picker, pickerIcon, plans, view, selectedPlanId) {
@@ -1611,8 +1724,8 @@ function renderPlanPicker(picker, pickerIcon, plans, view, selectedPlanId) {
 
   const selectedValue = view === 'saved' ? '__saved__' : view === 'plans' ? '__plans__' : selectedPlanId || '__create__';
   const selectedPlan = plans.find((plan) => plan.id === selectedPlanId);
-  const selectedLabel = view === 'saved' ? 'Guardados' : view === 'plans' ? 'Mis planes' : selectedPlan?.name || 'Crear un plan nuevo';
-  const selectedIcon = getPlanIcon(view === 'saved' ? 'stars' : view === 'plans' ? 'layers' : selectedPlan?.icon);
+  const selectedLabel = view === 'saved' ? 'Mis planes' : view === 'plans' ? 'Mis planes' : selectedPlan?.name || 'Crear un plan nuevo';
+  const selectedIcon = getPlanIcon(view === 'saved' || view === 'plans' ? 'layers' : selectedPlan?.icon);
   label.textContent = selectedLabel;
   trigger.setAttribute('aria-label', `Seleccionar plan: ${selectedLabel}`);
   if (pickerIcon) pickerIcon.className = `fa-solid ${selectedIcon.className}`;

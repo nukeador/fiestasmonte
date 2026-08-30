@@ -754,6 +754,10 @@
     display: none !important;
   }
 
+  body.calendar-modal-open {
+    overflow: hidden;
+  }
+
   .calendar-modal-backdrop {
     @apply absolute inset-0 bg-slate-950/70;
   }

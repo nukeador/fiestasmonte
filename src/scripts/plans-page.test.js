@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import {
   createCommunityPlanUrl,
+  mergeCommunityPlanUpdates,
   plansMatchSource,
   slugifyPlanTag,
   validateImport
@@ -87,4 +88,51 @@ test('friendly community URLs include the share campaign', () => {
     createCommunityPlanUrl('cielo-y-estrellas', 'https://fiestas.montemayordepililla.com/plan/importar/'),
     'https://fiestas.montemayordepililla.com/planes/cielo-y-estrellas/?mtm_campaign=share'
   );
+});
+
+test('updates an untouched community plan while preserving its local identity and timestamps', () => {
+  const plan = {
+    id: 'local-plan',
+    sourcePlanId: 'fiestas-con-peques',
+    name: 'Fiestas con peques',
+    icon: 'children',
+    activityIds: ['1'],
+    createdAt: '2026-08-20T10:00:00.000Z',
+    updatedAt: '2026-08-20T10:00:00.000Z'
+  };
+  const result = mergeCommunityPlanUpdates([plan], new Map([
+    ['fiestas-con-peques', {
+      name: 'Fiestas con peques',
+      icon: 'children',
+      activityIds: ['1', '7']
+    }]
+  ]));
+
+  assert.equal(result.changed, true);
+  assert.deepEqual(result.plans[0].activityIds, ['1', '7']);
+  assert.equal(result.plans[0].id, plan.id);
+  assert.equal(result.plans[0].createdAt, plan.createdAt);
+  assert.equal(result.plans[0].updatedAt, plan.updatedAt);
+});
+
+test('does not update a community plan after a local modification', () => {
+  const plan = {
+    id: 'local-plan',
+    sourcePlanId: 'fiestas-con-peques',
+    name: 'Mi selección',
+    icon: 'children',
+    activityIds: ['1'],
+    createdAt: '2026-08-20T10:00:00.000Z',
+    updatedAt: '2026-08-20T10:01:00.000Z'
+  };
+  const result = mergeCommunityPlanUpdates([plan], new Map([
+    ['fiestas-con-peques', {
+      name: 'Fiestas con peques',
+      icon: 'children',
+      activityIds: ['1', '7']
+    }]
+  ]));
+
+  assert.equal(result.changed, false);
+  assert.deepEqual(result.plans, [plan]);
 });
