@@ -6,11 +6,6 @@ on:
       - fiestasmonte26
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -18,6 +13,9 @@ concurrency:
 jobs:
   build:
     if: github.ref == 'refs/heads/fiestasmonte26'
+    permissions:
+      contents: read
+      pages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,6 +48,9 @@ jobs:
 
   deploy:
     if: github.ref == 'refs/heads/fiestasmonte26'
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: fiestasmonte-pages
       url: ${{ steps.deployment.outputs.page_url }}

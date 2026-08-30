@@ -17,7 +17,7 @@ import {
   trackTicketsOpened
 } from './analytics.js';
 import { readFavoriteIds, writeFavoriteIds } from './plan-storage.js';
-import { createIcsFile, shareFileOrDownload } from './plan-export.js';
+import { createCalendarLinks, createIcsFile, shareFileOrDownload } from './plan-export.js';
 import { setupPlanImportPage, setupPlanSelector, setupPlansPage } from './plans-page.js';
 import { setupCommunityPlanDetailPage, setupCommunityPlansPage } from './community-plans.js';
 import { rankPopularEvents } from './popular-page.js';
@@ -34,6 +34,8 @@ const cartoLayers = {
   light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
   dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
 };
+const LEAFLET_SCRIPT_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+const LEAFLET_SCRIPT_INTEGRITY = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
 const siteCenter = SITE_CONFIG.center || [41.5090909, -4.4593002];
 const siteMapZoom = 16;
 const userLocationZoom = 14;
@@ -49,6 +51,8 @@ let isApplyingUrlState = false;
 let lastTrackedSearchKey = '';
 let siteShareFeedbackTimer = null;
 let scrollHeaderFrame = null;
+let detailCalendarObjectUrl = '';
+let detailCalendarReturnFocus = null;
 let syncDateCarousel = () => {};
 
 function getCommunityCtaMode(pwaState = window.__FIESTAS_PWA_STATE__ || {}) {
@@ -154,7 +158,8 @@ const els = {
   detailMap: document.querySelector('[data-fiestas-detail-map]'),
   detailImage: document.querySelector('[data-fiestas-detail-image]'),
   detailLightbox: document.querySelector('[data-fiestas-detail-lightbox]'),
-  detailLightboxImage: document.querySelector('[data-fiestas-detail-lightbox-image]')
+  detailLightboxImage: document.querySelector('[data-fiestas-detail-lightbox-image]'),
+  detailCalendarModal: document.querySelector('[data-fiestas-detail-calendar-modal]')
 };
 
 init();
@@ -1692,7 +1697,7 @@ function timeRange(event) {
 }
 
 function timeMarkup(event) {
-  if (!event.startTime) return '<span>Hora por confirmar</span>';
+  if (!event.startTime) return '<span class="fiestas-event-time-pending">Hora por confirmar</span>';
   if (!event.endTime) return `<span>${escapeHtml(event.startTime)}</span>`;
   return `<span>${escapeHtml(event.startTime)}</span><span>${escapeHtml(event.endTime)}</span>`;
 }
@@ -1741,7 +1746,8 @@ function ensureLeaflet() {
       return;
     }
     const script = document.createElement('script');
-    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.src = LEAFLET_SCRIPT_URL;
+    script.integrity = LEAFLET_SCRIPT_INTEGRITY;
     script.crossOrigin = '';
     script.dataset.fiestasLeafletLoader = 'true';
     script.addEventListener('load', () => resolve(window.L || null), { once: true });
@@ -1881,12 +1887,14 @@ function ensureFilterBackdrop() {
 function initDetailPage() {
   trackActivityViewed(els.detail.dataset.eventId);
   updateDetailFavorite({ silent: true });
+  moveDetailMapAfterActions();
   initDetailDirections();
   els.detailSave?.addEventListener('click', () => toggleFavorite(els.detail.dataset.eventId));
   els.detailActionSave?.addEventListener('click', () => toggleFavorite(els.detail.dataset.eventId));
   els.detailShare?.addEventListener('click', shareDetail);
   els.detailActionShare?.addEventListener('click', shareDetail);
   els.detailActionCalendar?.addEventListener('click', addDetailToCalendar);
+  initDetailCalendarModal();
   els.detailShareCopy?.addEventListener('click', copyShareFallback);
   els.detailBack?.addEventListener('click', goBackToAgenda);
   initDetailLightbox();
@@ -1894,6 +1902,13 @@ function initDetailPage() {
     link.addEventListener('click', () => trackDetailExternalAction(link.dataset.fiestasAnalyticsAction));
   });
   if (els.detailMap) initDetailMap();
+}
+
+function moveDetailMapAfterActions() {
+  const mapCard = document.querySelector('.fiestas-detail-map-card');
+  const actions = document.querySelector('.fiestas-detail-actions');
+  if (!mapCard || !actions || actions.nextElementSibling === mapCard) return;
+  actions.after(mapCard);
 }
 
 function initDetailLightbox() {
@@ -2032,6 +2047,11 @@ async function addDetailToCalendar() {
     return;
   }
 
+  if (els.detailCalendarModal) {
+    openDetailCalendarModal(event, els.detailActionCalendar);
+    return;
+  }
+
   const result = await shareFileOrDownload(createIcsFile([event], event.title), {
     title: event.title,
     text: `Añade esta actividad al calendario de ${SITE_CONFIG.name || 'Fiestas 2026'}`
@@ -2039,6 +2059,73 @@ async function addDetailToCalendar() {
   if (result !== 'cancelled') trackPlanCalendarExported(event.id);
   if (result === 'shared' || result === 'downloaded') showDetailFeedback(result === 'shared' ? 'Actividad compartida para añadirla al calendario.' : 'Calendario descargado.');
   else showDetailFeedback('Compartición cancelada.');
+}
+
+function initDetailCalendarModal() {
+  const modal = els.detailCalendarModal;
+  if (!modal) return;
+  modal.querySelectorAll('[data-fiestas-detail-calendar-close]').forEach((button) => {
+    button.addEventListener('click', closeDetailCalendarModal);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !modal.hidden) closeDetailCalendarModal();
+  });
+}
+
+function openDetailCalendarModal(event, trigger) {
+  const modal = els.detailCalendarModal;
+  if (!modal) return;
+  revokeDetailCalendarObjectUrl();
+
+  const icsUrl = URL.createObjectURL(createIcsFile([event], event.title));
+  detailCalendarObjectUrl = icsUrl;
+  const links = createCalendarLinks(event, event.canonicalUrl || window.location.href);
+  const icsLink = modal.querySelector('[data-fiestas-detail-calendar-ics]');
+  const appleLink = modal.querySelector('[data-fiestas-detail-calendar-apple]');
+  const googleLink = modal.querySelector('[data-fiestas-detail-calendar-google]');
+  const outlookLink = modal.querySelector('[data-fiestas-detail-calendar-outlook]');
+
+  if (icsLink) {
+    icsLink.href = icsUrl;
+    icsLink.download = `${event.title.toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '') || 'actividad'}.ics`;
+  }
+  if (appleLink) {
+    appleLink.href = icsUrl;
+    appleLink.download = icsLink?.download || 'actividad.ics';
+  }
+  setCalendarExternalLink(googleLink, links.google);
+  setCalendarExternalLink(outlookLink, links.outlook);
+
+  detailCalendarReturnFocus = trigger || null;
+  modal.hidden = false;
+  document.body.classList.add('calendar-modal-open');
+  modal.querySelector('[data-fiestas-detail-calendar-ics]')?.focus();
+}
+
+function setCalendarExternalLink(link, href) {
+  if (!link) return;
+  const available = Boolean(href);
+  link.href = available ? href : '#';
+  link.hidden = !available;
+  link.setAttribute('aria-hidden', String(!available));
+  link.tabIndex = available ? 0 : -1;
+}
+
+function closeDetailCalendarModal() {
+  const modal = els.detailCalendarModal;
+  if (!modal) return;
+  modal.hidden = true;
+  document.body.classList.remove('calendar-modal-open');
+  revokeDetailCalendarObjectUrl();
+  const returnFocus = detailCalendarReturnFocus;
+  detailCalendarReturnFocus = null;
+  returnFocus?.focus();
+}
+
+function revokeDetailCalendarObjectUrl() {
+  if (!detailCalendarObjectUrl) return;
+  URL.revokeObjectURL(detailCalendarObjectUrl);
+  detailCalendarObjectUrl = '';
 }
 
 async function shareSite(event) {

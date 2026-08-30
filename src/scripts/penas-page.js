@@ -20,6 +20,8 @@ const state = {
 };
 const markerColors = ['#ba6d18', '#336699', '#4a7c59', '#8b5e83', '#aa4a44', '#557a95', '#8c6f28', '#6b5b95'];
 let leafletPromise = null;
+const LEAFLET_SCRIPT_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+const LEAFLET_SCRIPT_INTEGRITY = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
 let dragStartY = null;
 let dragMoved = false;
 
@@ -374,7 +376,8 @@ function ensureLeaflet() {
       return;
     }
     const script = document.createElement('script');
-    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.src = LEAFLET_SCRIPT_URL;
+    script.integrity = LEAFLET_SCRIPT_INTEGRITY;
     script.crossOrigin = '';
     script.dataset.penasLeafletLoader = 'true';
     script.addEventListener('load', () => resolve(window.L || null), { once: true });

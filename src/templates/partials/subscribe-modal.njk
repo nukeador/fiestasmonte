@@ -40,7 +40,7 @@
     <section class="subscribe-section" data-subscribe-section="rss">
       <h3 class="subscribe-section-title"><i class="fa-solid fa-layer-group"></i><span>Por categoría</span></h3>
       <p class="subscribe-section-copy">Elige una categoría.</p>
-      <div class="subscribe-category-picker" data-category-picker data-feeds='{{ categoryFeeds | dump | safe }}'>
+      <div class="subscribe-category-picker" data-category-picker data-feeds='{{ categoryFeeds | dumpForScript | safe }}'>
         <label class="subscribe-category-field">
           <span class="subscribe-category-field-label">Categoría</span>
           <select class="subscribe-category-select" data-category-select>
