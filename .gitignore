@@ -6,3 +6,6 @@ dist/
 .codex/plans/
 .codex/cache/
 .codex/reports/
+/test-results/
+/playwright-report/
+/blob-report/
