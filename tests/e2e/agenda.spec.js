@@ -11,7 +11,7 @@ async function openSearchPanel(page) {
 
 test.describe('agenda', () => {
   test('renderiza todas las actividades antes del inicio de fiestas', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?date=all');
 
     await expect(page.locator(cards).first()).toBeVisible();
     await expect(page.locator('[data-date="all"]')).toHaveAttribute('aria-pressed', 'true');
@@ -23,11 +23,39 @@ test.describe('agenda', () => {
     const total = await page.locator(cards).count();
     const days = page.locator('[data-fiestas-dates] [data-date]:not([data-date="all"])');
     await expect(days.first()).toBeVisible();
-    await days.first().click();
+    await page.locator('[data-fiestas-dates] [data-date]:not([data-date="all"]):not(.is-active)').first().click();
 
     await expect.poll(() => page.locator(cards).count()).toBeLessThan(total);
     expect(await page.locator(cards).count()).toBeGreaterThan(0);
     await expect(page.locator('.fiestas-day-title')).toHaveCount(1);
+  });
+
+  test('muestra Todos antes del día inicial y no reordena al cambiar de día', async ({ page }) => {
+    await page.goto('/?date=2026-09-11');
+
+    const dates = page.locator('[data-fiestas-dates] [data-date]');
+    const initialOrder = [
+      '2026-09-10',
+      '2026-09-09',
+      '2026-09-08',
+      '2026-09-07',
+      '2026-09-06',
+      '2026-09-05',
+      '2026-09-04',
+      'all',
+      '2026-09-11',
+      '2026-09-12',
+      '2026-09-13'
+    ];
+    await expect.poll(() => dates.evaluateAll((cards) => cards.map((card) => card.dataset.date))).toEqual(initialOrder);
+    await expect(dates.nth(7)).toHaveAttribute('data-date', 'all');
+    await expect(dates.nth(8)).toHaveAttribute('data-date', '2026-09-11');
+    await expect(dates.nth(8)).toHaveClass(/is-active/);
+    await expect.poll(() => dates.locator('..').evaluate((strip) => strip.scrollLeft)).toBeGreaterThan(0);
+
+    await page.locator('[data-fiestas-dates] [data-date="2026-09-12"]').click();
+    await expect.poll(() => dates.evaluateAll((cards) => cards.map((card) => card.dataset.date))).toEqual(initialOrder);
+    await expect(dates.nth(9)).toHaveClass(/is-active/);
   });
 
   test('la búsqueda y los filtros por tipo se pueden limpiar', async ({ page }) => {

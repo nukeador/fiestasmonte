@@ -53,6 +53,7 @@ let siteShareFeedbackTimer = null;
 let scrollHeaderFrame = null;
 let detailCalendarObjectUrl = '';
 let detailCalendarReturnFocus = null;
+let dateCarouselOrderKey = '';
 let syncDateCarousel = () => {};
 
 function getCommunityCtaMode(pwaState = window.__FIESTAS_PWA_STATE__ || {}) {
@@ -634,6 +635,7 @@ function setupDateCarousel() {
   if (!els.dateStrip || !els.datePrevious || !els.dateNext) return;
 
   const update = () => {
+    reorderDateCarousel();
     const isDesktop = window.matchMedia?.('(min-width: 720px)').matches ?? true;
     const isMapMode = state.view === 'map';
     const maxScrollLeft = Math.max(0, els.dateStrip.scrollWidth - els.dateStrip.clientWidth);
@@ -652,7 +654,55 @@ function setupDateCarousel() {
   if ('ResizeObserver' in window) {
     new ResizeObserver(update).observe(els.dateStrip);
   }
-  requestAnimationFrame(update);
+  requestAnimationFrame(() => {
+    update();
+  });
+}
+
+function reorderDateCarousel() {
+  if (!els.dateStrip || !state.dates.length) return;
+  // El orden se calcula al cargar la portada, tomando como referencia el día
+  // inicial. Cambiar de día no debe mover el carrusel ni recolocar "Todos".
+  if (dateCarouselOrderKey) return;
+
+  const selectedDate = state.selectedDate || 'all';
+  const selectedIndex = state.dates.findIndex((day) => day.date === selectedDate);
+  const dateCards = new Map(
+    [...els.dateStrip.querySelectorAll('[data-date]')].map((card) => [card.dataset.date, card])
+  );
+  const datesBeforeSelected = selectedDate === 'all'
+    ? []
+    : state.dates
+      .slice(0, selectedIndex)
+      .reverse()
+      .map((day) => day.date);
+  const datesAfterSelected = selectedDate === 'all'
+    ? state.dates.map((day) => day.date)
+    : state.dates
+      .slice(selectedIndex + 1)
+      .map((day) => day.date);
+  const orderedDates = selectedDate === 'all'
+    ? ['all', ...datesAfterSelected]
+    : [...datesBeforeSelected, 'all', selectedDate, ...datesAfterSelected];
+  const orderedCards = orderedDates.map((date) => dateCards.get(date)).filter(Boolean);
+  const orderKey = orderedCards.map((card) => card.dataset.date).join('|');
+  const alreadyOrdered = orderedCards.length === els.dateStrip.children.length
+    && orderedCards.every((card, index) => els.dateStrip.children[index] === card);
+
+  if (alreadyOrdered && orderKey === dateCarouselOrderKey) return;
+  const fragment = document.createDocumentFragment();
+  orderedCards.forEach((card) => fragment.append(card));
+  els.dateStrip.append(fragment);
+  els.dateStrip.scrollLeft = 0;
+  if (selectedDate !== 'all') {
+    const allCard = dateCards.get('all');
+    if (allCard) {
+      const stripRect = els.dateStrip.getBoundingClientRect();
+      const allCardRect = allCard.getBoundingClientRect();
+      els.dateStrip.scrollLeft = Math.max(0, Math.round(allCardRect.left - stripRect.left));
+    }
+  }
+  dateCarouselOrderKey = orderKey;
 }
 
 function scrollDateCarousel(direction) {
