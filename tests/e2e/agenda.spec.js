@@ -75,7 +75,6 @@ test.describe('agenda', () => {
 
     await page.locator('[data-fiestas-clear-filters]').click();
     await expect.poll(() => page.locator(cards).count()).toBe(total);
-
     await page.locator('[data-fiestas-types-toggle]').click();
     const option = page.locator('[data-fiestas-types] input[type="checkbox"]').first();
     await expect(option).toBeVisible();
@@ -84,6 +83,37 @@ test.describe('agenda', () => {
     await page.locator('[data-fiestas-types] [data-fiestas-filter-accept]').click();
     await page.locator('[data-fiestas-clear-filters]').click();
     await expect.poll(() => page.locator(cards).count()).toBe(total);
+  });
+
+  test('la búsqueda incluye hoy y los próximos días aunque haya un día seleccionado', async ({ page }) => {
+    const fixedNow = new Date('2026-09-05T12:00:00+02:00').getTime();
+    await page.addInitScript((timestamp) => {
+      const NativeDate = Date;
+      class FixedDate extends NativeDate {
+        constructor(...args) {
+          super(...(args.length ? args : [timestamp]));
+        }
+
+        static now() {
+          return timestamp;
+        }
+      }
+      FixedDate.parse = NativeDate.parse;
+      FixedDate.UTC = NativeDate.UTC;
+      window.Date = FixedDate;
+    }, fixedNow);
+    await page.goto('/?date=2026-09-05');
+
+    const events = await page.evaluate(() => window.__FIESTAS_2026_EVENTS__ || []);
+    const futureEvent = events.find((event) => event.date > '2026-09-05' && event.title && event.urlPath);
+    expect(futureEvent).toBeTruthy();
+
+    await openSearchPanel(page);
+    await page.locator('[data-fiestas-search]').fill(futureEvent.title);
+
+    await expect(page.locator('[data-fiestas-search-scope]')).toBeVisible();
+    await expect(page.locator('[data-fiestas-search-scope]')).toContainText('Próximas actividades');
+    await expect(page.locator(`a[href="${futureEvent.urlPath}"]`)).toBeVisible();
   });
 
   test('el botón Solo fiestas alterna el filtro', async ({ page }) => {
