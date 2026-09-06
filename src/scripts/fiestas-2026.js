@@ -1601,6 +1601,7 @@ function setSearchOpen(open, options = {}) {
 function getInitialDate(dates) {
   if (!dates.length) return 'all';
   const today = localDateKey(new Date());
+  if (FIESTAS_START_DATE && today < FIESTAS_START_DATE) return 'all';
   return dates.some((date) => date.date === today) ? today : 'all';
 }
 

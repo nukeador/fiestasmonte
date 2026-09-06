@@ -1755,5 +1755,561 @@
     "tags": [
       "Toros"
     ]
+  },
+  {
+    "id": 57,
+    "date": "2026-09-13",
+    "dateLabel": "Domingo 13 de septiembre",
+    "startTime": "23:59",
+    "endTime": null,
+    "title": "Desfile de disfraces con músicos locales",
+    "location": "Desde la plaza de toros “La Empalizada”",
+    "description": "Desfile de disfraces acompañado de músicos locales, con salida desde la plaza de toros “La Empalizada”. El recorrido completo está por confirmar.",
+    "summary": "Desfile de disfraces acompañado de músicos locales, con salida desde la plaza de toros “La Empalizada”.",
+    "performances": [
+      "Músicos locales"
+    ],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5090909,
+      "lng": -4.4593002,
+      "source": "Municipality fallback from OpenStreetMap Nominatim"
+    },
+    "type": "Peñas",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Peñas",
+      "Música"
+    ]
+  },
+  {
+    "id": 58,
+    "date": "2026-09-14",
+    "dateLabel": "Lunes 14 de septiembre",
+    "startTime": "23:59",
+    "endTime": null,
+    "title": "Encierro de carretones",
+    "location": "Plaza Mayor",
+    "description": "Encierro de carretones. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "summary": "Encierro de carretones. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Infantil y familiar",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Infantil y familiar",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 59,
+    "date": "2026-09-15",
+    "dateLabel": "Martes 15 de septiembre",
+    "startTime": "13:10",
+    "endTime": null,
+    "title": "Encierro de carretones",
+    "location": "Plaza Mayor",
+    "description": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "summary": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Infantil y familiar",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Infantil y familiar",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 60,
+    "date": "2026-09-15",
+    "dateLabel": "Martes 15 de septiembre",
+    "startTime": "14:00",
+    "endTime": "16:30",
+    "title": "Vermú con DJ Rubén Martín",
+    "location": "Merendero de Raúl",
+    "description": "Vermú con DJ Rubén Martín en el merendero de Raúl.",
+    "summary": "Vermú con DJ Rubén Martín en el merendero de Raúl.",
+    "performances": [
+      "DJ Rubén Martín"
+    ],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 61,
+    "date": "2026-09-15",
+    "dateLabel": "Martes 15 de septiembre",
+    "startTime": "19:00",
+    "endTime": null,
+    "title": "Discomovida Discoenjoy",
+    "location": "Bar La Torre",
+    "description": "Discomovida Discoenjoy en Bar La Torre: primer pase con música de siempre y segundo pase con música actual, con sorpresa para los asistentes.",
+    "summary": "Discomovida Discoenjoy en Bar La Torre, con un primer pase de música de siempre y un segundo pase de música actual.",
+    "performances": [
+      "Discoenjoy"
+    ],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 62,
+    "date": "2026-09-16",
+    "dateLabel": "Miércoles 16 de septiembre",
+    "startTime": "13:10",
+    "endTime": null,
+    "title": "Encierro de carretones",
+    "location": "Plaza Mayor",
+    "description": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "summary": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Infantil y familiar",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Infantil y familiar",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 63,
+    "date": "2026-09-16",
+    "dateLabel": "Miércoles 16 de septiembre",
+    "startTime": "13:30",
+    "endTime": null,
+    "title": "Sopas de ajo",
+    "location": "Plaza Mayor",
+    "description": "Sopas de ajo a continuación del encierro de carretones de las 13:10. La hora aproximada se muestra a las 13:30 para mantener el orden de la jornada; el cartel no detalla otro lugar y se muestra la Plaza Mayor como punto de referencia.",
+    "summary": "Sopas de ajo a continuación del encierro de carretones.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Gastronomía",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Gastronomía",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 64,
+    "date": "2026-09-16",
+    "dateLabel": "Miércoles 16 de septiembre",
+    "startTime": "14:15",
+    "endTime": null,
+    "title": "Vermú con DJ José Ramón",
+    "location": "Bar La Torre",
+    "description": "Vermú con DJ José Ramón en Bar La Torre.",
+    "summary": "Vermú con DJ José Ramón en Bar La Torre.",
+    "performances": [
+      "DJ José Ramón"
+    ],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 65,
+    "date": "2026-09-16",
+    "dateLabel": "Miércoles 16 de septiembre",
+    "startTime": "19:00",
+    "endTime": null,
+    "title": "DJs locales",
+    "location": "Bar La Torre",
+    "description": "Sesión de DJs locales en Bar La Torre, con sorpresa para los asistentes.",
+    "summary": "Sesión de DJs locales en Bar La Torre, con sorpresa para los asistentes.",
+    "performances": [
+      "DJs locales"
+    ],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 66,
+    "date": "2026-09-17",
+    "dateLabel": "Jueves 17 de septiembre",
+    "startTime": "13:10",
+    "endTime": null,
+    "title": "Encierro de carretones",
+    "location": "Plaza Mayor",
+    "description": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "summary": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Infantil y familiar",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Infantil y familiar",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 67,
+    "date": "2026-09-17",
+    "dateLabel": "Jueves 17 de septiembre",
+    "startTime": "14:00",
+    "endTime": null,
+    "title": "Vermú musical con degustación de empanadas",
+    "location": "Bar Portobello",
+    "description": "Vermú musical con degustación de empanadas en Bar Portobello.",
+    "summary": "Vermú musical con degustación de empanadas en Bar Portobello.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.50828,
+      "lng": -4.45727,
+      "source": "OpenStreetMap via Mapcarta"
+    },
+    "type": "Gastronomía",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Gastronomía",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 68,
+    "date": "2026-09-17",
+    "dateLabel": "Jueves 17 de septiembre",
+    "startTime": "19:00",
+    "endTime": null,
+    "title": "DJs locales",
+    "location": "Bar Portobello",
+    "description": "Sesión de DJs locales en Bar Portobello, con sorpresa para los asistentes.",
+    "summary": "Sesión de DJs locales en Bar Portobello, con sorpresa para los asistentes.",
+    "performances": [
+      "DJs locales"
+    ],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.50828,
+      "lng": -4.45727,
+      "source": "OpenStreetMap via Mapcarta"
+    },
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 69,
+    "date": "2026-09-18",
+    "dateLabel": "Viernes 18 de septiembre",
+    "startTime": "12:00",
+    "endTime": null,
+    "title": "Misa por los difuntos",
+    "location": "Iglesia Santa María Magdalena",
+    "description": "Misa por los difuntos en la Iglesia Santa María Magdalena.",
+    "summary": "Misa por los difuntos en la Iglesia Santa María Magdalena.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5074334,
+      "lng": -4.4579151,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Religioso",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Religioso",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 70,
+    "date": "2026-09-18",
+    "dateLabel": "Viernes 18 de septiembre",
+    "startTime": "13:10",
+    "endTime": null,
+    "title": "Encierro de carretones",
+    "location": "Plaza Mayor",
+    "description": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "summary": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Infantil y familiar",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Infantil y familiar",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 71,
+    "date": "2026-09-18",
+    "dateLabel": "Viernes 18 de septiembre",
+    "startTime": "17:00",
+    "endTime": null,
+    "title": "Juegos infantiles",
+    "location": "Plaza Mayor",
+    "description": "Juegos infantiles en la Plaza Mayor.",
+    "summary": "Juegos infantiles en la Plaza Mayor.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Infantil y familiar",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Infantil y familiar",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 72,
+    "date": "2026-09-18",
+    "dateLabel": "Viernes 18 de septiembre",
+    "startTime": "18:00",
+    "endTime": null,
+    "title": "Las Doñas y DJ Alfonso",
+    "location": "Bar Portobello",
+    "description": "Actividad conjunta en el Pub Portobello: DJ Alfonso desde las 18:00, Las Doñas a las 19:00 y, a continuación, DJ Alfonso de nuevo, con sorpresa para los asistentes.",
+    "summary": "DJ Alfonso, Las Doñas y, a continuación, DJ Alfonso de nuevo en el Pub Portobello.",
+    "performances": [
+      "DJ Alfonso",
+      "Las Doñas"
+    ],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.50828,
+      "lng": -4.45727,
+      "source": "OpenStreetMap via Mapcarta"
+    },
+    "type": "Música",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Música",
+      "Peñas"
+    ]
+  },
+  {
+    "id": 73,
+    "date": "2026-09-18",
+    "dateLabel": "Viernes 18 de septiembre",
+    "startTime": "23:59",
+    "endTime": null,
+    "title": "Chocolatada fin de fiestas",
+    "location": "Plaza Mayor",
+    "description": "Chocolatada de fin de fiestas. El cartel marca las 00:00 de la madrugada del sábado 19; se muestra a las 23:59 del viernes 18 para mantenerla al final de la jornada. El cartel no detalla otro lugar y se muestra la Plaza Mayor como punto de referencia.",
+    "summary": "Chocolatada de fin de fiestas a las 00:00, mostrada al final de la jornada del viernes 18.",
+    "performances": [],
+    "organizers": [
+      "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
+    ],
+    "collaborators": [],
+    "coordinates": {
+      "lat": 41.5085584,
+      "lng": -4.4585578,
+      "source": "OpenStreetMap Nominatim"
+    },
+    "type": "Gastronomía",
+    "ticket": {
+      "required": false,
+      "status": "unknown",
+      "label": "Entrada no indicada",
+      "url": null,
+      "note": "El cartel no indica venta de entradas para este evento."
+    },
+    "tags": [
+      "Gastronomía",
+      "Peñas"
+    ]
   }
 ]

@@ -15,7 +15,7 @@ test.describe('agenda', () => {
 
     await expect(page.locator(cards).first()).toBeVisible();
     await expect(page.locator('[data-date="all"]')).toHaveAttribute('aria-pressed', 'true');
-    expect(await page.locator(cards).count()).toBe(55);
+    expect(await page.locator(cards).count()).toBe(72);
   });
 
   test('el selector de fechas filtra el listado', async ({ page }) => {
