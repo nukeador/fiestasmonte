@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 
 import {
   createCommunityPlanUrl,
+  isPlanActivityPast,
+  isPlanDatePast,
   mergeCommunityPlanUpdates,
   plansMatchSource,
   slugifyPlanTag,
@@ -14,6 +16,18 @@ const eventIds = new Set(['1', '7']);
 test('plan tags preserve the Spanish ñ for display', () => {
   assert.equal(slugifyPlanTag('Peñas'), 'Peñas');
   assert.equal(slugifyPlanTag('Infantil y familiar'), 'Infantilyfamiliar');
+});
+
+test('plan dates and activities distinguish finished, current and upcoming items', () => {
+  const now = new Date(2026, 8, 6, 18, 0);
+
+  assert.equal(isPlanDatePast('2026-09-05', now), true);
+  assert.equal(isPlanDatePast('2026-09-06', now), false);
+  assert.equal(isPlanDatePast('2026-09-07', now), false);
+  assert.equal(isPlanActivityPast({ date: '2026-09-05', startTime: '23:00' }, now), true);
+  assert.equal(isPlanActivityPast({ date: '2026-09-06', startTime: '17:00', endTime: '18:00' }, now), true);
+  assert.equal(isPlanActivityPast({ date: '2026-09-06', startTime: '19:00' }, now), false);
+  assert.equal(isPlanActivityPast({ date: '2026-09-07', startTime: '10:00' }, now), false);
 });
 
 function payload(plan) {

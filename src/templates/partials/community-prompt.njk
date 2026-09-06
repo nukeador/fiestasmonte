@@ -1,0 +1,68 @@
+<div
+  class="community-prompt"
+  data-community-prompt
+  data-community-prompt-campaign-id="{{ communityPromptCampaign.id }}"
+  data-community-prompt-start="{{ communityPromptCampaign.startDate }}"
+  data-community-prompt-end="{{ communityPromptCampaign.endDate }}"
+  hidden
+>
+  <aside
+    class="community-prompt-panel"
+    role="region"
+    aria-live="polite"
+    aria-labelledby="community-prompt-title"
+    aria-describedby="community-prompt-description"
+  >
+    <div class="community-prompt-handle" aria-hidden="true"></div>
+    <button class="community-prompt-close" type="button" data-community-prompt-dismiss aria-label="Cerrar">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+
+    <div class="community-prompt-heading">
+      <img class="community-prompt-logo" src="{{ site.faviconUrl }}" alt="" />
+      <div>
+        <p class="community-prompt-kicker">MONTEMAYOR DE PILILLA</p>
+        <h2 class="community-prompt-title" id="community-prompt-title">¿Te está sirviendo la agenda?</h2>
+      </div>
+    </div>
+
+    <p class="community-prompt-copy" id="community-prompt-description">
+      Si quieres seguir al día con lo que pasa en el pueblo, puedes unirte al grupo de chat y compartir la agenda con tus vecinos.
+    </p>
+
+    <div class="community-prompt-channels" aria-label="Canales de Montemayor de Pililla">
+      <a
+        class="community-prompt-channel community-prompt-channel-primary"
+        href="{{ site.telegramUrl }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-community-prompt-channel="chat"
+      >
+        <i class="fa-brands fa-telegram community-prompt-channel-icon" aria-hidden="true"></i>
+        <span class="community-prompt-channel-copy">
+          <strong>Grupo de chat en Telegram</strong>
+          <small>Avisos, recomendaciones y conversación</small>
+        </span>
+      </a>
+    </div>
+
+    <div class="community-prompt-alternatives" aria-label="Otras formas de seguir Montemayor de Pililla">
+      <a href="{{ site.municipalityUrl }}" target="_blank" rel="noopener noreferrer" data-community-prompt-channel="website">
+        <i class="fa-solid fa-globe" aria-hidden="true"></i>
+        <span>Web principal</span>
+      </a>
+      <a href="{{ site.municipalityContactUrl }}" target="_blank" rel="noopener noreferrer" data-community-prompt-channel="contact">
+        <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+        <span>Contacto</span>
+      </a>
+      <a href="{{ site.blueskyUrl }}" target="_blank" rel="noopener noreferrer" data-community-prompt-channel="bluesky">
+        <i class="fa-brands fa-bluesky" aria-hidden="true"></i>
+        <span>Bluesky</span>
+      </a>
+    </div>
+
+    <button class="community-prompt-never" type="button" data-community-prompt-never>
+      No volver a recordármelo
+    </button>
+  </aside>
+</div>

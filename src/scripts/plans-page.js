@@ -57,7 +57,8 @@ export function setupPlansPage(rawEvents = []) {
     pendingDeletePlanId: '',
     newPlanIcon: DEFAULT_PLAN_ICON,
     editingPlanId: '',
-    editingIcon: DEFAULT_PLAN_ICON
+    editingIcon: DEFAULT_PLAN_ICON,
+    planFinishedExpansionOverrides: new Map()
   };
   let shareDialogPlan = null;
   let shareDialogReturnFocus = null;
@@ -233,11 +234,18 @@ export function setupPlansPage(rawEvents = []) {
           : !state.selectedPlanId || state.view !== 'plan';
     });
     if (state.view === 'saved') {
-      renderPlanDetail(els.savedContent, savedPlan(state.events), state.events, state.plans, state.selectedDay, els.feedback, { isSaved: true });
+      renderPlanDetail(els.savedContent, savedPlan(state.events), state.events, state.plans, state.selectedDay, els.feedback, {
+        isSaved: true,
+        collapsePastActivities: true,
+        finishedExpansionOverrides: state.planFinishedExpansionOverrides
+      });
     } else {
       if (els.planList) els.planList.hidden = Boolean(state.selectedPlanId);
       renderPlanList(els.planList, state.plans, state.events, state.selectedPlanId, els.feedback);
-      renderPlanDetail(els.planDetail, state.plans.find((plan) => plan.id === state.selectedPlanId), state.events, state.plans, state.selectedDay, els.feedback);
+      renderPlanDetail(els.planDetail, state.plans.find((plan) => plan.id === state.selectedPlanId), state.events, state.plans, state.selectedDay, els.feedback, {
+        collapsePastActivities: true,
+        finishedExpansionOverrides: state.planFinishedExpansionOverrides
+      });
     }
     if (els.planList && state.view === 'saved') els.planList.hidden = true;
     if (els.createForm) els.createForm.hidden = !['plans', 'plan'].includes(state.view) || Boolean(state.selectedPlanId);
@@ -515,6 +523,17 @@ export function setupPlansPage(rawEvents = []) {
 
     if (event.target.closest('[data-plan-editor-close]')) {
       closePlanEditor();
+      return;
+    }
+
+    const finishedToggle = event.target.closest('[data-plan-finished-toggle]');
+    if (finishedToggle) {
+      const key = finishedToggle.dataset.planFinishedToggleKey || '';
+      const expanded = finishedToggle.getAttribute('aria-expanded') !== 'true';
+      if (key) state.planFinishedExpansionOverrides.set(key, expanded);
+      finishedToggle.setAttribute('aria-expanded', String(expanded));
+      const content = document.getElementById(finishedToggle.getAttribute('aria-controls') || '');
+      if (content) content.hidden = !expanded;
       return;
     }
 
@@ -1133,6 +1152,21 @@ function renderPlanDetail(container, plan, events, plans, selectedDay, feedback,
   hero.append(copy, illustration);
   container.append(hero);
 
+  if (options.isSaved && !planEvents.length) {
+    const empty = document.createElement('section');
+    empty.className = 'fiestas-plan-empty fiestas-plan-saved-empty';
+    empty.append(
+      textNode('p', 'Añade actividades desde la agenda o desde una ficha.'),
+      textNode('p', 'También puedes explorar los planes vecinales.')
+    );
+    const communityLink = linkNode('Explorar los planes vecinales', '/planes/');
+    communityLink.className = 'fiestas-plan-action fiestas-plan-action-primary fiestas-plan-empty-cta';
+    communityLink.insertBefore(iconNode('fa-solid fa-people-group'), communityLink.firstChild);
+    empty.append(communityLink);
+    container.append(empty);
+    return;
+  }
+
   renderPlanTimeline(container, plan, events, plans, selectedDay, options);
 
   const bottomActions = document.createElement('div');
@@ -1184,41 +1218,32 @@ export function renderPlanTimeline(container, plan, events, plans = [], selected
     const timeline = document.createElement('div');
     timeline.className = 'fiestas-plan-timeline';
     const groups = activeDay === 'all' ? groupEventsByDate(dayEvents) : [[activeDay, dayEvents]];
-    groups.forEach(([date, group]) => {
-      if (activeDay === 'all') {
+    const collapsibleActivities = options.collapsePastActivities === true;
+    if (collapsibleActivities) {
+      const finishedGroups = [];
+      const upcomingGroups = [];
+      groups.forEach(([date, group]) => {
+        const finishedEvents = group.filter((event) => isPlanActivityPast(event));
+        const upcomingEvents = group.filter((event) => !isPlanActivityPast(event));
+        if (finishedEvents.length) finishedGroups.push([date, finishedEvents]);
+        if (upcomingEvents.length) upcomingGroups.push([date, upcomingEvents]);
+      });
+      if (finishedGroups.length) timeline.append(renderFinishedPlanActivities(plan, finishedGroups, plans, events, options));
+      upcomingGroups.forEach(([date, group]) => {
         const dayLabel = textNode('h3', group[0].dateLabel || date);
         dayLabel.className = 'fiestas-plan-day-label';
-        timeline.append(dayLabel);
-      }
-      group.forEach((event, index) => {
-        const row = document.createElement('div');
-        row.className = 'fiestas-plan-timeline-row';
-        const rail = document.createElement('div');
-        rail.className = 'fiestas-plan-timeline-rail';
-        rail.append(textNode('time', event.startTime || '—'));
-        const icon = document.createElement('span');
-        icon.className = `fiestas-plan-timeline-icon${event.image ? ' has-image' : ''}`;
-        if (event.image) {
-          const image = document.createElement('img');
-          image.className = 'fiestas-plan-timeline-image';
-          image.src = event.image;
-          image.alt = '';
-          image.loading = 'lazy';
-          image.decoding = 'async';
-          icon.append(image);
-        } else {
-          icon.append(iconNode(`fa-solid ${iconForPlanEvent(event)}`));
-        }
-        rail.append(icon);
-        if (index < group.length - 1) {
-          const line = document.createElement('span');
-          line.className = 'fiestas-plan-timeline-line';
-          rail.append(line);
-        }
-        row.append(rail, renderPlanTimelineEvent(event, plan.id, plans, events, options));
-        timeline.append(row);
+        timeline.append(dayLabel, renderPlanTimelineRows(group, plan, plans, events, options));
       });
-    });
+    } else {
+      groups.forEach(([date, group]) => {
+        if (activeDay === 'all') {
+          const dayLabel = textNode('h3', group[0].dateLabel || date);
+          dayLabel.className = 'fiestas-plan-day-label';
+          timeline.append(dayLabel);
+        }
+        timeline.append(renderPlanTimelineRows(group, plan, plans, events, options));
+      });
+    }
     container.append(timeline);
   } else {
     const empty = document.createElement('div');
@@ -1226,6 +1251,137 @@ export function renderPlanTimeline(container, plan, events, plans = [], selected
     empty.append(textNode('p', planEvents.length ? 'No hay actividades guardadas para este día.' : 'Añade actividades desde la agenda o desde una ficha de actividad.'));
     container.append(empty);
   }
+}
+
+function renderFinishedPlanActivities(plan, groups, plans, allEvents, options) {
+  const key = planFinishedExpansionKey(plan);
+  const expanded = options.finishedExpansionOverrides instanceof Map && options.finishedExpansionOverrides.has(key)
+    ? options.finishedExpansionOverrides.get(key)
+    : false;
+  const contentId = planFinishedContentId(plan);
+  const disclosure = document.createElement('div');
+  disclosure.className = 'fiestas-finished-activities';
+
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'fiestas-finished-toggle';
+  toggle.dataset.planFinishedToggle = 'all';
+  toggle.dataset.planFinishedToggleKey = key;
+  toggle.setAttribute('aria-controls', contentId);
+  toggle.setAttribute('aria-expanded', String(expanded));
+  const count = textNode('span', String(groups.reduce((total, [, group]) => total + group.length, 0)));
+  count.className = 'fiestas-finished-count';
+  toggle.append(textNode('span', 'Actividades finalizadas'), count, iconNode('fa-solid fa-chevron-down'));
+
+  const list = document.createElement('div');
+  list.className = 'fiestas-plan-finished-list fiestas-finished-list';
+  groups.forEach(([date, group]) => {
+    const dayGroup = document.createElement('section');
+    dayGroup.className = 'fiestas-plan-day-group';
+    dayGroup.dataset.planDayGroup = date;
+    const dayLabel = textNode('h3', group[0].dateLabel || date);
+    dayLabel.className = 'fiestas-plan-day-label';
+    dayGroup.append(dayLabel, renderPlanTimelineRows(group, plan, plans, allEvents, options));
+    list.append(dayGroup);
+  });
+  list.id = contentId;
+  list.dataset.planFinishedList = 'all';
+  list.hidden = !expanded;
+  disclosure.append(toggle, list);
+  return disclosure;
+}
+
+function renderPlanTimelineRows(events, plan, plans, allEvents, options) {
+  const timeline = document.createElement('div');
+  timeline.className = 'fiestas-plan-timeline';
+  events.forEach((event, index) => {
+    const row = document.createElement('div');
+    row.className = 'fiestas-plan-timeline-row';
+    const rail = document.createElement('div');
+    rail.className = 'fiestas-plan-timeline-rail';
+    rail.append(textNode('time', event.startTime || '—'));
+    const icon = document.createElement('span');
+    icon.className = `fiestas-plan-timeline-icon${event.image ? ' has-image' : ''}`;
+    if (event.image) {
+      const image = document.createElement('img');
+      image.className = 'fiestas-plan-timeline-image';
+      image.src = event.image;
+      image.alt = '';
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      icon.append(image);
+    } else {
+      icon.append(iconNode(`fa-solid ${iconForPlanEvent(event)}`));
+    }
+    rail.append(icon);
+    if (index < events.length - 1) {
+      const line = document.createElement('span');
+      line.className = 'fiestas-plan-timeline-line';
+      rail.append(line);
+    }
+    row.append(rail, renderPlanTimelineEvent(event, plan.id, plans, allEvents, options));
+    timeline.append(row);
+  });
+  return timeline;
+}
+
+export function isPlanDatePast(date, now = new Date()) {
+  const value = String(date || '');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  return value < localPlanDateKey(now);
+}
+
+export function isPlanActivityPast(event, now = new Date()) {
+  if (!event || isPlanDatePast(event.date, now)) return Boolean(event?.date);
+  if (String(event.date || '') !== localPlanDateKey(now)) return false;
+
+  const realStart = event.realStartDate ? new Date(event.realStartDate) : null;
+  const hasRealStart = realStart && !Number.isNaN(realStart.getTime());
+  const start = hasRealStart ? realStart : localPlanEventDateTime(event.date, event.startTime);
+  if (!start || start > now) return false;
+
+  const realStartDate = hasRealStart ? event.realStartDate.slice(0, 10) : null;
+  const realEnd = event.realEndDate ? new Date(event.realEndDate) : null;
+  const hasRealEnd = realEnd && !Number.isNaN(realEnd.getTime());
+  let end = hasRealEnd
+    ? realEnd
+    : event.endTime
+      ? localPlanEventDateTime(realStartDate || event.date, event.endTime)
+      : null;
+  if (!hasRealEnd && end && end <= start) end = new Date(end.getTime() + 24 * 60 * 60 * 1000);
+  if (!end) end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+  return end <= now;
+}
+
+function localPlanEventDateTime(date, time) {
+  const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(date || ''));
+  const timeMatch = /^(\d{1,2}):(\d{2})$/.exec(String(time || ''));
+  if (!dateMatch || !timeMatch) return null;
+  const value = new Date(
+    Number(dateMatch[1]),
+    Number(dateMatch[2]) - 1,
+    Number(dateMatch[3]),
+    Number(timeMatch[1]),
+    Number(timeMatch[2])
+  );
+  return Number.isNaN(value.getTime()) ? null : value;
+}
+
+function localPlanDateKey(date) {
+  const value = date instanceof Date ? date : new Date(date);
+  if (Number.isNaN(value.getTime())) return '';
+  const year = value.getFullYear();
+  const month = String(value.getMonth() + 1).padStart(2, '0');
+  const day = String(value.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function planFinishedExpansionKey(plan) {
+  return `${String(plan?.id || '__plan__')}::finished`;
+}
+
+function planFinishedContentId(plan) {
+  return `fiestas-plan-finished-${slugifyPlanUrl(plan?.id || 'plan')}`;
 }
 
 function renderPlanTimelineEvent(event, planId, plans, events, options = {}) {

@@ -13,6 +13,11 @@ const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'dist');
 const site = JSON.parse(await fs.readFile(path.join(root, 'src', 'data', 'fiestas-2026', 'site.json'), 'utf8'));
 const publicBaseUrl = site.publicBaseUrl;
+const communityPromptCampaign = {
+  id: 'montemayor-2026',
+  startDate: '2026-09-06',
+  endDate: '2026-09-18'
+};
 const analyticsConfig = {
   enabled: parseBooleanEnv(process.env.FIESTAS_ANALYTICS_ENABLED) ?? true,
   trackerUrl: process.env.FIESTAS_MATOMO_URL || 'https://stats.nukeador.com/',
@@ -86,7 +91,7 @@ async function compileCss(cssVersionSeed) {
 async function copyJs(jsVersionSeed) {
   const jsDir = path.join(dist, 'assets', 'js');
   await fs.mkdir(jsDir, { recursive: true });
-  const files = ['analytics.js', 'plan-storage.js', 'plan-export.js', 'plans-page.js', 'community-plans.js', 'popular-page.js', 'fiestas-2026.js', 'penas-page.js', 'map-directions.js', 'menu-drawer.js', 'pwa.js', 'scroll-top.js', 'subscribe.js', 'theme.js'];
+  const files = ['analytics.js', 'plan-storage.js', 'plan-export.js', 'plans-page.js', 'community-plans.js', 'community-prompt.js', 'popular-page.js', 'fiestas-2026.js', 'penas-page.js', 'map-directions.js', 'menu-drawer.js', 'pwa.js', 'scroll-top.js', 'subscribe.js', 'theme.js'];
   for (const file of files) {
     const content = await fs.readFile(path.join(root, 'src', 'scripts', file), 'utf8');
     await fs.writeFile(path.join(jsDir, file), content);
@@ -607,6 +612,7 @@ function pageContext({ assetVersion, cssVersion, jsVersion }) {
     activeNav: 'fiestas-2026',
     pageCss: 'fiestas-2026.' + cssVersion + '.css',
     pageJs: 'fiestas-2026.' + jsVersion + '.js',
+    communityPromptCampaign,
     communityPlansUrl: '/data/planes.json',
     assetVersion,
     cssVersion,

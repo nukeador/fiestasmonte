@@ -4252,6 +4252,23 @@ html:not(.dark) body:has(.fiestas-app) {
   font-weight: 850;
 }
 
+.fiestas-plan-saved-empty {
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+  padding: 1.15rem;
+}
+
+.fiestas-plan-empty-cta {
+  margin-top: 0.35rem;
+  text-decoration: none;
+}
+
+.fiestas-plan-empty-cta.fiestas-plan-action-primary,
+.fiestas-plan-empty-cta.fiestas-plan-action-primary:hover,
+.fiestas-plan-empty-cta.fiestas-plan-action-primary:focus-visible {
+  color: #fff;
+}
+
 .fiestas-plan-events,
 .fiestas-plan-list {
   display: grid;
@@ -5316,6 +5333,74 @@ html.dark .fiestas-plan-selector-create input {
   font-weight: 850;
 }
 
+.fiestas-plan-day-group {
+  display: grid;
+  min-width: 0;
+  gap: 0.3rem;
+}
+
+.fiestas-plan-finished-list {
+  display: grid;
+  min-width: 0;
+  gap: 1.05rem;
+}
+
+.fiestas-finished-activities {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.fiestas-finished-toggle {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.42rem;
+  border: 0;
+  background: transparent;
+  color: #68717b;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.2;
+  padding: 0.15rem 0;
+  text-align: left;
+}
+
+.fiestas-finished-toggle:hover,
+.fiestas-finished-toggle:focus-visible {
+  color: #28547e;
+}
+
+.fiestas-finished-toggle:focus-visible {
+  outline: 2px solid rgba(51, 102, 153, 0.35);
+  outline-offset: 3px;
+}
+
+.fiestas-finished-count {
+  color: #98a1af;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.fiestas-finished-toggle i {
+  color: currentColor;
+  font-size: 0.68rem;
+  transition: transform 0.16s ease;
+}
+
+.fiestas-finished-toggle[aria-expanded='true'] i {
+  transform: rotate(180deg);
+}
+
+.fiestas-finished-list {
+  opacity: 0.72;
+}
+
+.fiestas-finished-list[hidden] {
+  display: none;
+}
+
 .fiestas-plan-date.is-active {
   background: #3f7fb5;
   color: #fff;
@@ -5970,6 +6055,23 @@ html.dark .fiestas-plan-picker-divider {
 html.dark .fiestas-plan-timeline-card.is-overlap-target {
   border-color: #99ccff;
   box-shadow: 0 0 0 0.22rem rgba(120, 226, 212, 0.18), 0 0.55rem 1.1rem rgba(0, 0, 0, 0.28);
+}
+
+html.dark .fiestas-finished-toggle {
+  color: #aeb7c5;
+}
+
+html.dark .fiestas-finished-toggle:hover,
+html.dark .fiestas-finished-toggle:focus-visible {
+  color: #99ccff;
+}
+
+html.dark .fiestas-finished-count {
+  color: #8993a2;
+}
+
+html.dark .fiestas-finished-list {
+  opacity: 0.68;
 }
 
 html.dark .fiestas-plan-date.is-active {
