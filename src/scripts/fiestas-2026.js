@@ -30,9 +30,10 @@ const FIESTAS_START_DATE = SITE_CONFIG.fiestasStartDate || '';
 const SITE_SHARE_URL = `${SITE_CONFIG.publicBaseUrl || window.location.origin}/?mtm_campaign=share`;
 const SITE_SHARE_MESSAGE = `Consulta ${SITE_CONFIG.fullName || 'las fiestas de Montemayor de Pililla'}\n\n${SITE_SHARE_URL}`;
 const SAVE_COUNTS_API_URL = SITE_CONFIG.saveCountsUrl || '';
+const CARTO_API_KEY = 'cb1_2yv0_1_3303f1ac12aa0ae86c378e7e';
 const cartoLayers = {
-  light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+  light: `https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`,
+  dark: `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`
 };
 const LEAFLET_SCRIPT_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
 const LEAFLET_SCRIPT_INTEGRITY = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
@@ -1651,7 +1652,6 @@ function setSearchOpen(open, options = {}) {
 function getInitialDate(dates) {
   if (!dates.length) return 'all';
   const today = localDateKey(new Date());
-  if (FIESTAS_START_DATE && today < FIESTAS_START_DATE) return 'all';
   return dates.some((date) => date.date === today) ? today : 'all';
 }
 

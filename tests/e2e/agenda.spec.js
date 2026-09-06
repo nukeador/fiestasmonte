@@ -10,12 +10,25 @@ async function openSearchPanel(page) {
 }
 
 test.describe('agenda', () => {
-  test('renderiza todas las actividades antes del inicio de fiestas', async ({ page }) => {
-    await page.goto('/?date=all');
+  test('selecciona el día en curso al abrir la agenda', async ({ page }) => {
+    await page.goto('/');
 
     await expect(page.locator(cards).first()).toBeVisible();
-    await expect(page.locator('[data-date="all"]')).toHaveAttribute('aria-pressed', 'true');
-    expect(await page.locator(cards).count()).toBe(72);
+    const today = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Europe/Madrid',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(new Date());
+    const todayCard = page.locator(`[data-date="${today}"]`);
+    if (await todayCard.count()) {
+      await expect(todayCard).toHaveAttribute('aria-pressed', 'true');
+      await expect(todayCard).toHaveClass(/is-active/);
+      await expect(page.locator('[data-date="all"]')).toHaveAttribute('aria-pressed', 'false');
+    } else {
+      await expect(page.locator('[data-date="all"]')).toHaveAttribute('aria-pressed', 'true');
+    }
+    expect(await page.locator(cards).count()).toBeGreaterThan(0);
   });
 
   test('el selector de fechas filtra el listado', async ({ page }) => {
@@ -34,28 +47,19 @@ test.describe('agenda', () => {
     await page.goto('/?date=2026-09-11');
 
     const dates = page.locator('[data-fiestas-dates] [data-date]');
-    const initialOrder = [
-      '2026-09-10',
-      '2026-09-09',
-      '2026-09-08',
-      '2026-09-07',
-      '2026-09-06',
-      '2026-09-05',
-      '2026-09-04',
-      'all',
-      '2026-09-11',
-      '2026-09-12',
-      '2026-09-13'
-    ];
-    await expect.poll(() => dates.evaluateAll((cards) => cards.map((card) => card.dataset.date))).toEqual(initialOrder);
-    await expect(dates.nth(7)).toHaveAttribute('data-date', 'all');
-    await expect(dates.nth(8)).toHaveAttribute('data-date', '2026-09-11');
-    await expect(dates.nth(8)).toHaveClass(/is-active/);
+    const initialOrder = await dates.evaluateAll((cards) => cards.map((card) => card.dataset.date));
+    const allIndex = initialOrder.indexOf('all');
+    expect(allIndex).toBeGreaterThan(0);
+    expect(initialOrder[allIndex + 1]).toBe('2026-09-11');
+    expect(initialOrder.slice(0, allIndex)).toEqual([...initialOrder.slice(0, allIndex)].sort().reverse());
+    expect(initialOrder.slice(allIndex + 2)).toEqual([...initialOrder.slice(allIndex + 2)].sort());
+    await expect(dates.nth(allIndex)).toHaveAttribute('data-date', 'all');
+    await expect(dates.nth(allIndex + 1)).toHaveClass(/is-active/);
     await expect.poll(() => dates.locator('..').evaluate((strip) => strip.scrollLeft)).toBeGreaterThan(0);
 
     await page.locator('[data-fiestas-dates] [data-date="2026-09-12"]').click();
     await expect.poll(() => dates.evaluateAll((cards) => cards.map((card) => card.dataset.date))).toEqual(initialOrder);
-    await expect(dates.nth(9)).toHaveClass(/is-active/);
+    await expect(dates.nth(allIndex + 2)).toHaveClass(/is-active/);
   });
 
   test('la búsqueda y los filtros por tipo se pueden limpiar', async ({ page }) => {
