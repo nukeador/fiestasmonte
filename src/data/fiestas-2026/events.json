@@ -358,8 +358,8 @@
     "endTime": "13:00",
     "title": "Taller de Expresión Artística Intergeneracional",
     "location": "Casa de Cultura",
-    "description": "Taller de Expresión Artística Intergeneracional, a partir de los 7 años. Plazas limitadas.",
-    "summary": "Taller de Expresión Artística Intergeneracional, a partir de los 7 años. Plazas limitadas.",
+    "description": "Taller de Expresión Artística Intergeneracional, a partir de los 7 años. Plazas limitadas. Requiere inscripción previa por WhatsApp, indicando nombre y edad de los participantes, en el 722 590 141.",
+    "summary": "Taller de Expresión Artística Intergeneracional, a partir de los 7 años. Plazas limitadas. Requiere inscripción previa por WhatsApp en el 722 590 141, indicando nombre y edad de los participantes.",
     "performances": [],
     "organizers": [],
     "collaborators": [],
@@ -370,11 +370,11 @@
     },
     "type": "Talleres",
     "ticket": {
-      "required": false,
-      "status": "unknown",
-      "label": "Entrada no indicada",
+      "required": true,
+      "status": "required",
+      "label": "Inscripción previa",
       "url": null,
-      "note": "El programa no indica venta de entradas para este evento."
+      "note": "Inscripción previa por WhatsApp en el 722 590 141, indicando nombre y edad de los participantes."
     },
     "tags": [
       "Talleres",
@@ -1764,7 +1764,7 @@
     "endTime": null,
     "title": "Desfile de disfraces con músicos locales",
     "location": "Desde la plaza de toros “La Empalizada”",
-    "description": "Desfile de disfraces acompañado de músicos locales, con salida desde la plaza de toros “La Empalizada”. El recorrido completo está por confirmar.",
+    "description": "Desfile de disfraces acompañado de músicos locales, con salida desde la plaza de toros “La Empalizada”.",
     "summary": "Desfile de disfraces acompañado de músicos locales, con salida desde la plaza de toros “La Empalizada”.",
     "performances": [
       "Músicos locales"
@@ -2269,8 +2269,8 @@
     "endTime": null,
     "title": "Las Doñas y DJ Alfonso",
     "location": "Bar Portobello",
-    "description": "Actividad conjunta en el Pub Portobello: DJ Alfonso desde las 18:00, Las Doñas a las 19:00 y, a continuación, DJ Alfonso de nuevo, con sorpresa para los asistentes.",
-    "summary": "DJ Alfonso, Las Doñas y, a continuación, DJ Alfonso de nuevo en el Pub Portobello.",
+    "description": "DJ Alfonso en Bar Portobello. A las 19:00, Las Doñas; a continuación, DJ Alfonso, con sorpresa para los asistentes.",
+    "summary": "DJ Alfonso en Bar Portobello; a las 19:00, Las Doñas y, a continuación, DJ Alfonso, con sorpresa para los asistentes.",
     "performances": [
       "DJ Alfonso",
       "Las Doñas"
