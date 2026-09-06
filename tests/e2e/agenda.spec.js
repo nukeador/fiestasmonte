@@ -43,7 +43,7 @@ test.describe('agenda', () => {
     await expect(page.locator('.fiestas-day-title')).toHaveCount(1);
   });
 
-  test('muestra Todos antes del día inicial y no reordena al cambiar de día', async ({ page }) => {
+  test('muestra Todos antes del día inicial y mantiene el orden cronológico', async ({ page }) => {
     await page.goto('/?date=2026-09-11');
 
     const dates = page.locator('[data-fiestas-dates] [data-date]');
@@ -51,7 +51,7 @@ test.describe('agenda', () => {
     const allIndex = initialOrder.indexOf('all');
     expect(allIndex).toBeGreaterThan(0);
     expect(initialOrder[allIndex + 1]).toBe('2026-09-11');
-    expect(initialOrder.slice(0, allIndex)).toEqual([...initialOrder.slice(0, allIndex)].sort().reverse());
+    expect(initialOrder.slice(0, allIndex)).toEqual([...initialOrder.slice(0, allIndex)].sort());
     expect(initialOrder.slice(allIndex + 2)).toEqual([...initialOrder.slice(allIndex + 2)].sort());
     await expect(dates.nth(allIndex)).toHaveAttribute('data-date', 'all');
     await expect(dates.nth(allIndex + 1)).toHaveClass(/is-active/);

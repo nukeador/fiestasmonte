@@ -675,7 +675,6 @@ function reorderDateCarousel() {
     ? []
     : state.dates
       .slice(0, selectedIndex)
-      .reverse()
       .map((day) => day.date);
   const datesAfterSelected = selectedDate === 'all'
     ? state.dates.map((day) => day.date)
