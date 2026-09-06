@@ -1799,8 +1799,8 @@
     "endTime": null,
     "title": "Encierro de carretones",
     "location": "Plaza Mayor",
-    "description": "Encierro de carretones. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
-    "summary": "Encierro de carretones. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "description": "Encierro de carretones en la Plaza Mayor.",
+    "summary": "Encierro de carretones en la Plaza Mayor.",
     "performances": [],
     "organizers": [
       "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
@@ -1832,8 +1832,8 @@
     "endTime": null,
     "title": "Encierro de carretones",
     "location": "Plaza Mayor",
-    "description": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
-    "summary": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "description": "Encierro de carretones con sorpresa para los asistentes en la Plaza Mayor.",
+    "summary": "Encierro de carretones con sorpresa para los asistentes en la Plaza Mayor.",
     "performances": [],
     "organizers": [
       "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
@@ -1904,6 +1904,12 @@
       "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
     ],
     "collaborators": [],
+    "coordinates": {
+      "lat": 41.5076633,
+      "lng": -4.457346,
+      "source": "Google Maps, C/ Humildad, 5",
+      "query": "Bar La Torre, C/ Humildad, 5, Montemayor de Pililla"
+    },
     "type": "Música",
     "ticket": {
       "required": false,
@@ -1925,8 +1931,8 @@
     "endTime": null,
     "title": "Encierro de carretones",
     "location": "Plaza Mayor",
-    "description": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
-    "summary": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "description": "Encierro de carretones con sorpresa para los asistentes en la Plaza Mayor.",
+    "summary": "Encierro de carretones con sorpresa para los asistentes en la Plaza Mayor.",
     "performances": [],
     "organizers": [
       "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
@@ -1958,7 +1964,7 @@
     "endTime": null,
     "title": "Sopas de ajo",
     "location": "Plaza Mayor",
-    "description": "Sopas de ajo a continuación del encierro de carretones de las 13:10. La hora aproximada se muestra a las 13:30 para mantener el orden de la jornada; el cartel no detalla otro lugar y se muestra la Plaza Mayor como punto de referencia.",
+    "description": "Sopas de ajo en la Plaza Mayor, a continuación del encierro de carretones.",
     "summary": "Sopas de ajo a continuación del encierro de carretones.",
     "performances": [],
     "organizers": [
@@ -2000,6 +2006,12 @@
       "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
     ],
     "collaborators": [],
+    "coordinates": {
+      "lat": 41.5076633,
+      "lng": -4.457346,
+      "source": "Google Maps, C/ Humildad, 5",
+      "query": "Bar La Torre, C/ Humildad, 5, Montemayor de Pililla"
+    },
     "type": "Música",
     "ticket": {
       "required": false,
@@ -2030,6 +2042,12 @@
       "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
     ],
     "collaborators": [],
+    "coordinates": {
+      "lat": 41.5076633,
+      "lng": -4.457346,
+      "source": "Google Maps, C/ Humildad, 5",
+      "query": "Bar La Torre, C/ Humildad, 5, Montemayor de Pililla"
+    },
     "type": "Música",
     "ticket": {
       "required": false,
@@ -2051,8 +2069,8 @@
     "endTime": null,
     "title": "Encierro de carretones",
     "location": "Plaza Mayor",
-    "description": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
-    "summary": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "description": "Encierro de carretones con sorpresa para los asistentes en la Plaza Mayor.",
+    "summary": "Encierro de carretones con sorpresa para los asistentes en la Plaza Mayor.",
     "performances": [],
     "organizers": [
       "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
@@ -2185,8 +2203,8 @@
     "endTime": null,
     "title": "Encierro de carretones",
     "location": "Plaza Mayor",
-    "description": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
-    "summary": "Encierro de carretones con sorpresa para los asistentes. El cartel no detalla un punto de inicio; se muestra la Plaza Mayor como punto de referencia.",
+    "description": "Encierro de carretones con sorpresa para los asistentes en la Plaza Mayor.",
+    "summary": "Encierro de carretones con sorpresa para los asistentes en la Plaza Mayor.",
     "performances": [],
     "organizers": [
       "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
@@ -2287,8 +2305,8 @@
     "endTime": null,
     "title": "Chocolatada fin de fiestas",
     "location": "Plaza Mayor",
-    "description": "Chocolatada de fin de fiestas. El cartel marca las 00:00 de la madrugada del sábado 19; se muestra a las 23:59 del viernes 18 para mantenerla al final de la jornada. El cartel no detalla otro lugar y se muestra la Plaza Mayor como punto de referencia.",
-    "summary": "Chocolatada de fin de fiestas a las 00:00, mostrada al final de la jornada del viernes 18.",
+    "description": "Chocolatada de fin de fiestas en la Plaza Mayor.",
+    "summary": "Chocolatada de fin de fiestas en la Plaza Mayor.",
     "performances": [],
     "organizers": [
       "Plataforma vecinal independiente de Montemayor de Pililla “Fiestas del 13 al 18”"
