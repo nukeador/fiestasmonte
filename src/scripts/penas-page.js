@@ -5,9 +5,10 @@ const penas = Array.isArray(window.__FIESTAS_PENAS__)
   ? [...window.__FIESTAS_PENAS__].sort((a, b) => penaCollator.compare(a.name || '', b.name || ''))
   : [];
 const site = window.__FIESTAS_SITE__ || {};
+const CARTO_API_KEY = 'cb1_2yv0_1_3303f1ac12aa0ae86c378e7e';
 const cartoLayers = {
-  light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+  light: `https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`,
+  dark: `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`
 };
 const state = {
   query: '',
