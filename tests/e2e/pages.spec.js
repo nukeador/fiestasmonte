@@ -18,7 +18,7 @@ test('el catálogo de planes vecinales renderiza y sus fichas abren', async ({ p
 
 test('mi plan y la confirmación de calendario funcionan', async ({ page }) => {
   await page.goto('/?view=agenda');
-  const card = page.locator('[data-fiestas-card]').first();
+  const card = page.locator('[data-fiestas-card]:visible').first();
   await expect(card).toBeVisible();
   await card.locator('[data-fiestas-save]').click();
 

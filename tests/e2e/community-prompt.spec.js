@@ -2,7 +2,7 @@ import { test, expect } from './fixtures.js';
 
 test('el prompt comunitario usa los canales de Montemayor', async ({ page }) => {
   await page.goto('/');
-  await page.locator('[data-fiestas-save]').first().click();
+  await page.locator('[data-fiestas-save]:visible').first().click();
 
   const prompt = page.locator('[data-community-prompt]');
   await expect(prompt).toBeVisible();

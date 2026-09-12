@@ -14,7 +14,7 @@ function planHash(activityIds) {
 
 test('guardar una actividad persiste al recargar', async ({ page }) => {
   await page.goto('/?view=agenda');
-  const card = page.locator('[data-fiestas-card]').first();
+  const card = page.locator('[data-fiestas-card]:visible').first();
   const activityId = await card.getAttribute('data-fiestas-card');
   await card.locator('[data-fiestas-save]').click();
 

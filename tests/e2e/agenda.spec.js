@@ -13,7 +13,7 @@ test.describe('agenda', () => {
   test('selecciona el día en curso al abrir la agenda', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page.locator(cards).first()).toBeVisible();
+    await expect(page.locator(cards).filter({ visible: true }).first()).toBeVisible();
     const today = new Intl.DateTimeFormat('en-CA', {
       timeZone: 'Europe/Madrid',
       year: 'numeric',
@@ -29,6 +29,65 @@ test.describe('agenda', () => {
       await expect(page.locator('[data-date="all"]')).toHaveAttribute('aria-pressed', 'true');
     }
     expect(await page.locator(cards).count()).toBeGreaterThan(0);
+  });
+
+  test('pliega las actividades ya finalizadas del día actual y permite desplegarlas', async ({ page }) => {
+    await page.addInitScript(() => {
+      const NativeDate = Date;
+      const timestamp = new NativeDate(2026, 8, 12, 17, 0).getTime();
+      class FixedDate extends NativeDate {
+        constructor(...args) {
+          super(...(args.length ? args : [timestamp]));
+        }
+
+        static now() {
+          return timestamp;
+        }
+      }
+      FixedDate.parse = NativeDate.parse;
+      FixedDate.UTC = NativeDate.UTC;
+      window.Date = FixedDate;
+    });
+    await page.goto('/?date=2026-09-12');
+
+    const toggle = page.locator('[data-fiestas-finished-toggle]');
+    const finishedList = page.locator('[data-fiestas-finished-list]');
+    await expect(toggle).toBeVisible();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(finishedList).toBeHidden();
+    await expect(finishedList.locator('[data-fiestas-card="25"]')).toHaveCount(1);
+    await expect(finishedList.locator('[data-fiestas-card="52"]')).toHaveCount(1);
+    await expect(page.locator('.fiestas-day > .fiestas-event-list [data-fiestas-card="42"]')).toBeVisible();
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(finishedList.locator('[data-fiestas-card="25"]')).toBeVisible();
+
+    await page.locator('[data-fiestas-dates] [data-date="2026-09-13"]').click();
+    await expect(page.locator('[data-fiestas-finished-toggle]')).toHaveCount(0);
+  });
+
+  test('no pliega actividades en la vista de todos los días', async ({ page }) => {
+    await page.addInitScript(() => {
+      const NativeDate = Date;
+      const timestamp = new NativeDate(2026, 8, 12, 17, 0).getTime();
+      class FixedDate extends NativeDate {
+        constructor(...args) {
+          super(...(args.length ? args : [timestamp]));
+        }
+
+        static now() {
+          return timestamp;
+        }
+      }
+      FixedDate.parse = NativeDate.parse;
+      FixedDate.UTC = NativeDate.UTC;
+      window.Date = FixedDate;
+    });
+    await page.goto('/?date=all');
+
+    await expect(page.locator('[data-fiestas-finished-toggle]')).toHaveCount(0);
+    await expect(page.locator('[data-fiestas-card="25"]')).toBeVisible();
   });
 
   test('el selector de fechas filtra el listado', async ({ page }) => {
@@ -117,7 +176,7 @@ test.describe('agenda', () => {
   });
 
   test('el botón Solo fiestas alterna el filtro', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/?date=all');
     const total = await page.locator(cards).count();
     const toggle = page.locator('[data-fiestas-fiestas-toggle]');
 
