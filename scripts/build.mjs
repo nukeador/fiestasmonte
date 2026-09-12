@@ -7,6 +7,7 @@ import postcss from 'postcss';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 import { jsonForScript } from './json-for-script.mjs';
+import { getAgendaDate } from '../src/scripts/agenda-date.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -91,7 +92,7 @@ async function compileCss(cssVersionSeed) {
 async function copyJs(jsVersionSeed) {
   const jsDir = path.join(dist, 'assets', 'js');
   await fs.mkdir(jsDir, { recursive: true });
-  const files = ['analytics.js', 'plan-storage.js', 'plan-export.js', 'plans-page.js', 'community-plans.js', 'community-prompt.js', 'popular-page.js', 'fiestas-2026.js', 'penas-page.js', 'map-directions.js', 'menu-drawer.js', 'pwa.js', 'scroll-top.js', 'subscribe.js', 'theme.js'];
+  const files = ['analytics.js', 'plan-storage.js', 'plan-export.js', 'plans-page.js', 'community-plans.js', 'community-prompt.js', 'popular-page.js', 'agenda-date.js', 'fiestas-2026.js', 'penas-page.js', 'map-directions.js', 'menu-drawer.js', 'pwa.js', 'scroll-top.js', 'subscribe.js', 'theme.js'];
   for (const file of files) {
     const content = await fs.readFile(path.join(root, 'src', 'scripts', file), 'utf8');
     await fs.writeFile(path.join(jsDir, file), content);
@@ -346,6 +347,7 @@ async function loadEvents() {
     return {
     id: String(event.id || ''),
     date: String(event.date || ''),
+    agendaDate: getAgendaDate(event.date, event.startTime),
     dateLabel: String(event.dateLabel || event.date || ''),
     startTime: String(event.startTime || ''),
     endTime: String(event.endTime || ''),
@@ -547,14 +549,23 @@ function ticketDetail(kind, ticket) {
 }
 
 function buildSummary(events) {
-  const dates = [...new Map(events.map((event) => [event.date, {
-    date: event.date,
-    label: event.dateLabel,
-    shortLabel: event.dateLabel.split(' ').slice(0, 2).join(' '),
-    weekday: event.dateLabel.split(' ')[0]?.replace(',', '').slice(0, 3).toUpperCase() || '',
-    dayNumber: event.date.split('-')[2]?.replace(/^0/, '') || '',
-    monthLabel: monthLabel(event.date)
-  }])).values()];
+  const dates = [...new Map(events.map((event) => {
+    const date = event.agendaDate || event.date;
+    const value = new Date(`${date}T12:00:00Z`);
+    const weekdayLabel = Number.isNaN(value.getTime())
+      ? event.dateLabel.split(' ')[0] || ''
+      : new Intl.DateTimeFormat('es-ES', { weekday: 'long', timeZone: 'UTC' }).format(value);
+    const dayNumber = date.split('-')[2]?.replace(/^0/, '') || '';
+    const dateLabel = `${weekdayLabel} ${dayNumber}`;
+    return [date, {
+      date,
+      label: dateLabel,
+      shortLabel: dateLabel,
+      weekday: weekdayLabel.replace(',', '').slice(0, 3).toUpperCase(),
+      dayNumber,
+      monthLabel: monthLabel(date)
+    }];
+  })).values()];
   const types = [...new Set(events.flatMap((event) => event.tags?.length ? event.tags : [event.type || 'Evento']))].sort((a, b) => a.localeCompare(b, 'es'));
   const areas = [...new Set(events.map((event) => event.neighborhood || event.zone).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es'));
   return { dates, types, areas };

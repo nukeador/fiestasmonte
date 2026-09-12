@@ -22,6 +22,7 @@ import { setupPlanImportPage, setupPlanSelector, setupPlansPage } from './plans-
 import { setupCommunityPlanDetailPage, setupCommunityPlansPage } from './community-plans.js';
 import { rankPopularEvents } from './popular-page.js';
 import { setupMapDirections } from './map-directions.js';
+import { getAgendaDate } from './agenda-date.js';
 
 const collator = new Intl.Collator('es', { numeric: true, sensitivity: 'base' });
 const defaultQueryKeys = ['date', 'q', 'type', 'area', 'ticket', 'fiestas', 'view', 'event'];
@@ -596,6 +597,7 @@ function normalizeEvents(events) {
     const ticketKind = event.ticketKind || inferTicketKind(event.ticket);
     return {
       ...event,
+      agendaDate: getAgendaDate(event.date, event.startTime),
       type: event.type || 'Evento',
       tags,
       area,
@@ -1509,7 +1511,7 @@ function getFilteredEvents() {
   return state.events.filter((event) => {
     if (searchInUpcoming) {
       if (String(event.date || '') < today) return false;
-    } else if (state.selectedDate && state.selectedDate !== 'all' && event.date !== state.selectedDate) {
+    } else if (state.selectedDate && state.selectedDate !== 'all' && event.agendaDate !== state.selectedDate) {
       return false;
     }
     if (state.search && !event.searchable.includes(state.search)) return false;
@@ -1760,7 +1762,10 @@ function localDateKey(date) {
 }
 
 function getDates(events) {
-  return [...new Map(events.map((event) => [event.date, { date: event.date, label: event.dateLabel || event.date }])).values()];
+  return [...new Map(events.map((event) => [event.agendaDate, {
+    date: event.agendaDate,
+    label: event.agendaDate === event.date ? event.dateLabel || event.agendaDate : labelForDate(event.agendaDate)
+  }])).values()];
 }
 
 function getTypes(events) {
@@ -1774,8 +1779,8 @@ function getAreas(events) {
 function groupByDay(events) {
   const days = new Map();
   events.forEach((event) => {
-    if (!days.has(event.date)) days.set(event.date, []);
-    days.get(event.date).push(event);
+    if (!days.has(event.agendaDate)) days.set(event.agendaDate, []);
+    days.get(event.agendaDate).push(event);
   });
   return [...days.entries()];
 }
@@ -1943,7 +1948,7 @@ function applyInitialUrlState() {
   if (eventId) {
     const event = state.events.find((item) => item.id === eventId);
     if (event?.date) {
-      state.selectedDate = event.date;
+      state.selectedDate = event.agendaDate;
       state.selectedEventId = event.id;
     }
   }

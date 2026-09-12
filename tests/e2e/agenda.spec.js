@@ -102,6 +102,21 @@ test.describe('agenda', () => {
     await expect(page.locator('.fiestas-day-title')).toHaveCount(1);
   });
 
+  test('agrupa al final del día anterior los eventos de madrugada hasta las 05:00', async ({ page }) => {
+    await page.goto('/?date=2026-09-11');
+
+    const previousDayEvents = page.locator('#fiestas-day-2026-09-11 .fiestas-event-list [data-fiestas-card]');
+    for (const id of ['24', '51', '41']) {
+      await expect(page.locator(`[data-fiestas-card="${id}"]`)).toBeVisible();
+    }
+    const ids = await previousDayEvents.evaluateAll((cards) => cards.map((card) => card.dataset.fiestasCard));
+    expect(ids.slice(-3)).toEqual(['24', '51', '41']);
+
+    await page.locator('[data-fiestas-dates] [data-date="2026-09-12"]').click();
+    await expect(page.locator('[data-fiestas-card="24"]')).toHaveCount(0);
+    await expect(page.locator('[data-fiestas-card="28"]')).toBeVisible();
+  });
+
   test('muestra Todos antes del día inicial y mantiene el orden cronológico', async ({ page }) => {
     await page.goto('/?date=2026-09-11');
 
