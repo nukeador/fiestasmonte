@@ -599,7 +599,7 @@
       "status": "required",
       "label": "Ticket de 7,50 €",
       "url": null,
-      "note": "Venta de tickets hasta el viernes 4 de septiembre, de 12:00 a 14:00, en las oficinas del Ayuntamiento."
+      "note": "Venta de tickets ampliada al lunes 7 y martes 8 de septiembre, de 10:00 a 13:30, en las oficinas del Ayuntamiento."
     },
     "tags": [
       "Gastronomía"
@@ -1407,7 +1407,7 @@
     "startTime": "15:30",
     "endTime": null,
     "title": "Concierto flamenco pop-rock con Aarón Miguel",
-    "location": "Peñas Las Druidas y Gres-k",
+    "location": "Peña Skpa-2",
     "description": "Concierto flamenco pop-rock con Aarón Miguel, organizado por las peñas Las Druidas y Gres-k.",
     "summary": "Concierto flamenco pop-rock con Aarón Miguel, organizado por las peñas Las Druidas y Gres-k.",
     "performances": [
@@ -1419,10 +1419,10 @@
     ],
     "collaborators": [],
     "coordinates": {
-      "lat": 41.50998635707285,
-      "lng": -4.458638869489175,
-      "source": "User-provided coordinates",
-      "query": "C. Manadero, 2, Montemayor de Pililla, Valladolid, España",
+      "lat": 41.51018482094923,
+      "lng": -4.45850751901872,
+      "source": "peñas.montemayordepililla.cc",
+      "query": "Peña Skpa-2",
       "accuracy": "exact"
     },
     "type": "Música",

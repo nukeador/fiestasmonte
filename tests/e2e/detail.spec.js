@@ -30,3 +30,17 @@ test('la ficha muestra información, mapa y opciones de calendario', async ({ pa
   await page.locator('.calendar-modal-close[data-fiestas-detail-calendar-close]').click();
   await expect(page.locator('[data-fiestas-detail-calendar-modal]')).toBeHidden();
 });
+
+test('el concierto de Aarón Miguel señala la Peña Skpa-2', async ({ page }) => {
+  await page.goto('/');
+  const path = await page.evaluate(() => {
+    const event = (window.__FIESTAS_2026_EVENTS__ || []).find((item) => String(item.id) === '45');
+    return event?.urlPath || '';
+  });
+  expect(path).toBeTruthy();
+
+  await page.goto(path);
+  await expect(page.locator('[data-fiestas-detail]')).toHaveAttribute('data-event-location', 'Peña Skpa-2');
+  await expect(page.locator('[data-fiestas-detail-map]')).toHaveAttribute('data-title', 'Peña Skpa-2');
+  await expect(page.locator('.fiestas-detail-facts')).toContainText('15:30');
+});
